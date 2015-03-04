@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="DBTable">جدول</string>
+	<string name="OK">تایید</string>
+	<string name="Error">خطا</string>
+	<string name="EditDeleteRow">ویرایش تعداد کالا</string>
+	<string name="CopiedToClipboard">Text copied to clip board</string>
+	<string name="First">اول</string>
+	<string name="Last">آخر</string>
+	<string name="Filter">فیلتر</string>
+	<string name="AddToFilter">اضافه کردن به فیلتر</string>
+	<string name="EnterValues">متن برای جستجو</string>
+	<string name="Clear">حذف فیلتر(ها)</string>
+
+	<string name="BasicConfiguration">Basic configuration</string>
+	<string name="PageSize">Page size</string>
+	<string name="PageSizeText">Number of lines to retrieve when paging data</string>
+	<string name="FontSizeText">Font size to use data list</string>
+	<string name="FontSize">Font size</string>
+	<string name="MaxWidth">Max width of fields</string>
+	<string name="MaxWidthText">Maximum width of fields in grid view</string>
+	<string name="Recently">Recently opened</string>
+	<string name="RecentlyTxt">No. of recently opened databases to save</string>
+	<string name="DefaultModeText">Default view in table viewer</string>
+	<string name="DefaultMode">Default view</string>
+	<string name="MainScreenInPortrait">Main screen in portrait</string>
+	<string name="MainScreenInPortraitText">Always keep main screen in portrait (after restart)</string>
+	<string name="SQLEditor">SQL editor</string>
+	<string name="QEMaxLines">Max. lines when in focus</string>
+	<string name="QEMaxLinesText">Max number of lines in editor when editing</string>
+	<string name="QEMinLines">Lines not in focus</string>
+	<string name="QEMinLinesText">Number of lines in editor when not in focus</string>
+	<string name="FKLists">FK lists</string>
+	<string name="FKListsText">Use lists when editing FK fields</string>
+	<string name="SaveSQL">Save SQL</string>
+	<string name="SaveSQLText">Save SQL in database</string>
+	<string name="ForeignKeys">Enable foreign keys</string>
+	<string name="ForeignKeysText">Turn on foreign key constraints</string>
+	<string name="DebugPreferences">Debugging preferences</string>
+	<string name="LoggingTitle">Logging</string>
+	<string name="LoggingText">Enable logging to retrieve debugging informations</string>
+	<string name="SQLPreferences">SQLPreferences</string>
+
+	<string name="DBFields">Fields</string>
+	<string name="DBData">Data</string>
+	<string name="DBView">View</string>
+
+
+</resources>

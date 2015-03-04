@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/Xlarge_font_size"
+        android:background="#00000000"
+        android:textColor="#FF267F00"
+        android:textStyle="bold"
+        android:padding="@dimen/small_border"
+        android:id="@+id/UserNameLable" />
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#FFDAFF7F" />
+</LinearLayout>

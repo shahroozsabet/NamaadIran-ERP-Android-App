@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="25dp"
+    android:padding="@dimen/medium_border">
+    <TextView
+        android:text="@string/tblLblUnit"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tVLookUpCustomUnit"
+        android:padding="@dimen/small_border"
+        android:maxLines="2" />
+    <TextView
+        android:text="1"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tVLookUpCustomQuantity"
+        android:padding="@dimen/small_border"
+        android:maxLines="2" />
+    <TextView
+        android:text="@string/tblLblCost1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tVLookUpCustomCost1"
+        android:padding="@dimen/small_border"
+        android:maxLines="2" />
+    <TextView
+        android:text="@string/tblLblPrice"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tVLookUpCustomPrice"
+        android:padding="@dimen/small_border"
+        android:maxLines="2" />
+    <TextView
+        android:text="@string/tblLblFarsiDesc"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tVLookUpCustomFarsiDesc"
+        android:padding="@dimen/small_border"
+        android:maxLines="2" />
+    <TextView
+        android:text="@string/tblLblItemCode"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tVLookUpCustomItemCode"
+        android:padding="@dimen/small_border"
+        android:maxLines="2" />
+    <TextView
+        android:text="@string/tblLblRowNo"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tVLookUpCustomRowNo"
+        android:padding="@dimen/small_border"
+        android:maxLines="2" />
+</LinearLayout>

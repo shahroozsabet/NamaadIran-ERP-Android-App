@@ -1,0 +1,21 @@
+<resources>
+
+	<string name="title_activity_login">ورود به سیستم</string>
+
+	<!-- Strings related to login -->
+	<string name="prompt_userName">شناسه کاربر:</string>
+	<string name="prompt_password">رمز عبور:</string>
+	<string name="action_sign_in_register">تایید</string>
+	<string name="action_Refresh_Data">به روزرسانی</string>
+	<string name="action_sign_in_short">ورود</string>
+	<string name="action_forgot_password">بازیابی رمزعبور فراموش شده</string>
+	<string name="login_progress_signing_in">بارگزاری&#8230;</string>
+	<string name="error_invalid_userName"> شناسه کاربر معتبر نیست </string>
+	<string name="error_invalid_password"> رمز عبور کوتاه است </string>
+	<string name="error_incorrect_password"> رمز عبور اشتباه است </string>
+	<string name="error_field_required"> این فیلدالزامیست </string>
+	<string name="title_activity_login2">لطفا شناسه کاربری خود را وارد نمایید</string>
+	<string name="Welcome">خوش آمدید</string>
+	<string name="error_reRefresh_login">لطفا مجددا \r\nبه روز رسانی نمایید</string>
+
+</resources>

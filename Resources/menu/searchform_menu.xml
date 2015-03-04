@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/menu_first"
+				android:title="@string/First"/>
+	<item android:id="@+id/menu_last"
+			android:title="@string/Last"/>
+	<item android:id="@+id/menu_filter"
+				android:title="@string/Filter" 
+				android:showAsAction="ifRoom"/>
+</menu>

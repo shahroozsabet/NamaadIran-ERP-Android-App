@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">نمادایران</string>
+	<string name="NmdSys">سیستمهای نماد ایران</string>
+	<string name="no_recs">دادهای وجود ندارد</string>
+	<string name="menu_insert">ثبت داده</string>
+	<string name="menu_delete">حذف داده</string>
+	<string name="name">نام</string>
+	<string name="detail">جزئیات</string>
+	<string name="confirm">تایید</string>
+	<string name="edit_rec">ویرایش داده</string>
+</resources>

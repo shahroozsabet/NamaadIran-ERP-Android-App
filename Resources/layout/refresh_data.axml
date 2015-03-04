@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RefreshData">
+<!-- Refresh Data progress -->
+    <include
+        layout="@layout/progressbar" />
+<!-- Refresh Data form -->
+    <LinearLayout
+        android:id="@+id/form"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:minWidth="@dimen/XXlarge_border"
+            android:minHeight="@dimen/XXlarge_border"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/listView"
+            android:layout_weight="1"
+            android:choiceMode="multipleChoice" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="@dimen/XXlarge_border"
+            android:minHeight="@dimen/XXlarge_border"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout1">
+            <Button
+                android:text="@string/De_selectAll"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/ChkAllbtn"
+                android:layout_weight="1" />
+            <Button
+                android:text="@string/action_Refresh_Data"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/Refbtn"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+</merge>

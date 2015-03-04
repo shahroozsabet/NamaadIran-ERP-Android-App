@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linearLayout1">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tVCurrentDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/Date" />
+            <TextView
+                android:id="@+id/tVPosCustNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/Cust" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tV_Serial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/Serial" />
+            <TextView
+                android:id="@+id/tVPosPriceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/PriceType" />
+        </TableRow>
+    </TableLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#FF909090" />
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbarFadeDuration="0"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:id="@+id/horizontalScrollView1">
+    <!-- scrollbarFadeDuration="0" keeps the scroll indicator visible, as horizontal scrolling can be hard to 'discover' -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minWidth="@dimen/XXlarge_border"
+            android:minHeight="@dimen/XXlarge_border">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/XXlarge_border"
+                android:background="@color/transparent"
+                android:padding="@dimen/medium_border">
+                <TextView
+                    android:text="@string/tblLblUnit"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tVLookUpCustomUnit"
+                    android:padding="@dimen/small_border"
+                    android:maxLines="2" />
+                <TextView
+                    android:text="@string/tblLblQuantity"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tVLookUpCustomQuantity"
+                    android:padding="@dimen/small_border"
+                    android:maxLines="2" />
+                <TextView
+                    android:text="@string/tblLblCost1"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tVLookUpCustomCost1"
+                    android:padding="@dimen/small_border"
+                    android:maxLines="2" />
+                <TextView
+                    android:text="@string/tblLblPrice"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tVLookUpCustomPrice"
+                    android:padding="@dimen/small_border"
+                    android:maxLines="2" />
+                <TextView
+                    android:text="@string/tblLblFarsiDesc"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tVLookUpCustomFarsiDesc"
+                    android:padding="@dimen/small_border"
+                    android:maxLines="2" />
+                <TextView
+                    android:text="@string/tblLblItemCode"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tVLookUpCustomItemCode"
+                    android:padding="@dimen/small_border"
+                    android:maxLines="2" />
+                <TextView
+                    android:text="@string/tblLblRowNo"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tVLookUpCustomRowNo"
+                    android:padding="@dimen/small_border"
+                    android:maxLines="2" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#FF909090" />
+            <ListView
+                android:id="@+id/lVFactorForooshGah"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:choiceMode="singleChoice"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </HorizontalScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#FF909090" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/XXlarge_border"
+        android:background="@color/transparent"
+        android:padding="@dimen/medium_border">
+    <!--<TextView
+                    android:text="0"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tVLookUpCustomQuantityTotal"
+                    android:padding="5dp"
+                    android:maxLines="2"
+                    android:gravity="right" />-->
+    <!--<TextView
+            android:text="@string/tblLblCost1"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tVLookUpCustomCost1"
+            android:padding="5dp"
+            android:maxLines="2"
+            android:visibility="invisible" />
+        <TextView
+            android:text="@string/tblLblUnit"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tVLookUpCustomUnit"
+            android:padding="5dp"
+            android:maxLines="2"
+            android:visibility="invisible" />-->
+        <TextView
+            android:text="0"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tVLookUpCustomPriceTotal"
+            android:padding="@dimen/small_border"
+            android:maxLines="2" />
+        <TextView
+            android:text="@string/tVPriceTotalLbl_FactorForooshGah"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tVPriceTotalLbl"
+            android:padding="@dimen/small_border"
+            android:maxLines="2" />
+    <!--<TextView
+            android:text="@string/tblLblFarsiDesc"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tVLookUpCustomFarsiDesc"
+            android:padding="5dp"
+            android:maxLines="2"
+            android:visibility="invisible" />
+        <TextView
+            android:text="@string/tblLblItemCode"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tVLookUpCustomItemCode"
+            android:padding="5dp"
+            android:maxLines="2"
+            android:visibility="invisible" />
+        <TextView
+            android:text="@string/tblLblRowNo"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tVLookUpCustomRowNo"
+            android:padding="5dp"
+            android:maxLines="2"
+            android:visibility="invisible" />-->
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="@dimen/XXlarge_border"
+        android:minHeight="@dimen/XXlarge_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2">
+        <Button
+            android:text="@string/Save"
+            android:id="@+id/SaveBtn"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="@string/BarCodeScanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:id="@+id/BarCodeScannerBtn" />
+        <Button
+            android:text="@string/LookUp_GoodSalePrice"
+            android:id="@+id/CreateBtn"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

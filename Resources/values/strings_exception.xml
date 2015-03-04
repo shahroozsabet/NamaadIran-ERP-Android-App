@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+	<string name="TimeoutException">ارتباط با شبکه میسر نمی باشد</string>
+	<string name="AggregateException">خطایی درارتباط باشبکه پیش آمد</string>
+	<string name="NoPermision">کاربر عزیز شما به برنامه ای دسترسی ندارید</string>
+	<string name="WebException">شبکه در دسترس نیست</string>
+</resources>

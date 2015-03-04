@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+	<dimen name="small_border">5dp</dimen>
+	<dimen name="medium_border">10dp</dimen>
+	<dimen name="large_border">15dp</dimen>
+	<dimen name="Xlarge_border">20dp</dimen>
+	<dimen name="XXlarge_border">25dp</dimen>
+	<dimen name="small_font_size">12sp</dimen>
+	<dimen name="medium_font_size">14sp</dimen>
+	<dimen name="large_font_size">16sp</dimen>
+	<dimen name="Xlarge_font_size">20sp</dimen>
+	<dimen name="XXlarge_font_size">25sp</dimen>
+</resources>
