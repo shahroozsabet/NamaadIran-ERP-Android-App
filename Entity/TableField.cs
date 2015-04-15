@@ -2,19 +2,21 @@
  * Author: Shahrooz Sabet
  * Date: 20140628
  * */
+#region using
 using Android.OS;
 using Java.Interop;
-using NamaadDB.Util;
+using NamaadMobile.Util;
 using System;
 using Object = Java.Lang.Object;
-
-namespace NamaadDB.Entity
+#endregion
+namespace NamaadMobile.Entity
 {
 	/// <summary>
 	///  Holds informations about a single field of a table
 	/// </summary>
 	public class TableField : Object, IParcelable
 	{
+		#region Defins
 		public const int TYPE_STRING = 0;
 		public const int TYPE_INTEGER = 1;
 		public const int TYPE_FLOAT = 2;
@@ -33,7 +35,7 @@ namespace NamaadDB.Entity
 		private bool updateable = true;
 		private string hint = null;
 		private string displayName = null;
-
+		#endregion
 		/// <summary>
 		/// Determines whether this instance is updateable.
 		/// </summary>

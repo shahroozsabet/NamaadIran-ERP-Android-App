@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-namespace NamaadDB.NotePad
+namespace NamaadMobile.NotePad
 {
 	using Android.App;
 	using Android.Content;

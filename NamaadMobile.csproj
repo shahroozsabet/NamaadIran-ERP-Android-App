@@ -9,7 +9,7 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NamaadDB</RootNamespace>
+    <RootNamespace>NamaadMobile</RootNamespace>
     <AssemblyName>NamaadDB</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
@@ -17,12 +17,13 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <DeployExternal>false</DeployExternal>
-    <TargetFrameworkVersion>v4.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.3</TargetFrameworkVersion>
     <AndroidSupportedAbis>armeabi-v7a</AndroidSupportedAbis>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
     <JavaMaximumHeapSize />
     <JavaOptions />
+    <AndroidUseLatestPlatformSdk />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,12 +53,14 @@
     <BundleAssemblies>True</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FlatUI">
+      <HintPath>Components\FlatUI-1.0\lib\android\FlatUI.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="Mono.Android.Export">
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Android.Support.v4" />
     <Reference Include="Mono.Data.Sqlite" />
     <Reference Include="mscorlib" />
     <Reference Include="ScanditSDK">
@@ -74,6 +77,10 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Xamarin.Android.Support.v4, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Xamarin.Android.Support.v4.21.0.3.0\lib\MonoAndroid10\Xamarin.Android.Support.v4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aSQLiteManager\QueryViewer.cs" />
@@ -86,15 +93,23 @@
     <Compile Include="Entity\Types.cs" />
     <Compile Include="Entity\WebGoodSalPrice.cs" />
     <Compile Include="aSQLiteManager\FilterBuilder.cs" />
+    <Compile Include="Form\BMS\BMS1050.cs" />
+    <Compile Include="Form\BMS\BMS1150.cs" />
+    <Compile Include="Form\BMS\BMS1100.cs" />
+    <Compile Include="Form\BMS\BMS1200.cs" />
+    <Compile Include="Form\BMS\BMS1250.cs" />
+    <Compile Include="Form\BMS\BMSPublic.cs" />
+    <Compile Include="Function\DataFunction.cs" />
+    <Compile Include="Function\NConvert.cs" />
     <Compile Include="ListAdapter\LookUp_GoodSalePriceAdapter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Util\ExceptionHandler.cs" />
-    <Compile Include="Form\PishFactorForooshGah.cs" />
+    <Compile Include="Form\Sal\Sal1050.cs" />
     <Compile Include="Util\Prefs.cs" />
     <Compile Include="aSQLiteManager\TableViewer.cs" />
     <Compile Include="SharedElement\ActionBase.cs" />
-    <Compile Include="SharedElement\ActionBaseForm.cs" />
+    <Compile Include="SharedElement\NamaadFormBase.cs" />
     <Compile Include="NotePad\CustEdit.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -103,9 +118,9 @@
     <Compile Include="ListAdapter\HomeScreenAdapter.cs" />
     <Compile Include="Form\Login.cs" />
     <Compile Include="NotePad\NmdDB.cs" />
-    <Compile Include="DB\NmdDBAdapter.cs" />
+    <Compile Include="Data\NmdMobileDBAdapter.cs" />
     <Compile Include="NotePad\NamaadDbAdapter_note.cs" />
-    <Compile Include="Form\NmdDBMain.cs" />
+    <Compile Include="Form\NmdMobileMain.cs" />
     <Compile Include="Util\ScanActivity.cs" />
     <Compile Include="WebService\NmdWSAdapter.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -115,6 +130,7 @@
     <Compile Include="WebService\WSManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <AndroidAsset Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\list_item.axml">
@@ -131,12 +147,23 @@
     <AndroidResource Include="Resources\layout\refresh_data.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\pish_factor_forooshgah.axml" />
+    <AndroidResource Include="Resources\layout\sal1050.axml" />
     <AndroidResource Include="Resources\layout\login.axml" />
     <AndroidResource Include="Resources\layout\ws_man.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\progressbar.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\bms1050.axml" />
+    <AndroidResource Include="Resources\layout\bms1100.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\bms1200.axml" />
+    <AndroidResource Include="Resources\layout\bms1250.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\bms1150.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -177,14 +204,15 @@
     <AndroidResource Include="Resources\values\str_db.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\custom_selector.xml" />
-    <AndroidResource Include="Resources\drawable\ic_launcher_namaad.ico" />
+    <AndroidResource Include="Resources\drawable\custom_selector.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_menu_star.png" />
     <AndroidResource Include="Resources\drawable\ic_menu_programs2.png" />
     <AndroidResource Include="Resources\drawable\ic_button_ok.png" />
     <AndroidResource Include="Resources\drawable\ic_cancel.png" />
     <AndroidResource Include="Resources\drawable\ic_button_refresh.gif" />
-    <AndroidResource Include="Resources\values\strings_pish_factor_forooshgah.xml">
+    <AndroidResource Include="Resources\values\sal1050_strings.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values\strings_refresh_data.xml" />
@@ -203,16 +231,33 @@
     <AndroidResource Include="Resources\values\strings_exception.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_launcher_nta.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_launcher_nta.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_launcher_nta.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_launcher_nta.png" />
+    <AndroidResource Include="Resources\values\bms1050_strings.xml" />
+    <AndroidResource Include="Resources\values\bms1100_strings.xml" />
+    <AndroidResource Include="Resources\values\bms1200_strings.xml" />
+    <AndroidResource Include="Resources\values\bms_strings.xml" />
   </ItemGroup>
   <ItemGroup>
+    <XamarinComponentReference Include="FlatUI">
+      <Visible>False</Visible>
+      <Version>1.0</Version>
+    </XamarinComponentReference>
     <XamarinComponentReference Include="scandit">
       <Visible>False</Visible>
-      <Version>1.0.3</Version>
+      <Version>4.5.1</Version>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="xamandroidsupportv4-18">
+      <Visible>False</Visible>
+      <Version>21.0.3.0</Version>
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btnSecurityEntryDoorMagnet">مگنت درب ورودی</string>
+    <string name="btnSecurityEntryDoorLock">قفل درب ورودی</string>
+    <string name="btnSecurityMoveSens">سنسور حرکت</string>
+    <string name="btnSecurityYardDoorMagnet">مگنت درب حیاط</string>
+</resources>

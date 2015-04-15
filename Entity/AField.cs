@@ -2,12 +2,13 @@
  * Author: Shahrooz Sabet
  * Date: 20140628
  * */
+#region using
 using Android.OS;
 using Java.Interop;
 using System;
 using Object = Java.Lang.Object;
-
-namespace NamaadDB.Entity
+#endregion
+namespace NamaadMobile.Entity
 {
 	public class AField : Object, IParcelable
 	{

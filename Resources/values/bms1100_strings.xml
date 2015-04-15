@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btnEnergyBedFan">تهویه اتاق خواب</string>
+    <string name="btnEnergySalonFan">تهویه پذیرایی</string>
+    <string name="btnEnergyWCFan">تهویه سرویس</string>
+</resources>

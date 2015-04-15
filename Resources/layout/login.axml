@@ -47,23 +47,12 @@
                 android:maxLines="1"
                 android:singleLine="true" />
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/large_border">
                 <Button
-                    android:id="@+id/Refbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginTop="@dimen/large_border"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_button_refresh"
-                    android:paddingLeft="@dimen/Xlarge_border"
-                    android:paddingRight="@dimen/Xlarge_border"
-                    android:text="@string/action_Refresh_Data" />
-                <Button
-                    android:id="@+id/sign_in_button"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btnSignIn"
+                    android:layout_width="@android:dimen/thumbnail_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginTop="@dimen/large_border"

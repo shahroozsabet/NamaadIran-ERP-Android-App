@@ -36,13 +36,13 @@
                 android:text="@string/action_Refresh_Data"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/Refbtn"
+                android:id="@+id/btnRef"
                 android:layout_weight="1" />
             <Button
                 android:text="@string/Create"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/CreateBtn"
+                android:id="@+id/btnCreate"
                 android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>

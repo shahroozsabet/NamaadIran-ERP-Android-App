@@ -2,7 +2,7 @@
  * Author: Shahrooz Sabet
  * Date: 20140628
  * */
-namespace NamaadDB.entity
+namespace NamaadMobile.entity
 {
 	public class ForeignKeyHolder
 	{

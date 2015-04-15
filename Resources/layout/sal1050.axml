@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tVCurrentDate"
+                android:id="@+id/tvCurrentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -23,7 +23,7 @@
                 android:layout_weight="1"
                 android:text="@string/Date" />
             <TextView
-                android:id="@+id/tVPosCustNo"
+                android:id="@+id/tvPosCustNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tV_Serial"
+                android:id="@+id/tvSerial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -51,7 +51,7 @@
                 android:layout_weight="1"
                 android:text="@string/Serial" />
             <TextView
-                android:id="@+id/tVPosPriceType"
+                android:id="@+id/tvPosPriceType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -233,7 +233,7 @@
         android:id="@+id/linearLayout2">
         <Button
             android:text="@string/Save"
-            android:id="@+id/SaveBtn"
+            android:id="@+id/btnSave"
             android:layout_weight="1"
             android:maxLines="2"
             android:layout_width="wrap_content"
@@ -244,10 +244,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:maxLines="2"
-            android:id="@+id/BarCodeScannerBtn" />
+            android:id="@+id/btnBarCodeScanner" />
         <Button
             android:text="@string/LookUp_GoodSalePrice"
-            android:id="@+id/CreateBtn"
+            android:id="@+id/btnCreate"
             android:layout_weight="1"
             android:maxLines="2"
             android:layout_width="wrap_content"

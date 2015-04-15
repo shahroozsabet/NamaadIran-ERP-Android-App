@@ -2,62 +2,74 @@
  * Author: Shahrooz Sabet
  * Date: 20140628
  * */
+#region using
 using Android.Content;
 using Android.Text;
 using Android.Util;
-
 using Mono.Data.Sqlite;
-
-using NamaadDB.entity;
-using NamaadDB.Entity;
-
+using NamaadMobile.entity;
+using NamaadMobile.Entity;
+using NamaadMobile.Function;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+#endregion
 
-namespace NamaadDB
+namespace NamaadMobile.Data
 {
-    public class NmdDBAdapter : IDisposable
+    public class NmdMobileDBAdapter : IDisposable
     {
+        #region Define
         public string DirName { get; set; }
         public string DBNamaad { get; set; }
         public static string DbPath { get; set; }
-
         /// <summary>
         /// The tag For Debugging purpose
         /// </summary>
-        private const string TAG = "NamaadDB.Login";
+        private const string TAG = "NamaadMobile.Data.NmdMobileDBAdapter";
         private Context mCtx;
-
         private SqliteTransaction myTrans;
         internal SqliteConnection Connection { get; set; }
         private bool IsTransaction { get; set; }
-
         private const string Nl = "\n";
-
-        public NmdDBAdapter(Context ctx)
+        #endregion
+        #region Constructor
+        public NmdMobileDBAdapter(Context ctx)
         {
             mCtx = ctx;
             DirName = mCtx.GetString(Resource.String.DirName);
             DBNamaad = mCtx.GetString(Resource.String.DBNamaad);
-            DbPath = dbPathPrep();
+            DbPath = DbPathPrep();
         }
-        public string dbPathPrep()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NmdMobileDBAdapter"/> class.
+        /// Note: This Constructor is not fully tested yet.
+        /// </summary>
+        /// <param name="ctx">The CTX.</param>
+        /// <param name="con">The con.</param>
+        public NmdMobileDBAdapter(Context ctx, SqliteConnection con)
+        {
+            mCtx = ctx;
+            Connection = con;
+        }
+        #endregion
+        #region Function
+        public string DbPathPrep()
         {
 #if __ANDROID__
-			// Just use whatever directory SpecialFolder.Personal returns
-			//string dbPath = System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.Path.ToString(), DirName);
-			Java.IO.File pathToExternalStorage = Android.OS.Environment.ExternalStorageDirectory;
-			Java.IO.File qualifiedDir = new Java.IO.File(pathToExternalStorage + "/" + DirName + "/");
-			qualifiedDir.Mkdirs();
-			//if (qualifiedDir.Mkdirs())
-			//	System.Console.WriteLine("Directory created.");
-			//else
-			//	System.Console.WriteLine("Directory was created or \n failed in it creation!");
-			DbPath = qualifiedDir.Path + "/";
+            // Just use whatever directory SpecialFolder.Personal returns
+            //string dbPath = System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.Path.ToString(), DirName);
+            Java.IO.File pathToExternalStorage = Android.OS.Environment.ExternalStorageDirectory;
+            Java.IO.File qualifiedDir = new Java.IO.File(pathToExternalStorage + "/" + DirName + "/");
+            qualifiedDir.Mkdirs();
+            //if (qualifiedDir.Mkdirs())
+            //	System.Console.WriteLine("Directory created.");
+            //else
+            //	System.Console.WriteLine("Directory was created or \n failed in it creation!");
+            DbPath = qualifiedDir.Path + "/";
 
 #else
 
@@ -74,13 +86,12 @@ namespace NamaadDB
         /// <param name="dBName">Name of the d b.</param>
         public void OpenOrCreateDatabase(string dBName)
         {
-            bool exists = System.IO.File.Exists(DbPath + dBName);
             //var output = "";
             //build connection string
             Mono.Data.Sqlite.SqliteConnectionStringBuilder connString = new SqliteConnectionStringBuilder();
             connString.DataSource = DbPath + dBName;
             connString.JournalMode = SQLiteJournalModeEnum.Persist;
-            if (!exists)
+            if (!System.IO.File.Exists(DbPath + dBName))
             {
                 //output += "Creating database";
                 // Need to create the database and seed it with some data.
@@ -106,13 +117,10 @@ namespace NamaadDB
                 if (IsTransaction == true)
                     sqCommand.Transaction = myTrans;
                 sqCommand.CommandText = sql;
-                int rowsUpdated = sqCommand.ExecuteNonQuery();
-
-                return rowsUpdated;
+                return sqCommand.ExecuteNonQuery();
             }
 
         }
-
         /// <summary>
         /// Executescalars the specified SQL.
         /// </summary>
@@ -130,10 +138,8 @@ namespace NamaadDB
                 if (IsTransaction == true)
                     sqCommand.Transaction = myTrans;
                 sqCommand.CommandText = sql;
-                object rowsUpdated = sqCommand.ExecuteScalar();
-                return rowsUpdated;
+                return sqCommand.ExecuteScalar();
             }
-
         }
         /// <summary>
         /// Executes the reader.
@@ -150,18 +156,17 @@ namespace NamaadDB
                 return cmd.ExecuteReader();
             }
         }
-
         /// <summary>
         /// Allows the programmer to run a query against the Database.
         /// </summary>
         /// <param name="sql">The SQL to run</param>
         /// <returns>A DataTable containing the result set.</returns>
-        public DataTable GetDataTable(string sql)
+        public DataTable ExecuteSQL(string sql, bool acceptChangesDuringFill = true)
         {
             using (DataTable dt = new DataTable())
             using (SqliteDataAdapter sqlDA = new SqliteDataAdapter(sql, Connection))
             {
-                //sqlDA.AcceptChangesDuringFill = false;
+                sqlDA.AcceptChangesDuringFill = acceptChangesDuringFill;
                 sqlDA.Fill(dt);
                 return dt;
             }
@@ -192,7 +197,6 @@ namespace NamaadDB
         {
             if (IsTransaction == false)
                 throw new SqliteException("Error in Setting");
-
             myTrans.Rollback();
             if (!TextUtils.IsEmpty(exceptionMessage.Trim()))
                 Log.Debug(TAG, exceptionMessage);
@@ -211,7 +215,7 @@ namespace NamaadDB
         /// </summary>
         /// <param name="tableName">Name of the table.</param>
         /// <returns>The return value for some operations is the number of rows affected, otherwise it’s -1.</returns>
-        public bool IfExists(string tableName)
+        public bool Exist(string tableName)
         {
             return Convert.ToBoolean(EXECUTESCALAR("SELECT Count(name) FROM sqlite_master WHERE type='table' AND name='" + tableName + "'"));
         }
@@ -219,8 +223,8 @@ namespace NamaadDB
         /// Fills to table.
         /// </summary>
         /// <param name="dt">The dt.</param>
-        /// <param name="destTableName">Name of the table.</param>
-        public void FillToTable(DataTable dt, string destTableName, string deleteTableName, string deleteKey)
+        /// <param name="tableName">Name of the table.</param>
+        public void CopyToDB(DataTable dt, string tableName, string deleteTableName, string deleteKey)
         {
             string colName;
             string strWhereDelete;
@@ -230,7 +234,6 @@ namespace NamaadDB
             if (deleteKey != "")
                 deleteKey = "," + deleteKey + ",";
             using (dt)
-            {
                 foreach (DataRow row in dt.Rows)
                 {
                     fieldSelected = null;
@@ -243,14 +246,12 @@ namespace NamaadDB
                         valueSQL = "";
 
                         if (fieldSelected != null)
-                        {
                             fieldSelected = fieldSelected.Append(',');
-                        }
                         else
                         {
                             fieldSelected = new StringBuilder();
                             fieldSelected.Append("Insert Into ");
-                            fieldSelected.Append(destTableName);
+                            fieldSelected.Append(tableName);
                             fieldSelected.Append(" Select ");
                         }
                         var value = row[col];
@@ -272,17 +273,23 @@ namespace NamaadDB
                             fieldSelected.Append(colName);
                             flag = true;
                         }
-                        if (!flag)
-                            throw new Exception("Field data type, " + value.GetType() + ", is not supported yet . Column Name= " + colName + " Table Name= " + destTableName);
-                        if (deleteKey != "")
+                        if (value is bool)
                         {
+                            valueSQL = "'" + NConvert.Bool2Int((bool)value).ToString() + "'";
+                            fieldSelected.Append(valueSQL);
+                            fieldSelected.Append(" As ");
+                            fieldSelected.Append(colName);
+                            flag = true;
+                        }
+                        if (!flag)
+                            throw new Exception("Field data type, " + value.GetType() + ", is not supported yet . Column Name= " + colName + " Table Name= " + tableName);
+                        if (deleteKey != "")
                             if (deleteKey.Contains("," + colName + ","))
                             {
                                 if (strWhereDelete != "")
                                     strWhereDelete = strWhereDelete + " And ";
                                 strWhereDelete = strWhereDelete + colName + " = " + valueSQL;
                             }
-                        }
                     }
                     if (strWhereDelete != "")
                     {
@@ -291,10 +298,13 @@ namespace NamaadDB
                     }
                     ExecuteNonQuery(fieldSelected.ToString());
                 }
-            }
-
         }
-
+        public void CopyToDB(DataTable dt, string tableName, bool doCreateTable = true)
+        {
+            if (doCreateTable) ExecuteNonQuery("CREATE TABLE " + tableName + "( " + DataFunction.GetTableDef(dt) + ")");
+            foreach (DataRow dr in dt.Rows)
+                Insert(tableName, dr);
+        }
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -304,18 +314,104 @@ namespace NamaadDB
             Connection.Dispose();
             mCtx = null;
         }
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="NmdDBAdapter"/> class.
-        /// Note: This Constructor is not fully tested yet.
+        /// Return true i a transaction has not been commited / rolled back
         /// </summary>
-        /// <param name="ctx">The CTX.</param>
-        /// <param name="con">The con.</param>
-        public NmdDBAdapter(Context ctx, SqliteConnection con)
+        /// <returns></returns>
+        public bool InTransaction()
         {
-            mCtx = ctx;
-            Connection = con;
+            return IsTransaction;
         }
+        /// <summary>
+        /// Commit updates back to last begin transaction / savepoint
+        /// </summary>
+        /// <returns>true if still in transaction</returns>
+        public bool Commit()
+        {
+            EndTransaction();
+            return InTransaction();
+        }
+        /// <summary>
+        /// Creates the table from given Datatable
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="dt">The dt.</param>
+        public void CreateTable(string tableName, DataTable dt)
+        {
+            ExecuteNonQuery("CREATE TABLE " + tableName + "( " + DataFunction.GetTableDef(dt) + ")");
+            CopyToDB(dt, tableName, false);
+        }
+        /// <summary>
+        /// Inserts Datarow into the specified table name.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="dr">The dr to be inserted</param>
+        public void Insert(string tableName, DataRow dr)
+        {
+            StringBuilder sbCmdText = new StringBuilder();
+            int colCount = dr.ItemArray.Length;
+            using (SqliteCommand command = Connection.CreateCommand())
+            {
+                command.CommandText = "INSERT INTO " + tableName + " VALUES (";
+                for (int i = 0; i < colCount; i++)
+                {
+                    sbCmdText.Append("@value" + i);
+                    command.Parameters.Add(new SqliteParameter("@value" + i, dr[i]));
+                    if (i < colCount - 1) sbCmdText.Append(",");
+                }
+                command.CommandText += sbCmdText.ToString() + ")";
+                command.ExecuteNonQuery();
+            }
+        }
+        /// <summary>
+        /// Deletes the specified Datarow from tableName.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="dr">The dr to be deleted</param>
+        public void Delete(string tableName, DataRow dr)
+        {
+            string[] deleteKeyArr = GetPrimaryKey(tableName);
+            using (SqliteCommand command = Connection.CreateCommand())
+            {
+                command.CommandText = "Delete From " + tableName + " Where ";
+                for (int i = 0; i < deleteKeyArr.Length; i++)
+                {
+                    command.CommandText += deleteKeyArr[i] + "=@" + deleteKeyArr[i];
+                    command.Parameters.Add(new SqliteParameter("@" + deleteKeyArr[i], dr[deleteKeyArr[i]]));
+                    if (i < deleteKeyArr.Length - 1) command.CommandText += " And ";
+                }
+                command.ExecuteNonQuery();
+            }
+        }
+        /// <summary>
+        /// Updates the specified Datarow in the tableName.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="dr">The dr to be updated</param>
+        public void Update(string tableName, DataRow dr)
+        {
+            string[] colArr = GetColumn(tableName);
+            string[] updateKeyArr = GetPrimaryKey(tableName);
+            using (SqliteCommand command = Connection.CreateCommand())
+            {
+                command.CommandText = "UPDATE " + tableName + " Set ";
+                for (int i = 0; i < colArr.Length; i++)
+                {
+                    command.CommandText += colArr[i] + "=@" + colArr[i];
+                    command.Parameters.Add(new SqliteParameter("@" + colArr[i], dr[colArr[i]]));
+                    if (i < colArr.Length - 1) command.CommandText += " , ";
+                }
+                command.CommandText += " Where ";
+                for (int i = 0; i < updateKeyArr.Length; i++)
+                {
+                    command.CommandText += updateKeyArr[i] + "=@" + updateKeyArr[i];
+                    if (i < updateKeyArr.Length - 1) command.CommandText += " And ";
+                }
+                command.ExecuteNonQuery();
+            }
+        }
+        #endregion
+        #region aSQLiteManager
         /// <summary>
         /// Retrieve data for table viewer
         /// </summary>
@@ -377,17 +473,11 @@ namespace NamaadDB
                             fld.setFieldType(AField.FieldType.UNRESOLVED);
                         }
                         if (fld.getFieldType() == AField.FieldType.NULL)
-                        {
                             fld.setFieldData("");
-                        }
                         else if (fld.getFieldType() == AField.FieldType.UNRESOLVED)
-                        {
                             fld.setFieldData("Unknown field");
-                        }
                         else
-                        {
                             fld.setFieldData(cursor.GetValue(j * 2 + 1).ToString());
-                        }
                         fields[j] = fld;
                     }
                     //recs[i++].setFields(fields);
@@ -395,93 +485,6 @@ namespace NamaadDB
                 }
             }
             return recs.ToArray();
-        }
-        /// <summary>
-        /// Return a String list with all field names of the table
-        /// </summary>
-        /// <param name="table">The table.</param>
-        /// <returns></returns>
-        public string[] getFieldsNames(string table)
-        {
-            string sql = "pragma table_info([" + table + "])";
-            //String[] fields = null;
-            List<string> fields = new List<string>();
-
-            using (SqliteDataReader res = ExecuteReader(sql))
-            {
-                //int cols = res.Depth;
-                //fields = new String[cols];
-                //int i = 0;
-                // getting field names
-                while (res.Read())
-                {
-                    //fields[i] = res.GetString(1);
-                    fields.Add(res.GetString(1));
-                    //i++;
-                }
-            }
-            return fields.ToArray();
-        }
-        /// <summary>
-        /// Translate a field type in text format to the field type as "enum"
-        /// </summary>
-        /// <param name="fldType">Type of the field.</param>
-        /// <returns></returns>
-        private NamaadDB.Entity.AField.FieldType getFieldType(string fldType)
-        {
-            if (fldType.ToUpper().Equals("TEXT"))
-                return AField.FieldType.TEXT;
-            else if (fldType.ToUpper().Equals("INTEGER"))
-                return AField.FieldType.INTEGER;
-            else if (fldType.ToUpper().Equals("REAL"))
-                return AField.FieldType.REAL;
-            else if (fldType.ToUpper().Equals("BLOB"))
-                return AField.FieldType.BLOB;
-            else if (fldType.ToUpper().Equals("NULL"))
-                return AField.FieldType.NULL;
-            return AField.FieldType.UNRESOLVED;
-        }
-        public int getNoOfRecords(string tableName, string where)
-        {
-            int recs = 0;
-            if (where.Trim().Equals(""))
-            {
-                where = "";
-            }
-            else
-            {
-                where = " Where " + where;
-            }
-            string sql = "Select Count(*) From [" + tableName + "] " + where;
-            using (SqliteDataReader cursor = ExecuteReader(sql))
-            {
-                while (cursor.Read())
-                {
-                    recs += cursor.GetInt32(0);
-                }
-            }
-            return recs;
-        }
-        public int getNoOfRecordsSQLStatment(string sqlStatement, string where)
-        {
-            int recs = 0;
-            if (where.Trim().Equals(""))
-            {
-                where = "";
-            }
-            else
-            {
-                where = " where " + where;
-            }
-            string sql = "Select Count(*) From (" + sqlStatement + ") As Tmp " + where;
-            using (SqliteDataReader cursor = ExecuteReader(sql))
-            {
-                while (cursor.Read())
-                {
-                    recs += cursor.GetInt32(0);
-                }
-            }
-            return recs;
         }
         /// <summary>
         /// Retrieve a record based on table name and rowid
@@ -541,96 +544,16 @@ namespace NamaadDB
             }			// Get foreign keys
             sql = "PRAGMA foreign_key_list([" + tableName + "])";
             using (SqliteDataReader cursor = ExecuteReader(sql))
-            {
                 while (cursor.Read())
-                {
                     //Go through all fields to see if the fields has FK
                     for (int i = 0; i < fields; i++)
-                    {
-                        string fkName = cursor.GetString(3);
-                        if (tfs[i].getName().Equals(fkName))
+                        if (tfs[i].getName().Equals(cursor.GetString(3)))//fkName
                         {
                             tfs[i].setForeignKey("Select [" + cursor.GetString(4) + "] From [" + cursor.GetString(2) + "]");
                             break;
                         }
-                    }
-                }
-            }
             return tfs;
         }
-        /// <summary>
-        /// Retrieve a list of FieldDescr to describe all fields of a table
-        /// </summary>
-        /// <param name="tableName">Name of the table.</param>
-        /// <returns></returns>
-        public FieldDescr[] getTableStructureDef(string tableName)
-        {
-            string sql = "pragma table_info ([" + tableName + "])";
-            List<FieldDescr> flds;
-            using (SqliteDataReader cursor = ExecuteReader(sql))
-            {
-                //int rows = cursor.getCount();
-                flds = new List<FieldDescr>();
-                //int i = 0;
-                while (cursor.Read())
-                {
-                    FieldDescr fld = new FieldDescr();
-                    fld.setCid(cursor.GetInt32(0));
-                    fld.setName(cursor.GetString(1));
-                    fld.setType(fieldType2Int(cursor.GetString(2)));
-                    fld.setNotNull(int2boolean(cursor.GetInt32(3)));
-                    fld.setDefaultValue(cursor.GetValue(4).ToString());
-                    fld.setPk(int2boolean(cursor.GetInt32(5)));
-                    flds.Add(fld);
-                    //i++;
-                }
-            } return flds.ToArray();
-        }
-        /// <summary>
-        /// Convert a field type retrieved by a pragma table_info (tableName)
-        /// to a RecordEditorBuilder editor type
-        /// </summary>
-        /// <param name="fieldType">Type of the field.</param>
-        /// <returns></returns>
-        private int fieldType2Int(string fieldType)
-        {
-            if (fieldType.ToUpper().Equals("STRING")
-                    || fieldType.ToUpper().Equals("TEXT"))
-                return TableField.TYPE_STRING;
-            else if (fieldType.ToUpper().Equals("INTEGER")
-                || fieldType.ToUpper().Equals("INT"))
-                return TableField.TYPE_INTEGER;
-            else if (fieldType.ToUpper().Equals("REAL")
-                    || fieldType.ToUpper().Equals("FLOAT")
-                    || fieldType.ToUpper().Equals("DOUBLE"))
-                return TableField.TYPE_FLOAT;
-            else if (fieldType.ToUpper().Equals("BOOLEAN")
-                    || fieldType.ToUpper().Equals("BOOL"))
-                return TableField.TYPE_BOOLEAN;
-            else if (fieldType.ToUpper().Equals("DATE"))
-                return TableField.TYPE_DATE;
-            else if (fieldType.ToUpper().Equals("TIME"))
-                return TableField.TYPE_TIME;
-            else if (fieldType.ToUpper().Equals("DATETIME"))
-                return TableField.TYPE_DATETIME;
-            else if (fieldType.ToUpper().Equals("PHONENO"))
-                return TableField.TYPE_PHONENO;
-            else
-                return TableField.TYPE_STRING;
-        }
-        /// <summary>
-        /// Convert the SQLite 0 / 1 boolean to Java boolean 
-        /// </summary>
-        /// <param name="intBool">The int bool.</param>
-        /// <returns></returns>
-        private bool int2boolean(int intBool)
-        {
-            bool res = false;
-            if (intBool == 1)
-                res = true;
-            return res;
-        }
-
         /// <summary>
         /// Retrieve a number of rows based on a sql query.
         /// This method is slow when the sqlStatment has this "where|order|limit|offset" pattern,
@@ -651,25 +574,18 @@ namespace NamaadDB
         public QueryResult getSQLQueryPage(string sqlStatement, int offset, int limit, Context _cont, string[] fieldNames, string where, string order)
         {
             string sql;
-            string pattern = "where|order|limit|offset";
             //Boolean rawType = false;
             if (where.Trim().Equals(""))
                 where = "";
             else
                 where = " Where " + where + " ";
             // || sqlStatement.toLowerCase().startsWith("pragma")
-            if (!sqlStatement.ToLower().StartsWith("pragma") && Regex.Matches(sqlStatement, pattern, RegexOptions.IgnoreCase).Count > 0)
-            {
+            if (!sqlStatement.ToLower().StartsWith("pragma") && Regex.Matches(sqlStatement, "where|order|limit|offset", RegexOptions.IgnoreCase).Count > 0)
                 sql = "Select * From ( " + sqlStatement + " ) As Tmp" + where + order + " limit " + limit + " offset " + offset;
-            }
             else if (sqlStatement.ToLower().StartsWith("pragma"))
-            {
                 sql = sqlStatement;
-            }
             else
-            {
                 sql = sqlStatement + where + order + " limit " + limit + " offset " + offset;
-            }
             //rawType = true;
             QueryResult nres = null;
             // Find out which for of query to use
@@ -755,176 +671,137 @@ namespace NamaadDB
             //}
             return nres;
         }
+        #endregion
+        #region Helper Function
         /// <summary>
-        /// Return true i a transaction has not been commitet / rolled back
+        /// Convert a field type retrieved by a pragma table_info (tableName)
+        /// to a RecordEditorBuilder editor type
         /// </summary>
+        /// <param name="fieldType">Type of the field.</param>
         /// <returns></returns>
-        public bool inTransaction()
+        private static int FieldType2Int(string fieldType)
         {
-            return IsTransaction;
+            if (fieldType.ToUpper().Equals("STRING")
+                    || fieldType.ToUpper().Equals("TEXT"))
+                return TableField.TYPE_STRING;
+            else if (fieldType.ToUpper().Equals("INTEGER")
+                || fieldType.ToUpper().Equals("INT"))
+                return TableField.TYPE_INTEGER;
+            else if (fieldType.ToUpper().Equals("REAL")
+                    || fieldType.ToUpper().Equals("FLOAT")
+                    || fieldType.ToUpper().Equals("DOUBLE"))
+                return TableField.TYPE_FLOAT;
+            else if (fieldType.ToUpper().Equals("BOOLEAN")
+                    || fieldType.ToUpper().Equals("BOOL"))
+                return TableField.TYPE_BOOLEAN;
+            else if (fieldType.ToUpper().Equals("DATE"))
+                return TableField.TYPE_DATE;
+            else if (fieldType.ToUpper().Equals("TIME"))
+                return TableField.TYPE_TIME;
+            else if (fieldType.ToUpper().Equals("DATETIME"))
+                return TableField.TYPE_DATETIME;
+            else if (fieldType.ToUpper().Equals("PHONENO"))
+                return TableField.TYPE_PHONENO;
+            else
+                return TableField.TYPE_STRING;
         }
-
         /// <summary>
-        /// Commit updates back to last begin transaction / savepoint
+        /// Translate a field type in text format to the field type as "enum"
         /// </summary>
-        /// <returns>true if still in transaction</returns>
-        public bool commit()
+        /// <param name="fldType">Type of the field.</param>
+        /// <returns></returns>
+        private static NamaadMobile.Entity.AField.FieldType getFieldType(string fldType)
         {
-            EndTransaction();
-            return inTransaction();
+            if (fldType.ToUpper().Equals("TEXT"))
+                return AField.FieldType.TEXT;
+            else if (fldType.ToUpper().Equals("INTEGER"))
+                return AField.FieldType.INTEGER;
+            else if (fldType.ToUpper().Equals("REAL"))
+                return AField.FieldType.REAL;
+            else if (fldType.ToUpper().Equals("BLOB"))
+                return AField.FieldType.BLOB;
+            else if (fldType.ToUpper().Equals("NULL"))
+                return AField.FieldType.NULL;
+            return AField.FieldType.UNRESOLVED;
         }
+        /// <summary>
+        /// Return a String list with all field names of the table
+        /// </summary>
+        /// <param name="tableName">The table.</param>
+        /// <returns>The table's Column Names</returns>
+        public string[] GetColumn(string tableName)
+        {
+            List<string> fields = new List<string>();
+            using (SqliteDataReader res = ExecuteReader("pragma table_info([" + tableName + "])"))
+                while (res.Read())
+                    fields.Add(res.GetString(1));
+            return fields.ToArray();
+        }
+        public int getNoOfRecords(string tableName, string where)
+        {
+            int recs = 0;
+            if (where.Trim().Equals(""))
+                where = "";
+            else
+                where = " Where " + where;
+            using (SqliteDataReader cursor = ExecuteReader("Select Count(*) From [" + tableName + "] " + where))
+                while (cursor.Read())
+                    recs += cursor.GetInt32(0);
+            return recs;
+        }
+        public int getNoOfRecordsSQLStatment(string sqlStatement, string where)
+        {
+            int recs = 0;
+            if (where.Trim().Equals(""))
+                where = "";
+            else
+                where = " where " + where;
+            using (SqliteDataReader cursor = ExecuteReader("Select Count(*) From (" + sqlStatement + ") As Tmp " + where))
+                while (cursor.Read())
+                    recs += cursor.GetInt32(0);
+            return recs;
+        }
+        /// <summary>
+        /// Retrieve a list of FieldDescr to describe all fields of a table
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <returns></returns>
+        public FieldDescr[] getTableStructureDef(string tableName)
+        {
+            List<FieldDescr> flds;
+            using (SqliteDataReader cursor = ExecuteReader("pragma table_info ([" + tableName + "])"))
+            {
+                //int rows = cursor.getCount();
+                flds = new List<FieldDescr>();
+                //int i = 0;
+                while (cursor.Read())
+                {
+                    FieldDescr fld = new FieldDescr();
+                    fld.setCid(cursor.GetInt32(0));
+                    fld.setName(cursor.GetString(1));
+                    fld.setType(FieldType2Int(cursor.GetString(2)));
+                    fld.setNotNull(NConvert.Int2Bool(cursor.GetInt32(3)));
+                    fld.setDefaultValue(cursor.GetValue(4).ToString());
+                    fld.setPk(NConvert.Int2Bool(cursor.GetInt32(5)));
+                    flds.Add(fld);
+                    //i++;
+                }
+            } return flds.ToArray();
+        }
+        /// <summary>
+        /// Gets the primary keys.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <returns>Primary keys of the tableName</returns>
+        public string[] GetPrimaryKey(string tableName)
+        {
+            List<string> fields = new List<string>();
+            using (SqliteDataReader cursor = ExecuteReader("pragma table_info ([" + tableName + "])"))
+                while (cursor.Read())
+                    if (NConvert.Int2Bool(cursor.GetInt32(5)))
+                        fields.Add(cursor.GetString(1));
+            return fields.ToArray();
+        }
+        #endregion
     }
 }
-
-///// <summary>
-///// Fills to table.
-///// </summary>
-///// <param name="dt">The dt.</param>
-///// <param name="tableName">Name of the table.</param>
-//public void FillToTable(DataTable dt, String tableName)
-//{
-//    String sql = "select * from " + tableName + " where 1=0";
-//    using (SqliteDataAdapter sqlDA = new SqliteDataAdapter(sql, connection))
-//    {
-//        sqlDA.Update(dt);
-//    }
-//}
-
-///// <summary>
-///// Retrieve a list of TableFields to match a empty record for the database, 
-///// used for Record Editor, 
-///// Currently is not used in NamaadDB, Comment by Shahrooz 20140223
-///// </summary>
-///// <param name="tableName">Name of the table.</param>
-///// <returns></returns>
-//public TableField[] getEmptyRecord(String tableName)
-//{
-//	FieldDescr[] fd = getTableStructureDef(tableName);
-//	TableField[] tfs = new TableField[fd.Length];
-//	for (int i = 0; i < fd.Length; i++)
-//	{
-//		TableField tf = new TableField();
-//		tf.setName(fd[i].getName());
-//		tf.setType(fd[i].getType());
-//		tf.setPrimaryKey(fd[i].isPk());
-//		tf.setUpdateable(true);
-//		tf.setValue(null);
-//		tf.setNotNull(fd[i].isNotNull());
-//		tf.setDefaultValue(fd[i].getDefaultValue());
-//		tfs[i] = tf;
-//	}
-//	// Get the FK's
-//	// Get foreign keys
-//	String sql = "PRAGMA foreign_key_list([" + tableName + "])";
-//	using (SqliteDataReader cursor = ExecuteReader(sql))
-//	{
-//		while (cursor.Read())
-//		{
-//			// Go through all fields to see if the fields has FK
-//			for (int i = 0; i < fd.Length; i++)
-//			{
-//				String fkName = cursor.GetString(3);
-//				// Utils.logD("NameMH: " + tfs[i].getName());
-//				if (tfs[i].getName().Equals(fkName))
-//				{
-//					tfs[i].setForeignKey("select [" + cursor.GetString(4) + "] from ["
-//							+ cursor.GetString(2) + "]");
-//					break;
-//				}
-//			}
-//		}
-//	} return tfs;
-//}
-
-///// <summary>
-///// Retrieve a list of lookup values for selection lists, 
-///// used for Record Editor,
-///// Currently is not used in NamaadDB, Comment by Shahrooz 20140223
-///// </summary>
-///// <param name="foreignKey">The foreign key.</param>
-///// <returns></returns>
-//public ForeignKeyHolder getFKList2(String foreignKey)
-//{
-//	// TODO must be changed to handle lookup tables with code - values
-//	// must the return both the foreign key "code" and describing text
-//	ForeignKeyHolder lists = new ForeignKeyHolder();
-//	List<String> ids = new List<String>();
-//	using (SqliteDataReader cursor = ExecuteReader(foreignKey))
-//	{
-//		while (cursor.Read())
-//		{
-//			ids.Add(cursor.GetString(0));
-//		}
-//	}
-//	// select [id] from [foreign]
-//	// TODO replace field name with *
-//	String sql = foreignKey.Substring(0, foreignKey.IndexOf('[')) + "*"
-//			+ foreignKey.Substring(foreignKey.IndexOf(']') + 1);
-//	List<String> texts = new List<String>();
-//	using (SqliteDataReader cursor = ExecuteReader(foreignKey))
-//	{
-//		int cols = cursor.FieldCount;
-//		while (cursor.Read())
-//		{
-//			int j = 0;
-//			String rowText = "";
-//			for (j = 0; j < cols; j++)
-//			{
-//				rowText += cursor.GetString(j);
-//				if (j < cols - 1)
-//					rowText += " | ";
-//			}
-//			texts.Add(rowText);
-//		}
-//	}
-//	lists.setId(ids.ToArray());
-//	lists.setText(texts.ToArray());
-//	return lists;
-//}
-///// <summary>
-///// Export the current query to a file named after the database with the
-///// extension .export
-///// </summary>
-///// <param name="sql">The SQL to query</param>
-//public void exportQueryResult(string sql)
-//{
-//	using (SqliteDataReader data = ExecuteReader(sql))
-//	{
-//		string backupName = dbPath + ".export";
-//		Java.IO.File backupFile = new Java.IO.File(backupName);
-//		using (FileWriter f = new FileWriter(backupFile))
-//		{
-//			using (BufferedWriter outBuf = new BufferedWriter(f))
-//			{
-//				while (data.Read())
-//				{
-//					// write export
-//					string fields = "";
-//					for (int i = 0; i < data.VisibleFieldCount; i++)
-//					{
-//						string val = data.GetString(i);
-//						// tabInf.moveToPosition(i);
-//						// String type = tabInf.getString(2);
-//						if (val == null)
-//						{
-//							fields += "null";
-//							if (i != data.VisibleFieldCount - 1)
-//								fields += "; ";
-//							// } else if (type.equals("INTEGER") || type.equals("REAL")) {
-//							// fields += val;
-//							// if (i != data.getColumnCount()-1)
-//							// fields += ", ";
-//						}
-//						else
-//						{ // it must be string or blob(?) so quote it
-//							fields += "\"" + val + "\"";
-//							if (i != data.VisibleFieldCount - 1)
-//								fields += "; ";
-//						}
-//					}
-//					outBuf.Write(fields + nl);
-//				}
-//			}
-//		}
-//	}
-//}

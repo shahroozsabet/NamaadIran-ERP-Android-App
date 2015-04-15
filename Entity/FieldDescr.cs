@@ -2,19 +2,20 @@
  * Author: Shahrooz Sabet
  * Date: 20140628
  * */
-using NamaadDB.Entity;
+using NamaadMobile.Entity;
 
-namespace NamaadDB.entity
+namespace NamaadMobile.entity
 {
 	public class FieldDescr
 	{
+		#region Defins
 		private int cid;
 		private string name;
 		private int type;
 		private bool notNull;
 		private string defaultValue;
 		private bool pk;
-
+		#endregion
 		public string DefaultValue
 		{
 			get { return defaultValue; }

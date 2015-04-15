@@ -2,16 +2,15 @@
  * Author: Shahrooz Sabet
  * Date: 20140628
  * */
+#region using
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Views;
-
 using Scandit;
-
 using System;
-
-namespace NamaadDB.Util
+#endregion
+namespace NamaadMobile.Util
 {
 	/// <summary>
 	/// TODO: Showing it in a fragment activity feasibility study.

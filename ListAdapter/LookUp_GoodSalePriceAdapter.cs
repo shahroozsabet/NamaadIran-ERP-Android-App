@@ -2,16 +2,17 @@
  * Author: Shahrooz Sabet
  * Date: 20140628
  * */
+#region using
 using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 
-using NamaadDB.Entity;
+using NamaadMobile.Entity;
 
 using System.Collections.Generic;
-
-namespace NamaadDB.Adapter
+#endregion
+namespace NamaadMobile.Adapter
 {
 
 	/// <summary>

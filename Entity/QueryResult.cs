@@ -4,7 +4,7 @@
  * */
 using System.Collections.Generic;
 
-namespace NamaadDB.entity
+namespace NamaadMobile.entity
 {
 	public class QueryResult
 	{

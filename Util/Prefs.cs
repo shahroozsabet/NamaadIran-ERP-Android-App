@@ -2,6 +2,7 @@
  * Author: Shahrooz Sabet
  * Date: 20140628
  * */
+#region using
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Preferences;
-
-namespace NamaadDB.Util
+#endregion
+namespace NamaadMobile.Util
 {
 	/// <summary>
 	/// TODO: A GUI can be created.
@@ -24,6 +25,7 @@ namespace NamaadDB.Util
 	[Activity(Label = "My Activity")]
 	public class Prefs : PreferenceActivity
 	{
+		#region Defins
 		// Option names and default values
 		private const string OPT_PAGESIZE = "PageSize";
 		private const string OPT_PAGESIZE_DEF = "20";
@@ -55,7 +57,7 @@ namespace NamaadDB.Util
 		private const string OPT_QEDIT_MIN_LINES_DEF = "2";
 		private const string OPT_SPATIALITE = "Spatialite";
 		private const bool OPT_SPATIALITE_DEF = true;
-
+		#endregion
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);

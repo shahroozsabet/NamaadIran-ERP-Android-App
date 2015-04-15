@@ -2,6 +2,7 @@
  * Author: Shahrooz Sabet
  * Date: 20140628
  * */
+#region using
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -14,8 +15,8 @@ using Java.IO;
 using System;
 using System.Net;
 using System.Text;
-
-namespace NamaadDB.Util
+#endregion
+namespace NamaadMobile.Util
 {
 	/// <summary>
 	/// TODO: Additional methods can be reduced.
