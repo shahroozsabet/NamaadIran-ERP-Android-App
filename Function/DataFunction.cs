@@ -3,21 +3,9 @@
  * Date: 20150401
  * */
 #region using
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using System.Data;
-using NamaadMobile.Entity;
+using System.Text;
 #endregion
-
 namespace NamaadMobile.Function
 {
     class DataFunction
@@ -43,7 +31,6 @@ namespace NamaadMobile.Function
             }
             return strBuilder.ToString();
         }
-
         public static string GetColumnName(DataTable dt)
         {
             StringBuilder strBuilder = new StringBuilder();

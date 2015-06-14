@@ -78,7 +78,7 @@ namespace NamaadMobile
             viewForm = FindViewById(Resource.Id.form);
 
             tvLoginStatusMessage = (TextView)FindViewById(Resource.Id.login_status_message);
-            btnSignIn =(Button) FindViewById(Resource.Id.btnSignIn);
+            btnSignIn = (Button)FindViewById(Resource.Id.btnSignIn);
             //mRefbtn = FindViewById(Resource.Id.Refbtn);
 
         }
@@ -128,11 +128,11 @@ namespace NamaadMobile
                         DataTable dt = null;
                         using (dt = dbHelper.ExecuteSQL("Select Cast(1 As int) As SystemCode, Cast(1 As int) As TableCode ,'WebTableName' As TableName"))
                         {
-                            nmdWS.RefreshWSCall(dt, 0).Wait();//task.Wait();//For Throwing exception, otherwise next line will be executed in case of exception.
+                            nmdWS.RefreshWsCall(dt, 0).Wait();//task.Wait();//For Throwing exception, otherwise next line will be executed in case of exception.
                             if (dbHelper.Exist("WebTableCode"))
                             {
                                 dt = dbHelper.ExecuteSQL("Select * From WebTableCode Where SystemCode=1 And TableCode>1 And TableCode<1000 ");
-                                nmdWS.RefreshWSCall(dt, 0).Wait();//task.Wait();
+                                nmdWS.RefreshWsCall(dt, 0).Wait();//task.Wait();
                             }
                         }
                     }
@@ -223,9 +223,6 @@ namespace NamaadMobile
                 UserLoginThread();
             }
         }
-
-
-
         // TODO: change UserLoginThread method to use a task like Google Login code template
         /// <summary>
         /// Users login thread.

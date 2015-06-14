@@ -60,7 +60,7 @@ namespace NamaadMobile.WebService
         /// <param name="dt">The dt.</param>
         /// <param name="userCode">The user code.</param>
         /// <returns></returns>
-        public async Task RefreshWSCall(DataTable dt, int userCode)//DBNameNamaad=DBNamaad
+        public async Task RefreshWsCall(DataTable dt, int userCode)//DBNameNamaad=DBNamaad
         {
             //Task<RefreshDataCT> res = null;
             RefreshDataCT res = null;
@@ -127,13 +127,12 @@ namespace NamaadMobile.WebService
                 dbHelper.ExecuteNonQuery(sqlString);
             }
 
-            string destTableName = "";
             dbHelper.DropTable("Tmp" + ct.TableName);
 
             using (DataTable dt = ToDataTable(ct.DataTableArray))
                 if (dt.Rows.Count > 0)
                 {
-                    destTableName = ct.TableName;
+                    string destTableName = ct.TableName;
                     if (ct.IsCreateTmpTable)
                     {
                         destTableName = "Tmp" + destTableName;

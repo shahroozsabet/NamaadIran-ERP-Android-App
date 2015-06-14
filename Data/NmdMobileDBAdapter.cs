@@ -131,7 +131,7 @@ namespace NamaadMobile.Data
         /// a string from a single column SELECT query. 
         /// Note that this is different to other Execute methods 
         /// that return a reader object or a count of the number of rows affected.</returns>
-        public object EXECUTESCALAR(string sql)
+        public object ExecuteScalar(string sql)
         {
             using (SqliteCommand sqCommand = Connection.CreateCommand())
             {
@@ -164,10 +164,10 @@ namespace NamaadMobile.Data
         public DataTable ExecuteSQL(string sql, bool acceptChangesDuringFill = true)
         {
             using (DataTable dt = new DataTable())
-            using (SqliteDataAdapter sqlDA = new SqliteDataAdapter(sql, Connection))
+            using (SqliteDataAdapter sqlDa = new SqliteDataAdapter(sql, Connection))
             {
-                sqlDA.AcceptChangesDuringFill = acceptChangesDuringFill;
-                sqlDA.Fill(dt);
+                sqlDa.AcceptChangesDuringFill = acceptChangesDuringFill;
+                sqlDa.Fill(dt);
                 return dt;
             }
         }
@@ -217,7 +217,7 @@ namespace NamaadMobile.Data
         /// <returns>The return value for some operations is the number of rows affected, otherwise it’s -1.</returns>
         public bool Exist(string tableName)
         {
-            return Convert.ToBoolean(EXECUTESCALAR("SELECT Count(name) FROM sqlite_master WHERE type='table' AND name='" + tableName + "'"));
+            return Convert.ToBoolean(ExecuteScalar("SELECT Count(name) FROM sqlite_master WHERE type='table' AND name='" + tableName + "'"));
         }
         /// <summary>
         /// Fills to table.
@@ -468,7 +468,7 @@ namespace NamaadMobile.Data
                             string fldType = cursor.GetString(j * 2);   //TODO still problems here with BLOB fields!?!?!?!
                             fld.setFieldType(getFieldType(fldType));
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             fld.setFieldType(AField.FieldType.UNRESOLVED);
                         }
@@ -533,7 +533,7 @@ namespace NamaadMobile.Data
                         //tf.setValue(cursor.GetString(j));
                         tf.setValue(cursor.GetValue(j).ToString());
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         tf.setUpdateable(false);
                         tf.setValue("BLOB");
@@ -641,7 +641,7 @@ namespace NamaadMobile.Data
                         {
                             colList[k] = cursor.GetValue(k).ToString();
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             //nres.Data[i][k] = "BLOB (size: " + cursor.GetBlob(k).length + ")";
                             colList[k] = "BLOB";

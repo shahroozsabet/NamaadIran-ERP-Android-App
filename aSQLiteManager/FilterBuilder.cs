@@ -145,7 +145,7 @@ namespace NamaadMobile.aSQLiteManager
             {
                 double d = Double.Parse(str);
             }
-            catch (Exception nfe)
+            catch (Exception)
             {
                 return false;
             }

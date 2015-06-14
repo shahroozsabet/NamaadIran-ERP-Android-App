@@ -4,4 +4,5 @@
 	<string name="AggregateException">خطایی درارتباط باشبکه پیش آمد</string>
 	<string name="NoPermision">کاربر عزیز شما به برنامه ای دسترسی ندارید</string>
 	<string name="WebException">شبکه در دسترس نیست</string>
+	<string name="BMSHttpRequestException">کنترلر در دسترس نیست</string>
 </resources>

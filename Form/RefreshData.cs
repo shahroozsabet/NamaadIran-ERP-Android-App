@@ -144,7 +144,7 @@ namespace NamaadMobile
                         dbHelper.OpenOrCreateDatabase(dbHelper.DBNamaad);
                         using (DataTable dt = dbHelper.ExecuteSQL("Select * From WebTableCode Where SystemCode=" + ((SharedEnviroment)ApplicationContext).SystemCode + " And TableCode in(" + strTableCode.ToString() + ")"))
                         {
-                            var task = nmdWS.RefreshWSCall(dt, 0);
+                            var task = nmdWS.RefreshWsCall(dt, 0);
                             task.Wait();
                         }
                     }

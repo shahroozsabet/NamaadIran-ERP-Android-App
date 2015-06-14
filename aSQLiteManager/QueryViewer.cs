@@ -595,7 +595,7 @@ namespace NamaadMobile.aSQLiteManager
                     //tf.setValue(cursor.GetString(j));
                     tf.setValue(res.Data[(int)rowId][j]);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     tf.setUpdateable(false);
                     tf.setValue("BLOB");

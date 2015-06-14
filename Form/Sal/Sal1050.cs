@@ -3,26 +3,26 @@
  * Date: 20140628
  * */
 #region using
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Views;
-using Android.Widget;
-using Java.Util;
-using Mono.Data.Sqlite;
-using NamaadMobile.Adapter;
-using NamaadMobile.aSQLiteManager;
-using NamaadMobile.SharedElement;
-using NamaadMobile.Data;
-using NamaadMobile.Entity;
-using NamaadMobile.Util;
-using NamaadMobile.WebService;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Views;
+using Android.Widget;
+using Mono.Data.Sqlite;
+using NamaadMobile.aSQLiteManager;
+using NamaadMobile.Adapter;
+using NamaadMobile.Data;
+using NamaadMobile.Entity;
+using NamaadMobile.SharedElement;
+using NamaadMobile.Util;
+using NamaadMobile.WebService;
+using Object = Java.Lang.Object;
 #endregion
 
 namespace NamaadMobile
@@ -31,7 +31,7 @@ namespace NamaadMobile
     /// TODO: Can use Time picker
     /// </summary>
     [Activity(Label = "@string/PishFactorForooshGah")]
-    public class Sal1050 : NamaadMobile.SharedElement.NamaadFormBase
+    public class Sal1050 : NamaadFormBase
     {
         #region Define
         public static NmdMobileDBAdapter dbHelper;
@@ -90,7 +90,7 @@ namespace NamaadMobile
                             //mTVCurrentDate_FactorForooshGah.Text = reader["CurrentDate"].ToString();
                             serialDprt = int.Parse(reader["CrmDprt"].ToString());
                         }
-                    object obj = dbHelper.EXECUTESCALAR("SELECT Max(FormNo) As MaxFormNo FROM WebSalPerformaDtl");
+                    object obj = dbHelper.ExecuteScalar("SELECT Max(FormNo) As MaxFormNo FROM WebSalPerformaDtl");
                     if (obj != DBNull.Value)
                         tvSerial.Text = (int.Parse(obj.ToString()) + 1).ToString();
 
@@ -152,7 +152,7 @@ namespace NamaadMobile
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo info)
         {
             base.OnCreateContextMenu(menu, v, info);
-            menu.SetHeaderTitle(((WebGoodSalPrice)listItem.ElementAt(((Android.Widget.AdapterView.AdapterContextMenuInfo)info).Position)).FarsiDesc);
+            menu.SetHeaderTitle(((WebGoodSalPrice)listItem.ElementAt(((AdapterView.AdapterContextMenuInfo)info).Position)).FarsiDesc);
             menu.SetHeaderIcon(Android.Resource.Drawable.IcMenuDelete);
             //menu.Add(0, 0, 0, GetString(Resource.String.Update));
             menu.Add(0, 1, 0, GetString(Resource.String.Delete));
@@ -202,7 +202,7 @@ namespace NamaadMobile
                         {
                             dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
                             string barcode = data.GetStringExtra("barcode");
-                            long rowID = (long)dbHelper.EXECUTESCALAR("Select rowid From " + _table + " Where ItemCode Like '%" + barcode + "%'");
+                            long rowID = (long)dbHelper.ExecuteScalar("Select rowid From " + _table + " Where ItemCode Like '%" + barcode + "%'");
                             tblFieldArr = dbHelper.getRecord(_table, rowID);
                         }
                     }
@@ -329,7 +329,7 @@ namespace NamaadMobile
         }
         private void DeleteItem(IMenuItem item)
         {
-            Android.Widget.AdapterView.AdapterContextMenuInfo info = (Android.Widget.AdapterView.AdapterContextMenuInfo)item.MenuInfo;
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
             try
             {
                 WebGoodSalPrice element = (WebGoodSalPrice)listItem.ElementAt(info.Position);
@@ -352,7 +352,7 @@ namespace NamaadMobile
         }
         private void QuantityDialogBuilder(WebGoodSalPrice webGoodSalePrice)
         {
-            Android.App.AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             View line_editor = LayoutInflater.Inflate(Resource.Layout.line_editor, null);
             builder.SetView(line_editor);
             AlertDialog ad = builder.Create();
@@ -469,7 +469,7 @@ namespace NamaadMobile
             return sb;
         }
         #endregion
-        private partial class OnGlobalLayoutListener : Java.Lang.Object, ViewTreeObserver.IOnGlobalLayoutListener
+        private partial class OnGlobalLayoutListener : Object, ViewTreeObserver.IOnGlobalLayoutListener
         {
             private Action on_global_layout;
             public OnGlobalLayoutListener(Action onGlobalLayout)

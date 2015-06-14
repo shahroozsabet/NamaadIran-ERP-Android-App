@@ -3,25 +3,17 @@
  * Date: 20150429
  * */
 #region using
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
-using NamaadMobile.Util;
-using NamaadMobile.SharedElement;
 using NamaadMobile.Data;
+using NamaadMobile.SharedElement;
+using NamaadMobile.Util;
 #endregion
 namespace NamaadMobile
 {
     [Activity(Label = "BMS1200")]
-    public class BMS1200 : NamaadMobile.SharedElement.NamaadFormBase
+    public class BMS1200 : NamaadFormBase
     {
         #region Define
         public static NmdMobileDBAdapter dbHelper;
