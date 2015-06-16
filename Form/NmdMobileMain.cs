@@ -190,17 +190,19 @@ namespace NamaadMobile
                 {
                     hasRec = true;
 
-                    ActionBase actBase = new ActionBase();
-                    actBase.OrgID = (short)reader["OrgID"];
-                    actBase.SystemCode = (int)reader["SystemCode"];
-                    actBase.ActionCode = (int)reader["ActionCode"];
-                    actBase.ActionType = (int)reader["ActionType"];
-                    actBase.ActionName = reader["ActionName"].ToString();
-                    actBase.ParentCode = (int)reader["ParentCode"];
-                    actBase.ActionSource = reader["ActionSource"].ToString();
-                    actBase.ActionArgument = reader["ActionArgument"].ToString();
-                    actBase.DbNameServer = reader["DbNameServer"].ToString();
-                    actBase.DbNameClient = reader["DbNameClient"].ToString();
+                    ActionBase actBase = new ActionBase
+                    {
+                        OrgID = (short)reader["OrgID"],
+                        SystemCode = (int)reader["SystemCode"],
+                        ActionCode = (int)reader["ActionCode"],
+                        ActionType = (int)reader["ActionType"],
+                        ActionName = reader["ActionName"].ToString(),
+                        ParentCode = (int)reader["ParentCode"],
+                        ActionSource = reader["ActionSource"].ToString(),
+                        ActionArgument = reader["ActionArgument"].ToString(),
+                        DbNameServer = reader["DbNameServer"].ToString(),
+                        DbNameClient = reader["DbNameClient"].ToString()
+                    };
 
                     addActivity(actBase);
 

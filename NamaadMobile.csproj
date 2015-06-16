@@ -169,6 +169,9 @@
     <AndroidResource Include="Resources\layout\bms1150.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\bms_editable_device.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\menu\searchform_menu.xml">

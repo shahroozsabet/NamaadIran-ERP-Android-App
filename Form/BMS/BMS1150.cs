@@ -29,8 +29,9 @@ namespace NamaadMobile
             SetActionBarTitle(((SharedEnviroment)ApplicationContext).ActionName);
             SetContentView(Resource.Layout.bms1150);
             bms1150MainLayout = (LinearLayout)FindViewById(Resource.Id.bms1150MainLayout);
-            BMSPublic.AddSwitchToLayout(this, bms1150MainLayout);
-
+            BMSPublic.AddEditableSensorToLayout(this, bms1150MainLayout);
+            BMSPublic.AddSwitchDeviceToLayout(this, bms1150MainLayout);
+            BMSPublic.AddResetToLayout(this, bms1150MainLayout);
         }
         #endregion
 

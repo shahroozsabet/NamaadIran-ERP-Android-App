@@ -2,4 +2,5 @@
 <resources>
     <string name="btnEnvWaterPump">پمپ آب</string>
     <string name="Reset">Reset</string>
+    <string name="Adjust">تنظیم</string>
 </resources>

@@ -163,7 +163,7 @@ namespace NamaadMobile.Data
         /// <returns>A DataTable containing the result set.</returns>
         public DataTable ExecuteSQL(string sql, bool acceptChangesDuringFill = true)
         {
-            using (DataTable dt = new DataTable())
+            using (DataTable dt = new DataTable("dt"))
             using (SqliteDataAdapter sqlDa = new SqliteDataAdapter(sql, Connection))
             {
                 sqlDa.AcceptChangesDuringFill = acceptChangesDuringFill;
