@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
 	<string name="DirName">NamaadDB</string>
-	<string name="DBNamaad">WebNamaad</string>
+	<string name="DBNamaad">NamaadMobile</string>
 	<string name="Create">درج</string>
 	<string name="Update">تغییر</string>
 	<string name="Delete">حذف</string>

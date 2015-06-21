@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minWidth="25dp"
+    android:minHeight="25dp">
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/swDyn"
+        android:layout_marginBottom="@dimen/Xlarge_border"
+        android:layout_marginTop="@dimen/Xlarge_border"
+        android:text="Switch" />
+</LinearLayout>

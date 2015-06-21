@@ -4,6 +4,11 @@
  * */
 // Decompiled by dotPeek after system crashing and Login.cs file lost on 2013/11/25 by Shahrooz Sabet
 #region using
+using System;
+using System.Data;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -11,16 +16,11 @@ using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
-
-using System;
-using System.Data;
-using System.Threading;
-
 using Mono.Data.Sqlite;
-using NamaadMobile.Util;
-using NamaadMobile.WebService;
 using NamaadMobile.Data;
 using NamaadMobile.SharedElement;
+using NamaadMobile.Util;
+using NamaadMobile.WebService;
 #endregion
 
 namespace NamaadMobile
@@ -33,7 +33,7 @@ namespace NamaadMobile
     /// TODO: Admin user should be online?
     /// </summary>
     [Activity(MainLauncher = true, Label = "@string/app_name")]
-    public class Login : NamaadMobile.SharedElement.NamaadFormBase
+    public class Login : NamaadFormBase
     {
         #region Define
         /// <summary>
@@ -240,12 +240,17 @@ namespace NamaadMobile
                     {
                         dbHelper.OpenOrCreateDatabase(dbHelper.DBNamaad);//ToDo: We should create a preference UI which will write to XML resource file to read DBNamaad name.
                         ((SharedEnviroment)ApplicationContext).DbNameServer = ((SharedEnviroment)ApplicationContext).DbNameClient = dbHelper.DBNamaad;
+                        byte[] data = Encoding.ASCII.GetBytes(strPassword);
+                        byte[] sha1Password;
+                        using (SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider())
+                            sha1Password = sha1.ComputeHash(data);
+                        bool userExist = false;
                         using (SqliteDataReader reader = dbHelper.ExecuteReader(strSQL))
                             while (reader.Read())
-
                                 if (reader["UserID"].Equals(strUserName))
                                 {
-                                    if (reader["UserData"].Equals(strPassword))
+                                    userExist = true;
+                                    if (reader["UserData"].Equals(Encoding.UTF8.GetString(sha1Password)))
                                     {
                                         // Account exists, return true if the password matches.
                                         /* Create new result intent */
@@ -269,10 +274,8 @@ namespace NamaadMobile
                                         });
                                     }
                                 }
-                        //else
-                        //{
                         // TODO: register the new account here if needed.
-                        //}
+                        //if (!userExist) RegisterUser(sha1data);
                     }
                 }
                 catch (Exception eDB)
@@ -299,6 +302,25 @@ namespace NamaadMobile
             {
                 IsBackground = true
             }.Start();
+        }
+        /// <summary>
+        /// Registers the user.
+        /// </summary>
+        /// <param name="sha1Password">The sha1Password.</param>
+        private void RegisterUser(byte[] sha1Password)
+        {
+            using (DataTable dt = dbHelper.GetEmpty("WebUsers"))
+            {
+                DataRow dr = dt.NewRow();
+                dr["OrgID"] = 1;
+                dr["UserCode"] = (long)dbHelper.ExecuteScalar("Select IFNULL(Max(UserCode),0) From WebUsers") + 1;
+                dr["UserID"] = strUserName;
+                dr["UserData"] = Encoding.UTF8.GetString(sha1Password);
+                dr["FullName"] = "کاربر نماد توسعه آریا";
+                dr["IsAdmin"] = false;
+                dr["TableDataVersion"] = 1;
+                dbHelper.Insert("WebUsers", dr);
+            }
         }
         /// <summary>
         /// Shows the progress UI and hides the login form.

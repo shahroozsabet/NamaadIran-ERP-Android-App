@@ -19,6 +19,7 @@ namespace NamaadMobile
         public static NmdMobileDBAdapter dbHelper;
         // UI references.
         private LinearLayout bms1050MainLayout;
+        private ListView bms1050ListView;
         #endregion
         #region Event
         protected override void OnCreate(Bundle bundle)
@@ -29,9 +30,11 @@ namespace NamaadMobile
             SetActionBarTitle(((SharedEnviroment)ApplicationContext).ActionName);
             SetContentView(Resource.Layout.bms1050);
             bms1050MainLayout = (LinearLayout)FindViewById(Resource.Id.bms1050MainLayout);
-            BMSPublic.AddEditableSensorToLayout(this, bms1050MainLayout);
-            BMSPublic.AddSwitchDeviceToLayout(this, bms1050MainLayout);
-            BMSPublic.AddResetToLayout(this, bms1050MainLayout);
+            bms1050ListView = (ListView)bms1050MainLayout.FindViewById(Resource.Id.bms1050ListView);
+            BMSPublic bmsPublic = new BMSPublic();
+            bmsPublic.AddEditableSensorToLayout(this, bms1050ListView);
+            bmsPublic.AddSwitchDeviceToLayout(this, bms1050ListView);
+            bmsPublic.AddResetToLayout(this, bms1050MainLayout);
         }
         #endregion
     }

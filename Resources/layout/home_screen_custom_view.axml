@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/Text1"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.SampleDashboard.Item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textColor="#FF7F3300"
-    android:textSize="@dimen/Xlarge_font_size"
-    android:textStyle="italic"
-    android:layout_gravity="center"
-    android:background="@drawable/custom_selector"
-    android:padding="@dimen/medium_border"
-    android:drawablePadding="8dp" />
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        style="@style/Widget.SampleDashboard.Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            style="@style/Widget.SampleDashboard.Item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/imgHomeScreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/small_border" />
+            <TextView
+                android:id="@+id/tvHomeScreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FF7F3300"
+                android:textSize="@dimen/Xlarge_font_size"
+                android:textStyle="italic"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_selector"
+                android:padding="@dimen/medium_border"
+                android:drawablePadding="8dp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

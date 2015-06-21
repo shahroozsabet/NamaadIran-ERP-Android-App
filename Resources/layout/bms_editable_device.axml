@@ -3,29 +3,38 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:minWidth="25px"
-    android:minHeight="25px"
+    android:minWidth="25dp"
+    android:minHeight="25dp"
     android:gravity="right">
     <EditText
         android:inputType="number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etLabledNumberButton"
-        android:minEms="2" />
+        android:minEms="2"
+        android:layout_marginBottom="@dimen/Xlarge_border"
+        android:layout_marginTop="@dimen/Xlarge_border" />
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lableEtLabledNumberButton"
         android:minEms="2"
-        android:editable="false" />
+        android:editable="false"
+        android:layout_marginBottom="@dimen/Xlarge_border"
+        android:layout_marginTop="@dimen/Xlarge_border" />
     <TextView
         android:text="Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvLabledNumberButton" />
+        android:id="@+id/tvLabledNumberButton"
+        android:layout_marginBottom="@dimen/Xlarge_border"
+        android:layout_marginTop="@dimen/Xlarge_border" />
     <Button
         android:text="@string/Adjust"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnLabledNumberButton" />
+        android:id="@+id/btnLabledNumberButton"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginBottom="@dimen/Xlarge_border"
+        android:layout_marginTop="@dimen/Xlarge_border" />
 </LinearLayout>

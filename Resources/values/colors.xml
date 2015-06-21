@@ -18,4 +18,5 @@
 	<color name="orange">#f9983a</color>
 	<color name="gray">#CCC</color>
 	<color name="black">#000</color>
+	<color name="line">#FF909090</color>
 </resources>

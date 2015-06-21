@@ -20,7 +20,7 @@ using System.Linq;
 namespace NamaadMobile.aSQLiteManager
 {
     [Activity(Label = "@string/SearchForm", Theme = "@style/SearchForm")]
-    public class TableViewer : NamaadMobile.SharedElement.NamaadFormBase, Android.Views.View.IOnClickListener
+    public class TableViewer : NamaadFormBase, View.IOnClickListener
     {
         #region Define
         /// <summary>
@@ -210,7 +210,7 @@ namespace NamaadMobile.aSQLiteManager
                 {
                     using (dbHelper = new NmdMobileDBAdapter(this))
                     {
-                        dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
+                        dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).ActionArgument);
                         int childs = dbHelper.getNoOfRecords(_table, _where);
                         offset = childs - limit;
                     }
@@ -366,7 +366,7 @@ namespace NamaadMobile.aSQLiteManager
             {
                 using (dbHelper = new NmdMobileDBAdapter(this))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).ActionArgument);
                     dbHelper.BeginTransaction();
                     _data = dbHelper.getTableDataWithWhere(_cont, _table, _where, order, offset, limit, isUnUpdateableView, FieldNames.ToArray());
                     dbHelper.EndTransaction();
@@ -387,7 +387,7 @@ namespace NamaadMobile.aSQLiteManager
             {
                 using (dbHelper = new NmdMobileDBAdapter(this))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).ActionArgument);
                     int childs = dbHelper.getNoOfRecords(_table, _where);
                     tvDB.Text = tvDB.Text + "، " + GetString(Resource.String.RecCounts) + " " + childs;
                 }
@@ -705,7 +705,7 @@ namespace NamaadMobile.aSQLiteManager
                         {
                             using (dbHelper = new NmdMobileDBAdapter(this))
                             {
-                                dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
+                                dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).ActionArgument);
                                 rec = dbHelper.getRecord(_table, rowid);
                             }
                         }

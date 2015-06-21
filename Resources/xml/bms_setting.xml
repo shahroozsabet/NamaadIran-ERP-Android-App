@@ -1,0 +1,14 @@
+<PreferenceScreen
+	 xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory
+		android:title="@string/WSPref"
+		>
+		<EditTextPreference
+			android:key="ControlerIpAddress"
+			android:title="@string/ControlerIpAddress"
+			android:summary="@string/ControlerIpAddressText"
+			android:inputType="textUri"
+			android:defaultValue="1.1.1.2"
+		/>
+	</PreferenceCategory>
+</PreferenceScreen>

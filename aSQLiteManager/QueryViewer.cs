@@ -21,7 +21,7 @@ using System.Linq;
 namespace NamaadMobile.aSQLiteManager
 {
     [Activity(Label = "@string/SearchForm", Theme = "@style/SearchForm")]
-    public class QueryViewer : NamaadMobile.SharedElement.NamaadFormBase, Android.Views.View.IOnClickListener
+    public class QueryViewer : NamaadFormBase, View.IOnClickListener
     {
         #region Define
         /// <summary>
@@ -214,7 +214,7 @@ namespace NamaadMobile.aSQLiteManager
                     {
                         using (_db = new NmdMobileDBAdapter(this))
                         {
-                            _db.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
+                            _db.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).ActionArgument);
                             int childs = _db.getNoOfRecordsSQLStatment(sql, _where);
                             offset = childs - limit;
                         }
@@ -323,7 +323,7 @@ namespace NamaadMobile.aSQLiteManager
             {
                 using (_db = new NmdMobileDBAdapter(this))
                 {
-                    _db.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
+                    _db.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).ActionArgument);
                     _db.BeginTransaction();
                     res = _db.getSQLQueryPage(sql, offset, limit, _cont, FieldNames.ToArray(), _where, order);
                     _db.EndTransaction();
@@ -343,7 +343,7 @@ namespace NamaadMobile.aSQLiteManager
             {
                 using (_db = new NmdMobileDBAdapter(this))
                 {
-                    _db.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
+                    _db.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).ActionArgument);
                     int childs = _db.getNoOfRecordsSQLStatment(sql, _where);
                     tvDB.Text = tvDB.Text + "، " + GetString(Resource.String.RecCounts) + " " + childs;
                 }

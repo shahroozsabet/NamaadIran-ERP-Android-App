@@ -1,8 +1,11 @@
 ﻿/*
  * Author: Shahrooz Sabet
  * Date: 20140628
+ * Updated:20150628
  * */
 #region using
+using System;
+using System.Collections.Generic;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -10,13 +13,10 @@ using Android.Views;
 using Android.Widget;
 using Mono.Data.Sqlite;
 using NamaadMobile.Adapter;
-using NamaadMobile.SharedElement;
 using NamaadMobile.Data;
+using NamaadMobile.SharedElement;
 using NamaadMobile.Util;
-using System;
-using System.Collections.Generic;
 #endregion
-
 namespace NamaadMobile
 {
     /// <summary>
@@ -26,7 +26,7 @@ namespace NamaadMobile
     public class NmdMobileMain : Activity
     {
         #region Define
-        private List<ActionBase> name2class = new List<ActionBase>();
+        internal List<ActionBase> name2class = new List<ActionBase>();
 
         public static NmdMobileDBAdapter dBHelper;
         /// <summary>
@@ -40,7 +40,7 @@ namespace NamaadMobile
         private short orgID;
         // UI references.
         private TextView tvUserName;
-        private ListView listView;
+        private GridView listView;
 
         private bool _logging;
         #endregion
@@ -54,7 +54,7 @@ namespace NamaadMobile
             SetContentView(Resource.Layout.home_screen);
             //AddActionBarFlag(ActionBarDisplayOptions.HomeAsUp);
 
-            listView = FindViewById<ListView>(Resource.Id.listView);
+            listView = FindViewById<GridView>(Android.Resource.Id.List);
             tvUserName = (TextView)FindViewById(Resource.Id.UserNameLable);
 
             try
@@ -99,7 +99,7 @@ namespace NamaadMobile
             base.OnPause();
             listView.ItemClick -= OnListItemClick;
         }
-        protected void OnListItemClick(object sender, Android.Widget.AdapterView.ItemClickEventArgs e)
+        protected void OnListItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             try
             {
@@ -109,22 +109,32 @@ namespace NamaadMobile
                 {
                     //dBHelper.Dispose();
                     var type = Type.GetType(activity_class.ActionSource);
-                    NamaadFormBase form = (NamaadFormBase)Activator.CreateInstance(type); //new ActionBaseForm();
                     ((SharedEnviroment)ApplicationContext).OrgID = activity_class.OrgID;
                     ((SharedEnviroment)ApplicationContext).SystemCode = activity_class.SystemCode;
                     ((SharedEnviroment)ApplicationContext).ActionCode = activity_class.ActionCode;
                     ((SharedEnviroment)ApplicationContext).ActionName = activity_class.ActionName;
                     ((SharedEnviroment)ApplicationContext).ActionSource = activity_class.ActionSource;
+                    ((SharedEnviroment)ApplicationContext).ActionArgument = activity_class.ActionArgument;
                     ((SharedEnviroment)ApplicationContext).DbNameClient = activity_class.DbNameClient;
                     ((SharedEnviroment)ApplicationContext).DbNameServer = activity_class.DbNameServer;
                     ((SharedEnviroment)ApplicationContext).UserCode = userCode;
                     ((SharedEnviroment)ApplicationContext).UserName = userName;
                     ((SharedEnviroment)ApplicationContext).IsAdmin = isAdmin;
-                    form.ShowForm(this);
+                    object obj = Activator.CreateInstance(type);
+                    if (obj is NamaadFormBase)
+                    {
+                        NamaadFormBase form = (NamaadFormBase)obj; //new ActionBaseForm();
+                        form.ShowForm(this);
+                    }
+                    else if (obj is NamaadPrefBase)
+                    {
+                        NamaadPrefBase form = (NamaadPrefBase)obj; //new ActionBaseForm();
+                        form.ShowForm(this);
+                    }
                 }
                 if (activity_class.ActionType == 1)
                 {
-                    var i = new Intent(this, typeof(NmdMobileMain));
+                    Intent i = new Intent(this, typeof(NmdMobileMain));
                     i.PutExtra("UserCode", userCode);
                     i.PutExtra("UserName", userName);
                     i.PutExtra("IsAdmin", isAdmin);
@@ -180,7 +190,7 @@ namespace NamaadMobile
                 "On A.OrgID=U.OrgID And A.SystemCode= U.SystemCode \n" +
                 "Where A.OrgID=U.OrgID And A.ActionStatus=1";
             }
-            if (systemCode > 0)
+            if (systemCode > 0 && actionCode > 0)
                 strSQL = strSQL + " And A.SystemCode=" + systemCode + " And ParentCode = " + actionCode;
             else
                 strSQL = strSQL + " And ActionCode=1 ";
@@ -189,7 +199,6 @@ namespace NamaadMobile
                 while (reader.Read())
                 {
                     hasRec = true;
-
                     ActionBase actBase = new ActionBase
                     {
                         OrgID = (short)reader["OrgID"],
@@ -203,17 +212,15 @@ namespace NamaadMobile
                         DbNameServer = reader["DbNameServer"].ToString(),
                         DbNameClient = reader["DbNameClient"].ToString()
                     };
-
-                    addActivity(actBase);
-
+                    AddActivity(actBase);
                 }
             if (!hasRec)
             {
                 throw new Exception(GetString(Resource.String.NoPermision));
             }
-            listView.Adapter = new HomeScreenAdapter(this, name2class);// Using cursor is not feasible since we use Mono SQlite library.
+            listView.Adapter = new HomeScreenAdapter(this);// Using cursor is not feasible since we use Mono SQlite library.
         }
-        private void addActivity(ActionBase ab)
+        private void AddActivity(ActionBase ab)
         {
             name2class.Add(ab);
         }

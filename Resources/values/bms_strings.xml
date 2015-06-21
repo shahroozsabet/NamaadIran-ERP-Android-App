@@ -3,4 +3,7 @@
     <string name="btnEnvWaterPump">پمپ آب</string>
     <string name="Reset">Reset</string>
     <string name="Adjust">تنظیم</string>
+    <string name="WSPref">تنظیمات ارتباطات</string>
+    <string name="ControlerIpAddress">Controller IP Address</string>
+  <string name="ControlerIpAddressText">آدرس کنترلر بدون پروتکل مثال: 1.1.1.1.2</string>
 </resources>

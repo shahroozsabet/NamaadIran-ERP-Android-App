@@ -71,9 +71,9 @@ namespace NamaadMobile.WebService
             {
                 dbHelper = new NmdMobileDBAdapter(mCtx);
                 if (int.Parse(dt.Rows[0]["SystemCode"].ToString()) == 1)
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)mCtx.ApplicationContext).DbNameServer);
-                else
                     dbHelper.OpenOrCreateDatabase(((SharedEnviroment)mCtx.ApplicationContext).DbNameClient);
+                else
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)mCtx.ApplicationContext).ActionArgument);
                 flagCon = true;
             }
             InitializeHelloWorldServiceClient();

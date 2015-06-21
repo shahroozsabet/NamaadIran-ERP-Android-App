@@ -43,10 +43,10 @@ namespace NamaadMobile.WebService
         private bool notATable;
 
         // UI references.
-        private Button mCreateBtn;
+        private Button btnCreate;
         private ListView listView;
-        private Button chkAllbtn;
-        private Button refbtn;
+        private Button btnChkAll;
+        private Button btnRef;
         #endregion
         protected override void OnCreate(Bundle bundle)
         {
@@ -54,10 +54,10 @@ namespace NamaadMobile.WebService
             SetContentView(Resource.Layout.ws_man);
             _logging = Prefs.getLogging(this);
             SetActionBarTitle(GetString(Resource.String.RefreshData));
-            mCreateBtn = (Button)FindViewById(Resource.Id.btnCreate);
+            btnCreate = (Button)FindViewById(Resource.Id.btnCreate);
             listView = FindViewById<ListView>(Resource.Id.listView);
-            chkAllbtn = (Button)FindViewById(Resource.Id.btnChkAll);
-            refbtn = (Button)FindViewById(Resource.Id.btnRef);
+            btnChkAll = (Button)FindViewById(Resource.Id.btnChkAll);
+            btnRef = (Button)FindViewById(Resource.Id.btnRef);
 
             Bundle extras = Intent.Extras;
             if (extras != null)
@@ -79,7 +79,7 @@ namespace NamaadMobile.WebService
                 notATable = string.IsNullOrEmpty(_table);
                 if ((notATable && string.IsNullOrEmpty(_tvQ)) || string.IsNullOrEmpty(_tableDisplayName) || FieldNames == null || FieldDisplayNames == null)
                 {
-                    InvalidateUI(chkAllbtn, refbtn);
+                    InvalidateUI(btnChkAll, btnRef);
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace NamaadMobile.WebService
             }
             else
             {
-                InvalidateUI(chkAllbtn, refbtn);
+                InvalidateUI(btnChkAll, btnRef);
             }
 
         }
@@ -102,7 +102,7 @@ namespace NamaadMobile.WebService
             throw new NotImplementedException();
         }
 
-        private void chkAllbtn_Click(object sender, EventArgs e)
+        private void BtnChkAllClick(object sender, EventArgs e)
         {
             bool check = listView.IsItemChecked(0);
             int size = listView.Count;
@@ -110,7 +110,7 @@ namespace NamaadMobile.WebService
                 listView.SetItemChecked(i, !check);
         }
 
-        private void mCreateBtn_Click(object sender, EventArgs e)
+        private void BtnCreateClick(object sender, EventArgs e)
         {
             Intent intent = null;
             if (!notATable)
@@ -134,20 +134,20 @@ namespace NamaadMobile.WebService
         protected override void OnResume()
         {
             base.OnResume();
-            mCreateBtn.Click += mCreateBtn_Click;
-            chkAllbtn.Click += chkAllbtn_Click;
+            btnCreate.Click += BtnCreateClick;
+            btnChkAll.Click += BtnChkAllClick;
             //refbtn.Click += refbtn_Click;
         }
         protected override void OnPause()
         {
             base.OnPause();
-            mCreateBtn.Click -= mCreateBtn_Click;
-            chkAllbtn.Click -= chkAllbtn_Click;
+            btnCreate.Click -= BtnCreateClick;
+            btnChkAll.Click -= BtnChkAllClick;
             //refbtn.Click -= refbtn_Click;
         }
         private void InvalidateUI(Button chkAllbtn, Button refbtn)
         {
-            mCreateBtn.Enabled = false;
+            btnCreate.Enabled = false;
             chkAllbtn.Enabled = false;
             refbtn.Enabled = false;
         }

@@ -1,6 +1,7 @@
 ﻿/*
  * Author: Shahrooz Sabet
  * Date: 20140628
+ * Updated:20150628
  * */
 #region using
 using Android.App;
@@ -22,7 +23,7 @@ using System.Threading;
 namespace NamaadMobile
 {
     [Activity(Label = "@string/RefreshData")]
-    public class RefreshData : NamaadMobile.SharedElement.NamaadFormBase
+    public class RefreshData : NamaadFormBase
     {
         #region Define
         private NmdMobileDBAdapter dbHelper;
@@ -53,7 +54,7 @@ namespace NamaadMobile
             viewForm = FindViewById(Resource.Id.form);
 
             tableDesc = new List<RefreshDataEntity>();
-            string strSQL = "Select * From WebTableCode Where SystemCode= " + ((SharedEnviroment)ApplicationContext).SystemCode + " And TableCode>1000";
+            string strSQL = "Select * From WebTableCode Where OrgID= " + ((SharedEnviroment)ApplicationContext).OrgID + " And SystemCode= " + ((SharedEnviroment)ApplicationContext).SystemCode + " And TableCode>1000";
 
             try
             {
@@ -64,12 +65,14 @@ namespace NamaadMobile
                     {
                         while (reader.Read())
                         {
-                            RefreshDataEntity refDataEnt = new RefreshDataEntity();
-                            refDataEnt.TableDesc = reader["TableDesc"].ToString();
-                            refDataEnt.TableCode = (int)reader["TableCode"];
-                            refDataEnt.SystemCode = (int)reader["SystemCode"];
-                            refDataEnt.TableName = reader["TableName"].ToString();
-
+                            RefreshDataEntity refDataEnt = new RefreshDataEntity
+                            {
+                                TableDesc = reader["TableDesc"].ToString(),
+                                TableCode = (int)reader["TableCode"],
+                                OrgID = (short)reader["OrgID"],
+                                SystemCode = (int)reader["SystemCode"],
+                                TableName = reader["TableName"].ToString()
+                            };
                             tableDesc.Add(refDataEnt);
                         }
                     }
@@ -142,7 +145,7 @@ namespace NamaadMobile
                     using (dbHelper = new NmdMobileDBAdapter(this))
                     {
                         dbHelper.OpenOrCreateDatabase(dbHelper.DBNamaad);
-                        using (DataTable dt = dbHelper.ExecuteSQL("Select * From WebTableCode Where SystemCode=" + ((SharedEnviroment)ApplicationContext).SystemCode + " And TableCode in(" + strTableCode.ToString() + ")"))
+                        using (DataTable dt = dbHelper.ExecuteSQL("Select * From WebTableCode Where OrgID=" + ((SharedEnviroment)ApplicationContext).OrgID + " And SystemCode=" + ((SharedEnviroment)ApplicationContext).SystemCode + " And TableCode in(" + strTableCode.ToString() + ")"))
                         {
                             var task = nmdWS.RefreshWsCall(dt, 0);
                             task.Wait();

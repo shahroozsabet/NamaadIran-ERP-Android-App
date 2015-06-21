@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-	<string name="PishFactorForooshGah">پیش فاکتور فروشگاه</string>
+	<string name="Sal1050">پیش فاکتور فروشگاه</string>
 	<string name="PriceType">نوع قیمت:</string>
 	<string name="Cust">مشتری:</string>
 	<string name="Date">تاریخ:</string>
 	<string name="Serial">سریال:</string>
 	<string name="tblLblRowNo">ردیف</string>
-	<string name="tVPriceTotalLbl_FactorForooshGah">مبلغ</string>
-	<string name="error_reRefresh_pishFactor">لطفا جداول مربوط به پیش فاکتور\r\nرا به روز رسانی نمایید</string>
+	<string name="tVPriceTotalLbl_Sal1050">مبلغ</string>
+	<string name="error_reRefresh_Sal1050">لطفا جداول مربوط به پیش فاکتور\r\nرا به روز رسانی نمایید</string>
 	<string name="QuantityFormHeader">تعداد:</string>
 	<string name="Search">جستجو</string>
 	<string name="BarCodeScanner">بارکداسکنر</string>

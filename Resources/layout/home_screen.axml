@@ -12,9 +12,14 @@
         android:textStyle="bold"
         android:padding="@dimen/small_border"
         android:id="@+id/UserNameLable" />
-    <ListView
-        android:id="@+id/listView"
+    <GridView
+        android:id="@android:id/list"
+        style="@style/Widget.SampleDashboard.Grid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="#FFDAFF7F" />
+        android:layout_height="@dimen/image_thumbnail_spacing"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/horizontal_page_margin"
+        android:paddingRight="@dimen/horizontal_page_margin"
+        android:paddingBottom="@dimen/vertical_page_margin"
+        android:scrollbarStyle="outsideOverlay" />
 </LinearLayout>

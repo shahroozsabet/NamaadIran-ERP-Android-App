@@ -786,7 +786,8 @@ namespace NamaadMobile.Data
                     flds.Add(fld);
                     //i++;
                 }
-            } return flds.ToArray();
+            }
+            return flds.ToArray();
         }
         /// <summary>
         /// Gets the primary keys.
@@ -801,6 +802,15 @@ namespace NamaadMobile.Data
                     if (NConvert.Int2Bool(cursor.GetInt32(5)))
                         fields.Add(cursor.GetString(1));
             return fields.ToArray();
+        }
+        /// <summary>
+        /// Gets the empty.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <returns>An Empty Datatable with the database tableName shema</returns>
+        public DataTable GetEmpty(string tableName)
+        {
+            return ExecuteSQL("Select * From " + tableName + " LIMIT 0");
         }
         #endregion
     }

@@ -1,6 +1,7 @@
 /*
  * Author: Shahrooz Sabet
  * Date: 20150503
+ * Updated:20150701
  * */
 #region using
 using System;
@@ -11,9 +12,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Android.App;
 using Android.Content;
-using Android.Content.PM;
 using Android.Content.Res;
 using Android.Views;
 using Android.Widget;
@@ -22,8 +21,9 @@ using NamaadMobile.Data;
 using NamaadMobile.Function;
 using NamaadMobile.SharedElement;
 using NamaadMobile.Util;
-using Orientation = Android.Content.Res.Orientation;
-
+using System.Collections.Generic;
+using Android.App;
+using NamaadMobile.Adapter;
 #endregion
 namespace NamaadMobile
 {
@@ -32,100 +32,49 @@ namespace NamaadMobile
         #region Define
         public static NmdMobileDBAdapter dbHelper;
         private const int Tout = 5000;
-        private static string ControlerIpAddress = "1.1.1.2";
-        private static UriBuilder builder = new UriBuilder
-        {
-            Scheme = "http",
-            Host = ControlerIpAddress
-        };
+        private List<BMSViewHolder> itemList = new List<BMSViewHolder>();
         #endregion
         #region Public Function
         /// <summary>
         /// Adds switch to layout dynamically.
         /// </summary>
         /// <param name="owner">The owner.</param>
-        /// <param name="mainLayout">The main layout.</param>
-        public static void AddSwitchDeviceToLayout(Context owner, LinearLayout mainLayout)
+        /// <param name="bmsListView">The main layout.</param>
+        public void AddSwitchDeviceToLayout(Context owner, ListView bmsListView)
         {
             try
             {
                 using (dbHelper = new NmdMobileDBAdapter(owner))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     object obj = dbHelper.ExecuteScalar("SELECT Count(ID) FROM Device Where (IOType =1 OR (IOType=0 And Editable=0)) And CategoryID=" + ((SharedEnviroment)owner.ApplicationContext).ActionCode);
-                    int recCount = 0;
                     if (obj != DBNull.Value)
                     {
-                        recCount = int.Parse(obj.ToString());
+                        int recCount = int.Parse(obj.ToString());
                         if (recCount == 0) return;
                     }
                     else return;
                     using (SqliteDataReader reader = dbHelper.ExecuteReader("Select * From Device Where (IOType =1 OR (IOType=0 And Editable=0)) And CategoryID=" + ((SharedEnviroment)owner.ApplicationContext).ActionCode))
                     {
-                        int layCount = 0;
-                        int count = 0;
-                        LinearLayout layout = null;
                         while (reader.Read())
                         {
-                            count++;
-                            Switch swDevice = new Switch(owner)
+                            BMSViewHolder swDevice = new BMSViewHolder()
                             {
                                 Text = reader["Name"].ToString(),
-                                Id = (int)reader["ID"]
+                                Id = (int)reader["ID"],
+                                IsSwitch = true
                             };
                             swDevice.Enabled = NConvert.Int2Bool(GetAccessId(owner)) || HasAccess(owner, swDevice.Id);
                             swDevice.Checked = (!(reader["Value"] is DBNull) && (int)reader["Value"] != 0);
                             if (swDevice.Enabled) swDevice.CheckedChange += swDevice_Click;
-                            if ((recCount > 3 && (isTablet(owner) || ((NamaadFormBase)owner).Resources.Configuration.Orientation == Orientation.Landscape) || (recCount > 1 && isTablet(owner) && ((NamaadFormBase)owner).Resources.Configuration.Orientation == Orientation.Landscape)))
-                            {
-                                if (layCount == 0)
-                                {
-                                    layout = new LinearLayout(owner);
-                                    LinearLayout.LayoutParams lp =
-                                        new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent,
-                                            ViewGroup.LayoutParams.WrapContent)
-                                        {
-                                            BottomMargin =
-                                                (int)owner.Resources.GetDimension(Resource.Dimension.small_border),
-                                            TopMargin =
-                                                (int)owner.Resources.GetDimension(Resource.Dimension.small_border)
-                                        };
-                                    layout.LayoutParameters = lp;
-                                }
-                                if (layCount < 1)
-                                {
-                                    swDevice.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent, 1);
-                                    layout.AddView(swDevice);
-                                    layCount++;
-                                    if (recCount == count)
-                                    {
-                                        mainLayout.AddView(layout);
-                                        layCount = 0;
-                                    }
-                                }
-                                else
-                                {
-                                    swDevice.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent, 1);
-                                    layout.AddView(swDevice);
-                                    mainLayout.AddView(layout);
-                                    layCount = 0;
-                                }
-                            }
-                            else
-                            {
-                                LinearLayout.LayoutParams lp =
-                                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
-                                        ViewGroup.LayoutParams.WrapContent)
-                                    {
-                                        BottomMargin =
-                                            (int)owner.Resources.GetDimension(Resource.Dimension.small_border),
-                                        TopMargin = (int)owner.Resources.GetDimension(Resource.Dimension.medium_border)
-                                    };
-                                mainLayout.AddView(swDevice, lp);
-                            }
+                            itemList.Add(swDevice);
                         }
                     }
                 }
+                if (bmsListView.Adapter == null)
+                    bmsListView.Adapter = new BMSViewHolderAdapter((Activity)owner, itemList);
+                else
+                    ((BMSViewHolderAdapter)(bmsListView.Adapter)).NotifyDataSetChanged();
             }
             catch (Exception e)
             {
@@ -138,87 +87,39 @@ namespace NamaadMobile
         /// </summary>
         /// <param name="owner">The owner.</param>
         /// <param name="mainLayout">The main layout.</param>
-        public static void AddEditableSensorToLayout(Context owner, LinearLayout mainLayout)
+        public void AddEditableSensorToLayout(Context owner, ListView bmsListView)
         {
             try
             {
                 using (dbHelper = new NmdMobileDBAdapter(owner))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     object obj = dbHelper.ExecuteScalar("SELECT Count(ID) FROM Device Where IOType=0 And Editable=1 And CategoryID=" + ((SharedEnviroment)owner.ApplicationContext).ActionCode);
-                    int recCount = 0;
                     if (obj != DBNull.Value)
                     {
-                        recCount = int.Parse(obj.ToString());
+                        int recCount = int.Parse(obj.ToString());
                         if (recCount == 0) return;
                     }
                     else return;
                     using (SqliteDataReader reader = dbHelper.ExecuteReader("Select * From Device Where IOType=0 And Editable=1 And CategoryID=" + ((SharedEnviroment)owner.ApplicationContext).ActionCode))
                     {
-                        int layCount = 0;
-                        int count = 0;
-                        LinearLayout layout = null;
                         while (reader.Read())
                         {
-                            count++;
-                            View view = ((NamaadFormBase)owner).LayoutInflater.Inflate(Resource.Layout.bms_editable_device, null);
-                            EditText etDyn = (EditText)view.FindViewById(Resource.Id.etLabledNumberButton);
-                            TextView tvDyn = (TextView)view.FindViewById(Resource.Id.tvLabledNumberButton);
-                            tvDyn.Text = reader["Name"].ToString();
-                            Button btnEditableDevice = (Button)view.FindViewById(Resource.Id.btnLabledNumberButton);
-                            btnEditableDevice.Id = (int)reader["ID"];
-                            btnEditableDevice.Click += btnEditableDevice_Click;
-                            if ((recCount > 3 && (isTablet(owner) || ((NamaadFormBase)owner).Resources.Configuration.Orientation == Orientation.Landscape) || (recCount > 1 && isTablet(owner) && ((NamaadFormBase)owner).Resources.Configuration.Orientation == Orientation.Landscape)))
+                            BMSViewHolder swDevice = new BMSViewHolder()
                             {
-                                if (layCount == 0)
-                                {
-                                    layout = new LinearLayout(owner);
-                                    LinearLayout.LayoutParams lp =
-                                        new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent,
-                                            ViewGroup.LayoutParams.WrapContent)
-                                        {
-                                            BottomMargin =
-                                                (int)owner.Resources.GetDimension(Resource.Dimension.small_border),
-                                            TopMargin =
-                                                (int)owner.Resources.GetDimension(Resource.Dimension.small_border)
-                                        };
-                                    layout.LayoutParameters = lp;
-
-                                }
-                                if (layCount < 1)
-                                {
-                                    view.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent, 1);
-                                    layout.AddView(view);
-                                    layCount++;
-                                    if (recCount == count)
-                                    {
-                                        mainLayout.AddView(layout);
-                                        layCount = 0;
-                                    }
-                                }
-                                else
-                                {
-                                    view.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent, 1);
-                                    layout.AddView(view);
-                                    mainLayout.AddView(layout);
-                                    layCount = 0;
-                                }
-                            }
-                            else
-                            {
-                                LinearLayout.LayoutParams lp =
-                                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
-                                        ViewGroup.LayoutParams.WrapContent)
-                                    {
-                                        BottomMargin =
-                                            (int)owner.Resources.GetDimension(Resource.Dimension.small_border),
-                                        TopMargin = (int)owner.Resources.GetDimension(Resource.Dimension.medium_border)
-                                    };
-                                mainLayout.AddView(view, lp);
-                            }
+                                Text = reader["Name"].ToString(),
+                                Id = (int)reader["ID"],
+                                IsSwitch = false
+                            };
+                            swDevice.Click += btnEditableDevice_Click;
+                            itemList.Add(swDevice);
                         }
                     }
                 }
+                if (bmsListView.Adapter == null)
+                    bmsListView.Adapter = new BMSViewHolderAdapter((Activity)owner, itemList);
+                else
+                    ((BMSViewHolderAdapter)(bmsListView.Adapter)).NotifyDataSetChanged();
             }
             catch (Exception e)
             {
@@ -231,7 +132,7 @@ namespace NamaadMobile
         /// </summary>
         /// <param name="owner">The owner.</param>
         /// <param name="mainLayout">The main layout.</param>
-        public static void AddResetToLayout(Context owner, LinearLayout mainLayout)
+        public void AddResetToLayout(Context owner, LinearLayout mainLayout)
         {
             Button btnReset = new Button(owner)
             {
@@ -248,13 +149,13 @@ namespace NamaadMobile
         /// <param name="owner">The owner.</param>
         /// <param name="deviceId">The device identifier.</param>
         /// <returns></returns>
-        public static DataRow GetDeviceDr(Context owner, int deviceId)
+        public DataRow GetDeviceDr(Context owner, int deviceId)
         {
             try
             {
                 using (dbHelper = new NmdMobileDBAdapter(owner))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     return dbHelper.ExecuteSQL("SELECT * FROM Device Where ID=" + deviceId).Rows[0];
                 }
             }
@@ -273,14 +174,14 @@ namespace NamaadMobile
         /// <returns>
         /// User AccessID if it exists, otherwise it return -1
         /// </returns>
-        public static int GetAccessId(Context owner, int userCode = -1)
+        public int GetAccessId(Context owner, int userCode = -1)
         {
             int accessIdInt = -1;
             try
             {
                 using (dbHelper = new NmdMobileDBAdapter(owner))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     if (userCode == -1) userCode = ((SharedEnviroment)owner.ApplicationContext).UserCode;
                     object accessId = dbHelper.ExecuteScalar("SELECT AccessID FROM User Where ID=" + userCode);
                     if (accessId != DBNull.Value) accessIdInt = int.Parse(accessId.ToString());
@@ -300,14 +201,14 @@ namespace NamaadMobile
         /// <param name="owner">The owner.</param>
         /// <param name="accessId">The access identifier.</param>
         /// <returns>deviceID by its accessID code, if it doesnt exist the method returns -1</returns>
-        public static int GetDeviceIdByAccessId(Context owner, int accessId)
+        public int GetDeviceIdByAccessId(Context owner, int accessId)
         {
             int deviceIdInt = -1;
             try
             {
                 using (dbHelper = new NmdMobileDBAdapter(owner))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     object deviceId = dbHelper.ExecuteScalar("SELECT DeviceID FROM Access_Device Where AccessID=" + accessId);
                     if (deviceId != DBNull.Value) deviceIdInt = int.Parse(deviceId.ToString());
                     return deviceIdInt;
@@ -326,14 +227,14 @@ namespace NamaadMobile
         /// <param name="owner">The owner.</param>
         /// <param name="deviceId">The device identifier.</param>
         /// <returns>Device AccessID if it exists, otherwise it return -1</returns>
-        public static int GetAccessIdByDeviceId(Context owner, int deviceId)
+        public int GetAccessIdByDeviceId(Context owner, int deviceId)
         {
             int accessIdInt = -1;
             try
             {
                 using (dbHelper = new NmdMobileDBAdapter(owner))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     object accessId = dbHelper.ExecuteScalar("SELECT AccessID FROM Access_Device Where DeviceID=" + deviceId);
                     if (accessId != DBNull.Value) accessIdInt = int.Parse(accessId.ToString());
                     return accessIdInt;
@@ -353,13 +254,13 @@ namespace NamaadMobile
         /// <param name="deviceId">The device identifier.</param>
         /// <param name="userCode">The user code if not specified it gets from owner Context</param>
         /// <returns>A Boolean indicates whether userCode has deviceID permision or not </returns>
-        public static bool HasAccess(Context owner, int deviceId, int userCode = -1)
+        public bool HasAccess(Context owner, int deviceId, int userCode = -1)
         {
             try
             {
                 using (dbHelper = new NmdMobileDBAdapter(owner))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     if (userCode == -1) userCode = ((SharedEnviroment)owner.ApplicationContext).UserCode;
                     string sql = "Select ID  \n"
                                + "From User As u \n"
@@ -386,11 +287,11 @@ namespace NamaadMobile
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns></returns>
-        public static bool isTablet(Context context)
+        public static bool IsTablet(Context context)
         {
             return (
                 context.Resources.Configuration.ScreenLayout
-                & Android.Content.Res.ScreenLayout.SizeMask) >= Android.Content.Res.ScreenLayout.SizeLarge;
+                & ScreenLayout.SizeMask) >= ScreenLayout.SizeLarge;
         }
         #endregion
         #region Private Function
@@ -399,13 +300,13 @@ namespace NamaadMobile
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private static void btnReset_Click(object sender, EventArgs e)
+        private void btnReset_Click(object sender, EventArgs e)
         {
             try
             {
                 using (dbHelper = new NmdMobileDBAdapter(((Button)sender).Context))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)(((Button)sender).Context).ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)(((Button)sender).Context).ApplicationContext).ActionArgument);
                     dbHelper.ExecuteNonQuery("Update Device Set Value=null Where CategoryID=" + ((SharedEnviroment)(((Button)sender).Context).ApplicationContext).ActionCode);
                 }
             }
@@ -420,9 +321,9 @@ namespace NamaadMobile
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="CompoundButton.CheckedChangeEventArgs"/> instance containing the event data.</param>
-        private static async void swDevice_Click(object sender, CompoundButton.CheckedChangeEventArgs e)
+        private async void swDevice_Click(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
-            DataRow drDevice = GetDeviceDr(((Switch)sender).Context, ((Switch)sender).Id);
+            DataRow drDevice = GetDeviceDr(((Switch)sender).Context, (int)((Switch)sender).Tag);
             int port = (int)drDevice["Port"];
             int value = 0;
             if (drDevice["Value"] != DBNull.Value) value = (int)drDevice["Value"];
@@ -445,7 +346,7 @@ namespace NamaadMobile
                 }
                 using (dbHelper = new NmdMobileDBAdapter(((Switch)sender).Context))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)((Switch)sender).Context.ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)((Switch)sender).Context.ApplicationContext).ActionArgument);
                     dbHelper.Update("Device", drDevice);
                 }
             }
@@ -510,7 +411,7 @@ namespace NamaadMobile
                 }
             var encoding = Encoding.GetEncoding("iso-8859-1");
             string allOuts = encoding.GetString(fData);
-            string s = await SendReq(allOuts, cts);
+            string s = await SendReq(owner, allOuts, cts);
             //Toast.MakeText(owner, s, ToastLength.Long);
             return true;
         }
@@ -520,10 +421,16 @@ namespace NamaadMobile
         /// <param name="req">The req.</param>
         /// <param name="cts">The CTS.</param>
         /// <returns></returns>
-        private static async Task<string> SendReq(string req, CancellationTokenSource cts)
+        private static async Task<string> SendReq(Context owner, string req, CancellationTokenSource cts)
         {
             HttpClient httpClient = new HttpClient();
-            builder.Query = string.Format("aip={0}&lcd1=&lcd2={1}", ControlerIpAddress, req);
+            string controlerIpAddress = BMSPrefs.GetControlerIpAddress(owner);
+            UriBuilder builder = new UriBuilder
+            {
+                Scheme = "http",
+                Host = controlerIpAddress,
+            };
+            builder.Query = string.Format("aip={0}&lcd1=&lcd2={1}", controlerIpAddress, req);
             HttpResponseMessage hrTask = await httpClient.GetAsync(builder.Uri, cts.Token);
             hrTask.EnsureSuccessStatusCode();
             // Retrieve the website contents from the HttpResponseMessage.
@@ -533,3 +440,77 @@ namespace NamaadMobile
         #endregion
     }
 }
+
+//int layCount = 0;
+//int count = 0;
+//LinearLayout layout = null;
+//if ((recCount > 3 && (isTablet(owner) || ((NamaadFormBase)owner).Resources.Configuration.Orientation == Orientation.Landscape) || (recCount > 1 && isTablet(owner) && ((NamaadFormBase)owner).Resources.Configuration.Orientation == Orientation.Landscape)))
+//{
+//    if (layCount == 0)
+//    {
+//        layout = new LinearLayout(owner);
+//        LinearLayout.LayoutParams lp =
+//            new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent,
+//                ViewGroup.LayoutParams.WrapContent)
+//            {
+//                BottomMargin =
+//                    (int)owner.Resources.GetDimension(Resource.Dimension.large_border),
+//                TopMargin =
+//                    (int)owner.Resources.GetDimension(Resource.Dimension.medium_border)
+//            };
+//        layout.LayoutParameters = lp;
+//    }
+//    if (layCount < 1)
+//    {
+//        swDevice.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent, 1);
+//        layout.AddView(swDevice);
+//        layCount++;
+//        if (recCount == count)
+//        {
+//            mainLayout.AddView(layout);
+//            layCount = 0;
+//        }
+//    }
+//    else
+//    {
+//        swDevice.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent, 1);
+//        layout.AddView(swDevice);
+//        mainLayout.AddView(layout);
+//        layCount = 0;
+//    }
+//}
+//else
+//{
+//    LinearLayout.LayoutParams lp =
+//        new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
+//            ViewGroup.LayoutParams.WrapContent)
+//        {
+//            BottomMargin =
+//                (int)owner.Resources.GetDimension(Resource.Dimension.large_border),
+//            TopMargin = (int)owner.Resources.GetDimension(Resource.Dimension.medium_border)
+//        };
+//    mainLayout.AddView(swDevice, lp);
+//}
+
+//private void bmsListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+//{
+//    try
+//    {
+//        /* Find selected activity */
+//        BMSViewHolder bmsViewHolder = itemList[e.Position];
+//        if (bmsViewHolder.IsSwitch)
+//        {
+
+//        }
+//        else
+//        {
+
+//        }
+
+//    }
+//    catch (Exception ex)
+//    {
+//        ExceptionHandler.toastMsg((((Button)sender).Context), ex.Message);
+//        ExceptionHandler.logDActivity(e.ToString(), ((SharedEnviroment)((Button)sender).Context.ApplicationContext).Logging, ((SharedEnviroment)((Button)sender).Context.ApplicationContext).TAG);
+//    }
+//}

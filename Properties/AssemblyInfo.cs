@@ -9,8 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NamaadIran")]
-[assembly: AssemblyProduct("NamaadDB")]
-[assembly: AssemblyCopyright("Copyright © NamaadIran 2014")]
+[assembly: AssemblyProduct("NamaadMobile")]
+[assembly: AssemblyCopyright("Copyright © NamaadIran 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

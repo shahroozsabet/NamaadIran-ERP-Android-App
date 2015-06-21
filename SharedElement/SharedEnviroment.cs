@@ -1,6 +1,7 @@
 /*
  * Author: Shahrooz Sabet
  * Date: 20140628
+ * Updated:20150628
  * */
 #region using
 using Android.App;
@@ -16,6 +17,7 @@ namespace NamaadMobile.SharedElement
         public int ActionCode { get; set; }
         public string ActionName { get; set; }
         public string ActionSource { get; set; }
+        public string ActionArgument { get; set; }
         public string UserName { get; set; }
         public int UserCode { get; set; }
         public bool IsAdmin { get; set; }
@@ -26,7 +28,6 @@ namespace NamaadMobile.SharedElement
         /// The tag For Debugging purpose
         /// </summary>
         public string TAG { get; set; }
-
 
         public SharedEnviroment(IntPtr handle, global::Android.Runtime.JniHandleOwnership transfer)
             : base(handle, transfer)

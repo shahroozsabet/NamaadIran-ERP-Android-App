@@ -27,7 +27,7 @@ namespace NamaadMobile.SharedElement
         /// </summary>
         internal void ShowForm(Context ctx)
         {
-            var i = new Intent(ctx, this.GetType());
+            Intent i = new Intent(ctx, this.GetType());
             ctx.StartActivity(i);
         }
 

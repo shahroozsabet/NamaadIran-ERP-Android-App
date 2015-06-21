@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NamaadMobile</RootNamespace>
-    <AssemblyName>NamaadDB</AssemblyName>
+    <AssemblyName>NamaadMobile</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
@@ -53,9 +53,6 @@
     <BundleAssemblies>True</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FlatUI">
-      <HintPath>Components\FlatUI-1.0\lib\android\FlatUI.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="Mono.Android.Export">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -84,10 +81,14 @@
       <HintPath>packages\Xamarin.Android.Support.v4.21.0.3.0\lib\MonoAndroid10\Xamarin.Android.Support.v4.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.CardView">
+      <HintPath>Components\xamandroidsupportv7cardview-22.2.0.0\lib\android\Xamarin.Android.Support.v7.CardView.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aSQLiteManager\QueryViewer.cs" />
     <Compile Include="Entity\AField.cs" />
+    <Compile Include="ListAdapter\BMSViewHolder.cs" />
     <Compile Include="Entity\FieldDescr.cs" />
     <Compile Include="Entity\ForeignKeyHolder.cs" />
     <Compile Include="Entity\QueryResult.cs" />
@@ -102,14 +103,16 @@
     <Compile Include="Form\BMS\BMS1200.cs" />
     <Compile Include="Form\BMS\BMS1250.cs" />
     <Compile Include="Form\BMS\BMSPublic.cs" />
+    <Compile Include="Form\BMS\BMSPrefs.cs" />
     <Compile Include="Function\DataFunction.cs" />
     <Compile Include="Function\NConvert.cs" />
-    <Compile Include="ListAdapter\LookUp_GoodSalePriceAdapter.cs">
+    <Compile Include="ListAdapter\BMSViewHolderAdapter.cs" />
+    <Compile Include="ListAdapter\LookUpGoodSalePriceAdapter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SharedElement\NamaadPrefBase.cs" />
     <Compile Include="Util\ExceptionHandler.cs" />
     <Compile Include="Form\Sal\Sal1050.cs" />
-    <Compile Include="Util\Prefs.cs" />
     <Compile Include="aSQLiteManager\TableViewer.cs" />
     <Compile Include="SharedElement\ActionBase.cs" />
     <Compile Include="SharedElement\NamaadFormBase.cs" />
@@ -124,6 +127,7 @@
     <Compile Include="Data\NmdMobileDBAdapter.cs" />
     <Compile Include="NotePad\NamaadDbAdapter_note.cs" />
     <Compile Include="Form\NmdMobileMain.cs" />
+    <Compile Include="Util\Prefs.cs" />
     <Compile Include="Util\ScanActivity.cs" />
     <Compile Include="WebService\NmdWSAdapter.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -136,7 +140,7 @@
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <AndroidAsset Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\list_item.axml">
+    <AndroidResource Include="Resources\layout\list_item_tv.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\home_screen.axml" />
@@ -162,14 +166,13 @@
     <AndroidResource Include="Resources\layout\bms1100.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\bms1200.axml" />
-    <AndroidResource Include="Resources\layout\bms1250.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\bms1150.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\bms_editable_device.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\bms1150.axml" />
+    <AndroidResource Include="Resources\layout\bms1200.axml" />
+    <AndroidResource Include="Resources\layout\bms1250.axml" />
+    <AndroidResource Include="Resources\layout\list_item_switch.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -226,31 +229,68 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\background_selector.xml" />
-    <AndroidResource Include="Resources\values\strings_pish_factor_status.xml" />
+    <AndroidResource Include="Resources\values\sal1050_status_strings.xml" />
     <AndroidResource Include="Resources\layout\table_viewer.axml" />
-    <AndroidResource Include="Resources\xml\settings.xml" />
+    <AndroidResource Include="Resources\xml\asqlitemanager_setting.xml" />
     <AndroidResource Include="Resources\values\strings_studio.xml" />
     <AndroidResource Include="Resources\values\mode_list.xml" />
     <AndroidResource Include="Resources\layout\filter_wizard.axml" />
-    <AndroidResource Include="Resources\layout\line_editor.axml" />
+    <AndroidResource Include="Resources\layout\sal1050_line_editor.axml" />
     <AndroidResource Include="Resources\layout\query_viewer.axml" />
     <AndroidResource Include="Resources\values\strings_exception.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\values\bms1050_strings.xml" />
+    <AndroidResource Include="Resources\values\bms1100_strings.xml" />
+    <AndroidResource Include="Resources\values\bms1200_strings.xml" />
+    <AndroidResource Include="Resources\values\bms_strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\values\activitycards-dimens.xml" />
+    <AndroidResource Include="Resources\values\template-dimens.xml" />
+    <AndroidResource Include="Resources\values\template-styles.xml" />
+    <AndroidResource Include="Resources\values\activitycards-colors.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_launcher_nta.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_launcher_nta.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_launcher_nta.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_launcher_nta.png" />
-    <AndroidResource Include="Resources\values\bms1050_strings.xml" />
-    <AndroidResource Include="Resources\values\bms1100_strings.xml" />
-    <AndroidResource Include="Resources\values\bms1200_strings.xml" />
-    <AndroidResource Include="Resources\values\bms_strings.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_bms.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_bms_bulb.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_bms_energy.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_bms_env.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_bms_health.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_bms_sec.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_sal.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_sal1050.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_bms.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_bms_bulb.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_bms_energy.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_bms_env.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_bms_health.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_bms_sec.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_sal.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_sal1050.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_bms.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_bms_bulb.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_bms_energy.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_bms_env.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_bms_health.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_bms_sec.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_sal.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_sal1050.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_bms.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_bms_bulb.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_bms_energy.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_bms_env.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_bms_health.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_bms_sec.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_sal.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_sal1050.png" />
+    <AndroidResource Include="Resources\xml\bms_setting.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <XamarinComponentReference Include="FlatUI">
-      <Visible>False</Visible>
-      <Version>1.0</Version>
-    </XamarinComponentReference>
     <XamarinComponentReference Include="scandit">
       <Visible>False</Visible>
       <Version>4.5.1</Version>
@@ -258,6 +298,10 @@
     <XamarinComponentReference Include="xamandroidsupportv4-18">
       <Visible>False</Visible>
       <Version>21.0.3.0</Version>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="xamandroidsupportv7cardview">
+      <Visible>False</Visible>
+      <Version>22.2.0.0</Version>
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>

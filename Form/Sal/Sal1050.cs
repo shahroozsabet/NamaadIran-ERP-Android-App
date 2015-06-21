@@ -1,6 +1,7 @@
 /*
  * Author: Shahrooz Sabet
  * Date: 20140628
+ * Updated:20150630
  * */
 #region using
 using System;
@@ -30,7 +31,7 @@ namespace NamaadMobile
     /// <summary>
     /// TODO: Can use Time picker
     /// </summary>
-    [Activity(Label = "@string/PishFactorForooshGah")]
+    [Activity(Label = "@string/Sal1050")]
     public class Sal1050 : NamaadFormBase
     {
         #region Define
@@ -54,7 +55,7 @@ namespace NamaadMobile
         //private ListView listViewQuantity;
         private IList<IParcelable> listItem = new List<IParcelable>();
 
-        private LookUp_GoodSalePriceAdapter adapter;
+        private LookUpGoodSalePriceAdapter adapter;
 
         private int serialDprt;
         private int seq = 0;
@@ -81,7 +82,7 @@ namespace NamaadMobile
             {
                 using (dbHelper = new NmdMobileDBAdapter(this))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).ActionArgument);
                     using (SqliteDataReader reader = dbHelper.ExecuteReader("Select CrmDprt, PosCustNo, PosPriceType, CurrentDate From WebSalCommon"))
                         while (reader.Read())
                         {
@@ -99,7 +100,7 @@ namespace NamaadMobile
             catch (Exception e)
             {
                 if (e.Message.Contains("SQLite error\r\nno such table:"))
-                    ExceptionHandler.toastMsg(this, GetString(Resource.String.error_reRefresh_pishFactor));
+                    ExceptionHandler.toastMsg(this, GetString(Resource.String.error_reRefresh_Sal1050));
                 else
                     ExceptionHandler.toastMsg(this, e.Message);
                 btnCreate.Enabled = false;
@@ -116,7 +117,7 @@ namespace NamaadMobile
             //{
             //	listItem = listItemCon;
             //}
-            adapter = new LookUp_GoodSalePriceAdapter(this, listItem);// Using cursor is not feasible since we use Mono SQlite library.
+            adapter = new LookUpGoodSalePriceAdapter(this, listItem);// Using cursor is not feasible since we use Mono SQlite library.
             listView.Adapter = adapter;
             listView.TextFilterEnabled = true;
             // Tell the list view to show one checked/activated item at a time.
@@ -200,7 +201,7 @@ namespace NamaadMobile
                     {
                         using (dbHelper = new NmdMobileDBAdapter(this))
                         {
-                            dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
+                            dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).ActionArgument);
                             string barcode = data.GetStringExtra("barcode");
                             long rowID = (long)dbHelper.ExecuteScalar("Select rowid From " + _table + " Where ItemCode Like '%" + barcode + "%'");
                             tblFieldArr = dbHelper.getRecord(_table, rowID);
@@ -227,7 +228,7 @@ namespace NamaadMobile
         {
             base.OnRestoreInstanceState(savedState);
             listItem = (IList<IParcelable>)savedState.GetParcelableArrayList("listItem"); ;
-            adapter = new LookUp_GoodSalePriceAdapter(this, listItem);// Using cursor is not feasible since we use Mono SQlite library.
+            adapter = new LookUpGoodSalePriceAdapter(this, listItem);// Using cursor is not feasible since we use Mono SQlite library.
             listView.Adapter = adapter;
             mTVLookUpCustomPriceTotal.Text = savedState.GetString("mTVLookUpCustomPriceTotal");
             tvSerial.Text = savedState.GetString("formNo");
@@ -307,7 +308,7 @@ namespace NamaadMobile
             {
                 using (dbHelper = new NmdMobileDBAdapter(this))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).ActionArgument);
                     using (DataTable dt = dbHelper.ExecuteSQL(WebGoodSalPriceDTSB(res).ToString()))
                     {
                         dbHelper.CopyToDB(dt, "WebSalPerformaDtl", null, null);
@@ -337,7 +338,7 @@ namespace NamaadMobile
                 listItem.RemoveAt(info.Position);
                 using (dbHelper = new NmdMobileDBAdapter(this))
                 {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).DbNameClient);
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)ApplicationContext).ActionArgument);
                     dbHelper.ExecuteNonQuery("Delete From WebSalPerformaDtl Where FormNo=" + tvSerial.Text + " And Seq =" + (info.Position + 1) + " And SerialDprt=" + serialDprt + " And FormDate=" + tvCurrentDate.Text);
                 }
                 //adapter.RemoveItem(element);
@@ -353,7 +354,7 @@ namespace NamaadMobile
         private void QuantityDialogBuilder(WebGoodSalPrice webGoodSalePrice)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            View line_editor = LayoutInflater.Inflate(Resource.Layout.line_editor, null);
+            View line_editor = LayoutInflater.Inflate(Resource.Layout.sal1050_line_editor, null);
             builder.SetView(line_editor);
             AlertDialog ad = builder.Create();
             ad.SetTitle(webGoodSalePrice.FarsiDesc);
@@ -415,8 +416,6 @@ namespace NamaadMobile
             ToDB(webGoodSalePrice);
         }
         #endregion
-        #region StringBuilder Implementation
-
         private StringBuilder WebGoodSalPriceDTSB(WebGoodSalPrice res)
         {
             int formDate = int.Parse(tvCurrentDate.Text);
@@ -468,7 +467,6 @@ namespace NamaadMobile
 
             return sb;
         }
-        #endregion
         private partial class OnGlobalLayoutListener : Object, ViewTreeObserver.IOnGlobalLayoutListener
         {
             private Action on_global_layout;

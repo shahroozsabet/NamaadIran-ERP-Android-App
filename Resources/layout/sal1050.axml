@@ -193,7 +193,7 @@
             android:padding="@dimen/small_border"
             android:maxLines="2" />
         <TextView
-            android:text="@string/tVPriceTotalLbl_FactorForooshGah"
+            android:text="@string/tVPriceTotalLbl_Sal1050"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/tVPriceTotalLbl"
