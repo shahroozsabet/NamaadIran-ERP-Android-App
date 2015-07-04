@@ -137,6 +137,9 @@
     <Compile Include="WebService\WSManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\NamaadMobile" />
+    <AndroidAsset Include="Assets\NMBMS" />
+    <AndroidAsset Include="Assets\NMSal" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <AndroidAsset Include="Assets\AboutAssets.txt" />
@@ -289,6 +292,7 @@
     <AndroidResource Include="Resources\xml\bms_setting.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_btn_demo.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="scandit">

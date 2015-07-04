@@ -50,7 +50,18 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/large_border">
+                android:paddingTop="@dimen/XXlarge_border">
+                <Button
+                    android:id="@+id/btnDemo"
+                    android:layout_width="@android:dimen/thumbnail_width"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="@dimen/large_border"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_btn_demo"
+                    android:paddingLeft="@dimen/Xlarge_border"
+                    android:paddingRight="@dimen/Xlarge_border"
+                    android:text="@string/btnDemo" />
                 <Button
                     android:id="@+id/btnSignIn"
                     android:layout_width="@android:dimen/thumbnail_width"

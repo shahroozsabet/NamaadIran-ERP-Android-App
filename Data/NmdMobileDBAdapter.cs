@@ -1,6 +1,7 @@
 ﻿/*
  * Author: Shahrooz Sabet
  * Date: 20140628
+ * Updated:20150801
  * */
 #region using
 using Android.Content;
@@ -10,6 +11,7 @@ using Mono.Data.Sqlite;
 using NamaadMobile.entity;
 using NamaadMobile.Entity;
 using NamaadMobile.Function;
+using NamaadMobile.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -42,7 +44,7 @@ namespace NamaadMobile.Data
             mCtx = ctx;
             DirName = mCtx.GetString(Resource.String.DirName);
             DBNamaad = mCtx.GetString(Resource.String.DBNamaad);
-            DbPath = DbPathPrep();
+            DbPath = DbPathPrep(Prefs.GetIsDBInSDCard(ctx));
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="NmdMobileDBAdapter"/> class.
@@ -57,20 +59,24 @@ namespace NamaadMobile.Data
         }
         #endregion
         #region Function
-        public string DbPathPrep()
+        public string DbPathPrep(bool isDBInSDCard)
         {
 #if __ANDROID__
-            // Just use whatever directory SpecialFolder.Personal returns
-            //string dbPath = System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.Path.ToString(), DirName);
-            Java.IO.File pathToExternalStorage = Android.OS.Environment.ExternalStorageDirectory;
-            Java.IO.File qualifiedDir = new Java.IO.File(pathToExternalStorage + "/" + DirName + "/");
-            qualifiedDir.Mkdirs();
-            //if (qualifiedDir.Mkdirs())
-            //	System.Console.WriteLine("Directory created.");
-            //else
-            //	System.Console.WriteLine("Directory was created or \n failed in it creation!");
-            DbPath = qualifiedDir.Path + "/";
-
+            if (isDBInSDCard)
+            {
+                // Just use whatever directory SpecialFolder.Personal returns
+                //string dbPath = System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.Path.ToString(), DirName);
+                Java.IO.File pathToExternalStorage = Android.OS.Environment.ExternalStorageDirectory;
+                Java.IO.File qualifiedDir = new Java.IO.File(pathToExternalStorage + "/" + DirName + "/");
+                qualifiedDir.Mkdirs();
+                //if (qualifiedDir.Mkdirs())
+                //	System.Console.WriteLine("Directory created.");
+                //else
+                //	System.Console.WriteLine("Directory was created or \n failed in it creation!");
+                DbPath = qualifiedDir.Path + "/";
+            }
+            else
+                DbPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/";
 #else
 
             // we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms
@@ -88,15 +94,17 @@ namespace NamaadMobile.Data
         {
             //var output = "";
             //build connection string
-            Mono.Data.Sqlite.SqliteConnectionStringBuilder connString = new SqliteConnectionStringBuilder();
-            connString.DataSource = DbPath + dBName;
-            connString.JournalMode = SQLiteJournalModeEnum.Persist;
-            if (!System.IO.File.Exists(DbPath + dBName))
+            SqliteConnectionStringBuilder connString = new SqliteConnectionStringBuilder
+            {
+                DataSource = DbPath + dBName,
+                JournalMode = SQLiteJournalModeEnum.Persist
+            };
+            if (!File.Exists(DbPath + dBName))
             {
                 //output += "Creating database";
                 // Need to create the database and seed it with some data.
                 //Mono.Data.Sqlite.SqliteConnection.SetConfig(SQLiteConfig.Serialized);
-                Mono.Data.Sqlite.SqliteConnection.CreateFile(connString.DataSource);
+                SqliteConnection.CreateFile(connString.DataSource);
             }
             Connection = new SqliteConnection(connString.ToString());
             Connection.Open();

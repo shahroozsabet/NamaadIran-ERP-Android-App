@@ -1,6 +1,7 @@
 /*
  * Author: Shahrooz Sabet
  * Date: 20140628
+ * Updated:20150801
  * */
 #region using
 using Android.App;
@@ -51,6 +52,8 @@ namespace NamaadMobile.Util
         private const string OPT_QEDIT_MIN_LINES_DEF = "2";
         private const string OPT_SPATIALITE = "Spatialite";
         private const bool OPT_SPATIALITE_DEF = true;
+        private const string IsDBInSDCard = "IsDBInSDCard";
+        private const bool IsDBInSDCard_DEF = true;
         #endregion
         protected override void OnCreate(Bundle bundle)
         {
@@ -168,6 +171,18 @@ namespace NamaadMobile.Util
             if (i < 0)
                 i = 0;
             return i;
+        }
+        public static bool GetIsDBInSDCard(Context context)
+        {
+            return PreferenceManager.GetDefaultSharedPreferences(context).GetBoolean(IsDBInSDCard, IsDBInSDCard_DEF);
+        }
+        public static void PutIsNotDBInSDCard(Context context)
+        {
+            PreferenceManager.GetDefaultSharedPreferences(context).Edit().PutBoolean(IsDBInSDCard, false).Commit();
+        }
+        public static void PutIsDBInSDCard(Context context)
+        {
+            PreferenceManager.GetDefaultSharedPreferences(context).Edit().PutBoolean(IsDBInSDCard, true).Commit();
         }
     }
 }
