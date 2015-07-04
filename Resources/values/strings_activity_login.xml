@@ -17,5 +17,6 @@
 	<string name="title_activity_login2">لطفا شناسه کاربری خود را وارد نمایید</string>
 	<string name="Welcome">خوش آمدید</string>
 	<string name="error_reRefresh_login">لطفا مجددا \r\nبه روز رسانی نمایید</string>
+	<string name="btnDemo">دمو</string>
 
 </resources>

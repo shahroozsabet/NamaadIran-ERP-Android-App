@@ -1,6 +1,7 @@
 ﻿/*
  * Author: Shahrooz Sabet
  * Date: 20140628
+ * Updated:201507014
  * */
 #region using
 using Android.Content;
@@ -88,15 +89,17 @@ namespace NamaadMobile.Data
         {
             //var output = "";
             //build connection string
-            Mono.Data.Sqlite.SqliteConnectionStringBuilder connString = new SqliteConnectionStringBuilder();
-            connString.DataSource = DbPath + dBName;
-            connString.JournalMode = SQLiteJournalModeEnum.Persist;
-            if (!System.IO.File.Exists(DbPath + dBName))
+            SqliteConnectionStringBuilder connString = new SqliteConnectionStringBuilder
+            {
+                DataSource = DbPath + dBName,
+                JournalMode = SQLiteJournalModeEnum.Persist
+            };
+            if (!File.Exists(DbPath + dBName))
             {
                 //output += "Creating database";
                 // Need to create the database and seed it with some data.
                 //Mono.Data.Sqlite.SqliteConnection.SetConfig(SQLiteConfig.Serialized);
-                Mono.Data.Sqlite.SqliteConnection.CreateFile(connString.DataSource);
+                SqliteConnection.CreateFile(connString.DataSource);
             }
             Connection = new SqliteConnection(connString.ToString());
             Connection.Open();

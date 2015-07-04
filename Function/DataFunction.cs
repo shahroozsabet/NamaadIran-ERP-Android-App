@@ -53,6 +53,11 @@ namespace NamaadMobile.Function
             }
             return strBuilder.ToString();
         }
+        public static bool ExistDB(string dBName)
+        {
+
+            return false;
+        }
         #endregion
     }
 }

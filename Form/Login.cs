@@ -18,6 +18,7 @@ using Android.Views.InputMethods;
 using Android.Widget;
 using Mono.Data.Sqlite;
 using NamaadMobile.Data;
+using NamaadMobile.Function;
 using NamaadMobile.SharedElement;
 using NamaadMobile.Util;
 using NamaadMobile.WebService;
@@ -52,6 +53,7 @@ namespace NamaadMobile
         private View viewForm;
         //private View mRefbtn;
         private Button btnSignIn;
+        private Button btnDemo;
         // Values for email and password at the time of the login attempt.
         private string strUserName;
         private string strPassword;
@@ -72,15 +74,15 @@ namespace NamaadMobile
 
             SetContentView(Resource.Layout.login);
 
-            etUserName = (EditText)FindViewById(Resource.Id.userName);
-            etPassword = (EditText)FindViewById(Resource.Id.password);
+            etUserName = FindViewById<EditText>(Resource.Id.userName);
+            etPassword = FindViewById<EditText>(Resource.Id.password);
             viewStatus = FindViewById(Resource.Id.status);
             viewForm = FindViewById(Resource.Id.form);
 
-            tvLoginStatusMessage = (TextView)FindViewById(Resource.Id.login_status_message);
-            btnSignIn = (Button)FindViewById(Resource.Id.btnSignIn);
-            //mRefbtn = FindViewById(Resource.Id.Refbtn);
-
+            tvLoginStatusMessage = FindViewById<TextView>(Resource.Id.login_status_message);
+            btnSignIn = FindViewById<Button>(Resource.Id.btnSignIn);
+            //mRefbtn = FindViewById<Button>(Resource.Id.Refbtn);
+            btnDemo = FindViewById<Button>(Resource.Id.btnDemo);
         }
         protected override void OnResume()
         {
@@ -98,6 +100,7 @@ namespace NamaadMobile
             etPassword.EditorAction += etPassword_EditorAction;
             //mRefbtn.Click += Refresh_Click;
             btnSignIn.Click += btnSignIn_Click;
+            btnDemo.Click += btnDemo_Click;
         }
         protected override void OnPause()
         {
@@ -105,6 +108,7 @@ namespace NamaadMobile
             etPassword.EditorAction -= etPassword_EditorAction;
             //mRefbtn.Click -= Refresh_Click;
             btnSignIn.Click -= btnSignIn_Click;
+            btnDemo.Click -= btnDemo_Click;
         }
         #endregion
         #region Function
@@ -321,6 +325,21 @@ namespace NamaadMobile
                 dr["TableDataVersion"] = 1;
                 dbHelper.Insert("WebUsers", dr);
             }
+        }
+        private void btnDemo_Click(object sender, EventArgs e)
+        {
+            if (!DataFunction.ExistDB(GetString(Resource.String.DBNamaad)))
+            {
+
+            }
+            Intent intentMenu = new Intent(this, typeof(NmdMobileMain));
+            intentMenu.PutExtra("OrgID", (short)1);
+            intentMenu.PutExtra("UserCode", 1);
+            intentMenu.PutExtra("UserName", "کاربر دمو");
+            intentMenu.PutExtra("IsAdmin", true);
+
+            StartActivity(intentMenu);
+            Finish();
         }
         /// <summary>
         /// Shows the progress UI and hides the login form.
