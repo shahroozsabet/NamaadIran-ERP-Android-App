@@ -61,6 +61,7 @@ namespace NamaadMobile.Function
             }
             return strBuilder.ToString();
         }
+<<<<<<< HEAD
         internal static bool ExistInternalDB(Context owner, string dBName)
         {
             return File.Exists(owner.GetDatabasePath(dBName).Path);
@@ -79,6 +80,12 @@ namespace NamaadMobile.Function
                 while ((len = br.Read(buffer, 0, buffer.Length)) > 0)
                     bw.Write(buffer, 0, len);
             };
+=======
+        public static bool ExistDB(string dBName)
+        {
+
+            return false;
+>>>>>>> origin/Demo
         }
         #endregion
     }

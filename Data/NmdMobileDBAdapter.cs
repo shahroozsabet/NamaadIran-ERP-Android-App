@@ -1,7 +1,11 @@
 ﻿/*
  * Author: Shahrooz Sabet
  * Date: 20140628
+<<<<<<< HEAD
  * Updated:20150801
+=======
+ * Updated:201507014
+>>>>>>> origin/Demo
  * */
 #region using
 using Android.Content;
