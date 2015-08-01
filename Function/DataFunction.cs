@@ -14,9 +14,10 @@ using NamaadMobile.Data;
 using File = System.IO.File;
 
 #endregion
+
 namespace NamaadMobile.Function
 {
-    class DataFunction
+    internal class DataFunction
     {
         #region Function
         public static string GetTableDef(DataTable dt)
@@ -61,7 +62,6 @@ namespace NamaadMobile.Function
             }
             return strBuilder.ToString();
         }
-<<<<<<< HEAD
         internal static bool ExistInternalDB(Context owner, string dBName)
         {
             return File.Exists(owner.GetDatabasePath(dBName).Path);
@@ -73,19 +73,14 @@ namespace NamaadMobile.Function
             string content;
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), dBName);
             using (BinaryReader br = new BinaryReader(owner.Assets.Open(dBName)))
-            using (var bw = new BinaryWriter(new FileStream(dbPath, FileMode.Create))) //Open the empty db as the output stream
+            using (var bw = new BinaryWriter(new FileStream(dbPath, FileMode.Create)))
+            //Open the empty db as the output stream
             {
                 byte[] buffer = new byte[2048];
                 int len = 0;
                 while ((len = br.Read(buffer, 0, buffer.Length)) > 0)
                     bw.Write(buffer, 0, len);
-            };
-=======
-        public static bool ExistDB(string dBName)
-        {
-
-            return false;
->>>>>>> origin/Demo
+            }
         }
         #endregion
     }

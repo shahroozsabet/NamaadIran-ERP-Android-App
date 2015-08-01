@@ -330,7 +330,6 @@ namespace NamaadMobile
         }
         private void btnDemo_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
             new Thread((ThreadStart)(() =>
             {
                 try
@@ -381,20 +380,6 @@ namespace NamaadMobile
             {
                 IsBackground = true
             }.Start();
-=======
-            if (!DataFunction.ExistDB(GetString(Resource.String.DBNamaad)))
-            {
-
-            }
-            Intent intentMenu = new Intent(this, typeof(NmdMobileMain));
-            intentMenu.PutExtra("OrgID", (short)1);
-            intentMenu.PutExtra("UserCode", 1);
-            intentMenu.PutExtra("UserName", "کاربر دمو");
-            intentMenu.PutExtra("IsAdmin", true);
-
-            StartActivity(intentMenu);
-            Finish();
->>>>>>> origin/Demo
         }
         /// <summary>
         /// Shows the progress UI and hides the login form.
