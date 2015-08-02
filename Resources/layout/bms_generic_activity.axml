@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bms1050MainLayout"
+    android:id="@+id/bmsMainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,6 +12,6 @@
         android:minHeight="@dimen/XXlarge_border"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bms1050ListView"
+        android:id="@+id/bmsListView"
         android:layout_weight="1" />
 </LinearLayout>

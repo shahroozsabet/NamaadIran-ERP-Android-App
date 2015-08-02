@@ -1,7 +1,7 @@
 /*
  * Author: Shahrooz Sabet
  * Date: 20140628
- * Updated:20150630
+ * Updated:20150901
  * */
 #region using
 using System;
@@ -55,7 +55,7 @@ namespace NamaadMobile
         //private ListView listViewQuantity;
         private IList<IParcelable> listItem = new List<IParcelable>();
 
-        private LookUpGoodSalePriceAdapter adapter;
+        private Sal1050Adapter adapter;
 
         private int serialDprt;
         private int seq = 0;
@@ -66,7 +66,7 @@ namespace NamaadMobile
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            ((SharedEnviroment)ApplicationContext).Logging = Prefs.getLogging(this);
+            ((SharedEnviroment)ApplicationContext).Logging = Pref.getLogging(this);
             ((SharedEnviroment)ApplicationContext).TAG = "NamaadMobile.Sal1050";
             SetActionBarTitle(((SharedEnviroment)ApplicationContext).ActionName);
             SetContentView(Resource.Layout.sal1050);
@@ -117,7 +117,7 @@ namespace NamaadMobile
             //{
             //	listItem = listItemCon;
             //}
-            adapter = new LookUpGoodSalePriceAdapter(this, listItem);// Using cursor is not feasible since we use Mono SQlite library.
+            adapter = new Sal1050Adapter(this, listItem);// Using cursor is not feasible since we use Mono SQlite library.
             listView.Adapter = adapter;
             listView.TextFilterEnabled = true;
             // Tell the list view to show one checked/activated item at a time.
@@ -153,7 +153,7 @@ namespace NamaadMobile
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo info)
         {
             base.OnCreateContextMenu(menu, v, info);
-            menu.SetHeaderTitle(((WebGoodSalPrice)listItem.ElementAt(((AdapterView.AdapterContextMenuInfo)info).Position)).FarsiDesc);
+            menu.SetHeaderTitle(((Sal1050EntityWebGoodSalPrice)listItem.ElementAt(((AdapterView.AdapterContextMenuInfo)info).Position)).FarsiDesc);
             menu.SetHeaderIcon(Android.Resource.Drawable.IcMenuDelete);
             //menu.Add(0, 0, 0, GetString(Resource.String.Update));
             menu.Add(0, 1, 0, GetString(Resource.String.Delete));
@@ -227,8 +227,8 @@ namespace NamaadMobile
         protected override void OnRestoreInstanceState(Bundle savedState)
         {
             base.OnRestoreInstanceState(savedState);
-            listItem = (IList<IParcelable>)savedState.GetParcelableArrayList("listItem"); ;
-            adapter = new LookUpGoodSalePriceAdapter(this, listItem);// Using cursor is not feasible since we use Mono SQlite library.
+            listItem = savedState.GetParcelableArrayList("listItem").Cast<IParcelable>().ToList(); //as IList<IParcelable>; 
+            adapter = new Sal1050Adapter(this, listItem);// Using cursor is not feasible since we use Mono SQlite library.
             listView.Adapter = adapter;
             mTVLookUpCustomPriceTotal.Text = savedState.GetString("mTVLookUpCustomPriceTotal");
             tvSerial.Text = savedState.GetString("formNo");
@@ -302,7 +302,7 @@ namespace NamaadMobile
             var t = Toast.MakeText(this, "Options Menu '" + item + "' Clicked", ToastLength.Short);
             t.Show();
         }
-        private void ToDB(WebGoodSalPrice res)
+        private void ToDB(Sal1050EntityWebGoodSalPrice res)
         {
             try
             {
@@ -333,7 +333,7 @@ namespace NamaadMobile
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
             try
             {
-                WebGoodSalPrice element = (WebGoodSalPrice)listItem.ElementAt(info.Position);
+                Sal1050EntityWebGoodSalPrice element = (Sal1050EntityWebGoodSalPrice)listItem.ElementAt(info.Position);
                 mTVLookUpCustomPriceTotal.Text = (double.Parse(mTVLookUpCustomPriceTotal.Text) - element.Price * element.Quantity).ToString();
                 listItem.RemoveAt(info.Position);
                 using (dbHelper = new NmdMobileDBAdapter(this))
@@ -351,72 +351,73 @@ namespace NamaadMobile
             }
             adapter.NotifyDataSetChanged();
         }
-        private void QuantityDialogBuilder(WebGoodSalPrice webGoodSalePrice)
+        private void QuantityDialogBuilder(Sal1050EntityWebGoodSalPrice sal1050EntityWebGoodSalePrice)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             View line_editor = LayoutInflater.Inflate(Resource.Layout.sal1050_line_editor, null);
             builder.SetView(line_editor);
             AlertDialog ad = builder.Create();
-            ad.SetTitle(webGoodSalePrice.FarsiDesc);
+            ad.SetTitle(sal1050EntityWebGoodSalePrice.FarsiDesc);
             ad.SetIcon(Android.Resource.Drawable.IcDialogAlert);
             //ad.SetMessage("Alert message...");
             EditText etQuantity = (EditText)line_editor.FindViewById(Resource.Id.eTQuantity);
             TextView mTVUnitQuantityForm = ((TextView)line_editor.FindViewById(Resource.Id.tVUnitQuantityForm));
-            mTVUnitQuantityForm.Text = webGoodSalePrice.Unit;
+            mTVUnitQuantityForm.Text = sal1050EntityWebGoodSalePrice.Unit;
             double quantity = 1;
             ad.SetButton(GetString(Resource.String.OK), (s, e) =>
             {
                 string str = etQuantity.Text.Trim();
                 if (!string.IsNullOrWhiteSpace(str) && double.Parse(str) > 0)
                     quantity = double.Parse(str);
-                webGoodSalePrice.Quantity = quantity;
-                AddItem(webGoodSalePrice);
+                sal1050EntityWebGoodSalePrice.Quantity = quantity;
+                AddItem(sal1050EntityWebGoodSalePrice);
             });
             ad.Show();
         }
-        private WebGoodSalPrice WebGoodSalPriceBuilder(IParcelable[] tblFieldArr)
+        private Sal1050EntityWebGoodSalPrice WebGoodSalPriceBuilder(IParcelable[] tblFieldArr)
         {
-            WebGoodSalPrice webGoodSalePrice = new WebGoodSalPrice();
+            Sal1050EntityWebGoodSalPrice sal1050EntityWebGoodSalePrice = new Sal1050EntityWebGoodSalPrice();
             foreach (TableField field in tblFieldArr)
             {
                 switch (field.getName())
                 {
                     case "Cost1":
-                        webGoodSalePrice.Cost1 = double.Parse(field.getValue());
+                        sal1050EntityWebGoodSalePrice.Cost1 = double.Parse(field.getValue());
                         break;
                     case "FarsiDesc":
-                        webGoodSalePrice.FarsiDesc = field.getValue();
+                        sal1050EntityWebGoodSalePrice.FarsiDesc = field.getValue();
                         break;
                     case "ItemCode":
-                        webGoodSalePrice.ItemCode = field.getValue();
+                        sal1050EntityWebGoodSalePrice.ItemCode = field.getValue();
                         break;
                     case "Price":
-                        webGoodSalePrice.Price = double.Parse(field.getValue());
+                        sal1050EntityWebGoodSalePrice.Price = double.Parse(field.getValue());
                         break;
                     case "PriceID":
-                        webGoodSalePrice.PriceID = int.Parse(field.getValue());
+                        sal1050EntityWebGoodSalePrice.PriceID = int.Parse(field.getValue());
                         break;
                     case "PriceType":
-                        webGoodSalePrice.PriceType = int.Parse(field.getValue());
+                        sal1050EntityWebGoodSalePrice.PriceType = int.Parse(field.getValue());
                         break;
                     case "Unit":
-                        webGoodSalePrice.Unit = field.getValue();
+                        sal1050EntityWebGoodSalePrice.Unit = field.getValue();
                         break;
                 }
             }
-            return webGoodSalePrice;
+            return sal1050EntityWebGoodSalePrice;
         }
-        private void AddItem(WebGoodSalPrice webGoodSalePrice)
+        private void AddItem(Sal1050EntityWebGoodSalPrice sal1050EntityWebGoodSalePrice)
         {
-            listItem.Add(webGoodSalePrice);
-            //adapter.AddItem(res);
+            listItem.Add(sal1050EntityWebGoodSalePrice);
+            //adapter.AddItem(sal1050EntityWebGoodSalePrice);
             adapter.NotifyDataSetChanged();
             //mTVLookUpCustomQuantityTotal.Text = (int.Parse(mTVLookUpCustomQuantityTotal.Text) + 1).ToString();
-            mTVLookUpCustomPriceTotal.Text = (double.Parse(mTVLookUpCustomPriceTotal.Text) + webGoodSalePrice.Price * webGoodSalePrice.Quantity).ToString();
-            ToDB(webGoodSalePrice);
+            mTVLookUpCustomPriceTotal.Text = (double.Parse(mTVLookUpCustomPriceTotal.Text) + sal1050EntityWebGoodSalePrice.Price * sal1050EntityWebGoodSalePrice.Quantity).ToString();
+            ToDB(sal1050EntityWebGoodSalePrice);
         }
         #endregion
-        private StringBuilder WebGoodSalPriceDTSB(WebGoodSalPrice res)
+        #region PrivateHelper
+        private StringBuilder WebGoodSalPriceDTSB(Sal1050EntityWebGoodSalPrice res)
         {
             int formDate = int.Parse(tvCurrentDate.Text);
             StringBuilder sb = new StringBuilder();
@@ -479,5 +480,6 @@ namespace NamaadMobile
                 on_global_layout();
             }
         }
+        #endregion
     }
 }

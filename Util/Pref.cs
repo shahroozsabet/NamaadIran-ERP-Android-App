@@ -17,7 +17,7 @@ namespace NamaadMobile.Util
     /// TODO: Additional methods can be reduced.
     /// </summary>
     [Activity(Label = "Prefs", Theme = "@style/SearchForm")]
-    public class Prefs : NamaadPrefBase
+    public class Pref : NamaadPrefBase
     {
         #region Defins
         // Option names and default values

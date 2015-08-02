@@ -1,7 +1,7 @@
 /*
  * Author: Shahrooz Sabet
  * Date: 20140628
- * Updated:20150628
+ * Updated:20150901
  * */
 #region using
 using Android.App;
@@ -23,13 +23,13 @@ namespace NamaadMobile.Adapter
     /// avoiding calls to findViewById() every time getView() is invoked.
     /// TODO: Page Up/Down
     /// </summary>
-    internal class LookUpGoodSalePriceAdapter : BaseAdapter<IParcelable>
+    internal class Sal1050Adapter : BaseAdapter<IParcelable>
     {
         public IList<IParcelable> Orig_items { get; set; }
         public IList<IParcelable> Items { get; set; }
         private readonly LayoutInflater mInflater;
 
-        public LookUpGoodSalePriceAdapter(Activity context, IList<IParcelable> items)
+        public Sal1050Adapter(Activity context, IList<IParcelable> items)
             : base()
         {
             Orig_items = items;
@@ -41,10 +41,8 @@ namespace NamaadMobile.Adapter
         {
             return position;
         }
-        public override IParcelable this[int position]
-        {
-            get { return Items[position]; }
-        }
+        public override IParcelable this[int position] => Items[position];
+
         /// <summary>
         /// Custom Basic Filtering Function, Filters the webgoodsalprice.
         /// </summary>
@@ -56,7 +54,7 @@ namespace NamaadMobile.Adapter
 
             // examine each element to build filtered list
             // remember to always use your original items list
-            foreach (WebGoodSalPrice item in this.Orig_items)
+            foreach (Sal1050EntityWebGoodSalPrice item in this.Orig_items)
             {
                 string name = item.ToString();
                 if (name.Contains(constraint))
@@ -74,16 +72,14 @@ namespace NamaadMobile.Adapter
         {
             return (Java.Lang.Object)Items[position];
         }
-        public override int Count
-        {
-            get { return Items.Count; }
-        }
+        public override int Count => Items?.Count ?? 0;
+
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             // A ViewHolder keeps references to children views to avoid unnecessary calls
             // to findViewById() on each row.
             ViewHolder holder;
-            WebGoodSalPrice item = (WebGoodSalPrice)Items[position];
+            Sal1050EntityWebGoodSalPrice item = (Sal1050EntityWebGoodSalPrice)Items[position];
 
             if (convertView == null)
             {
@@ -147,7 +143,7 @@ namespace NamaadMobile.Adapter
         /// Note:is not tested yet.
         /// </summary>
         /// <param name="res">The resource.</param>
-        public void AddItem(WebGoodSalPrice res)
+        public void AddItem(Sal1050EntityWebGoodSalPrice res)
         {
             Orig_items.Add(res);
             Items.Add(res);
@@ -158,7 +154,7 @@ namespace NamaadMobile.Adapter
         /// Note:is not tested yet.
         /// </summary>
         /// <param name="res">The resource.</param>
-        public void RemoveItem(WebGoodSalPrice res)
+        public void RemoveItem(Sal1050EntityWebGoodSalPrice res)
         {
             Orig_items.Remove(res);
             Items.Remove(res);

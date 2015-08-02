@@ -4,6 +4,7 @@
     <string name="Reset">Reset</string>
     <string name="Adjust">تنظیم</string>
     <string name="WSPref">تنظیمات ارتباطات</string>
-    <string name="ControlerIpAddress">Controller IP Address</string>
-  <string name="ControlerIpAddressText">آدرس کنترلر بدون پروتکل مثال: 1.1.1.1.2</string>
+    <string name="ControllerIpAddress">Controller IP Address</string>
+    <string name="ControllerIpAddressText">آدرس کنترلر بدون پروتکل مثال: 1.1.1.2</string>
+    <string name="ValueChanged">مقادیر کنترلرتغییر نموده است.</string>
 </resources>

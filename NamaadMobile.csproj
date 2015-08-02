@@ -95,19 +95,15 @@
     <Compile Include="Entity\Record.cs" />
     <Compile Include="Entity\TableField.cs" />
     <Compile Include="Entity\Types.cs" />
-    <Compile Include="Entity\WebGoodSalPrice.cs" />
+    <Compile Include="Entity\Sal1050EntityWebGoodSalPrice.cs" />
     <Compile Include="aSQLiteManager\FilterBuilder.cs" />
-    <Compile Include="Form\BMS\BMS1050.cs" />
-    <Compile Include="Form\BMS\BMS1150.cs" />
-    <Compile Include="Form\BMS\BMS1100.cs" />
-    <Compile Include="Form\BMS\BMS1200.cs" />
-    <Compile Include="Form\BMS\BMS1250.cs" />
+    <Compile Include="Form\BMS\BMSGenericActivity.cs" />
     <Compile Include="Form\BMS\BMSPublic.cs" />
-    <Compile Include="Form\BMS\BMSPrefs.cs" />
+    <Compile Include="Form\BMS\BMSPref.cs" />
     <Compile Include="Function\DataFunction.cs" />
     <Compile Include="Function\NConvert.cs" />
     <Compile Include="ListAdapter\BMSViewHolderAdapter.cs" />
-    <Compile Include="ListAdapter\LookUpGoodSalePriceAdapter.cs">
+    <Compile Include="ListAdapter\Sal1050Adapter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SharedElement\NamaadPrefBase.cs" />
@@ -127,7 +123,7 @@
     <Compile Include="Data\NmdMobileDBAdapter.cs" />
     <Compile Include="NotePad\NamaadDbAdapter_note.cs" />
     <Compile Include="Form\NmdMobileMain.cs" />
-    <Compile Include="Util\Prefs.cs" />
+    <Compile Include="Util\Pref.cs" />
     <Compile Include="Util\ScanActivity.cs" />
     <Compile Include="WebService\NmdWSAdapter.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -162,16 +158,10 @@
     <AndroidResource Include="Resources\layout\progressbar.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\bms1050.axml" />
-    <AndroidResource Include="Resources\layout\bms1100.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\layout\bms_generic_activity.axml" />
     <AndroidResource Include="Resources\layout\bms_editable_device.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\bms1150.axml" />
-    <AndroidResource Include="Resources\layout\bms1200.axml" />
-    <AndroidResource Include="Resources\layout\bms1250.axml" />
     <AndroidResource Include="Resources\layout\list_item_switch.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -289,6 +279,7 @@
     <AndroidResource Include="Resources\xml\bms_setting.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_btn_reset.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="scandit">

@@ -52,7 +52,7 @@ namespace NamaadMobile.WebService
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.ws_man);
-            _logging = Prefs.getLogging(this);
+            _logging = Pref.getLogging(this);
             SetActionBarTitle(GetString(Resource.String.RefreshData));
             btnCreate = (Button)FindViewById(Resource.Id.btnCreate);
             listView = FindViewById<ListView>(Resource.Id.listView);

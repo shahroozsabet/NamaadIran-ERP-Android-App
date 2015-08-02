@@ -41,7 +41,7 @@ namespace NamaadMobile.aSQLiteManager
         {
             base.OnCreate(bundle);
             LoginActionBar();
-            _logging = Prefs.getLogging(this);
+            _logging = Pref.getLogging(this);
             //if (TableViewer.dBHelper == null)
             //{
             //	//prevent not null

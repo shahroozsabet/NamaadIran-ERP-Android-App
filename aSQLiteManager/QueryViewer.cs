@@ -71,13 +71,13 @@ namespace NamaadMobile.aSQLiteManager
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            _logging = Prefs.getLogging(this);
+            _logging = Pref.getLogging(this);
             _cont = this;
-            logging = Prefs.getLogging(_cont);
+            logging = Pref.getLogging(_cont);
             SetContentView(Resource.Layout.query_viewer);
             LoginActionBar();
-            _save = Prefs.getSaveSQL(_cont);
-            limit = Prefs.getPageSize(_cont);
+            _save = Pref.getSaveSQL(_cont);
+            limit = Pref.getPageSize(_cont);
 
             tvDB = (TextView)FindViewById(Resource.Id.TableToView);
             bUp = (Button)this.FindViewById(Resource.Id.PgUp);
@@ -96,7 +96,7 @@ namespace NamaadMobile.aSQLiteManager
             bFilter.SetOnClickListener(this);
 
             Bundle extras = Intent.Extras;
-            _fontSize = Prefs.getFontSize(this);
+            _fontSize = Pref.getFontSize(this);
             _fieldMode = false;
 
             if (extras != null)
@@ -465,7 +465,7 @@ namespace NamaadMobile.aSQLiteManager
             string[][] data = res.Data.ToArray();
             if (data == null)
                 return;
-            _maxWidth = Prefs.getMaxWidth(_cont);
+            _maxWidth = Pref.getMaxWidth(_cont);
             int rowSize = data.Length;
             int colSize = (data.Length > 0) ? data[0].Length : 0;
             for (int i = 0; i < rowSize; i++)
