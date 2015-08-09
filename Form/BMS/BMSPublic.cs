@@ -1,7 +1,7 @@
 /*
  * Author: Shahrooz Sabet
  * Date: 20150503
- * Updated:20150701
+ * Updated:20150809
  * */
 #region using
 using System;
@@ -64,7 +64,7 @@ namespace NamaadMobile
                                 Id = (int)reader["ID"],
                                 IsSwitch = true
                             };
-                            swDevice.Enabled = NConvert.Int2Bool(GetAccessId(owner)) || HasAccess(owner, swDevice.Id);
+                            swDevice.Enabled = (bool)reader["IOType"] && (NConvert.Int2Bool(GetAccessId(owner)) || HasAccess(owner, swDevice.Id));
                             swDevice.Checked = (!(reader["Value"] is DBNull) && (int)reader["Value"] != 0);
                             if (swDevice.Enabled) swDevice.CheckedChange += swDevice_Click;
                             itemList.Add(swDevice);
@@ -386,32 +386,37 @@ namespace NamaadMobile
             int byteNumber = ((portNumber - 1) / 4) + 5;
             int pairNumber = ((portNumber - 1) % 4) + 1;
             byte[] fData = new byte[21];
-            fData[0] = BitConverter.GetBytes(49).First();
-            fData[1] = BitConverter.GetBytes(54).First();
-            fData[2] = BitConverter.GetBytes(49).First();
-            fData[3] = BitConverter.GetBytes(49).First();
-            fData[4] = BitConverter.GetBytes(55).First();
+            fData[0] = BitConverter.GetBytes(1).First();
+            fData[1] = BitConverter.GetBytes(6).First();
+            fData[2] = BitConverter.GetBytes(7).First();
+            fData[3] = BitConverter.GetBytes(1).First();
+            fData[4] = BitConverter.GetBytes(1).First();
             for (int i = 5; i < 21; i++)
-                fData[i] = BitConverter.GetBytes(21 + 48).First();
+                fData[i] = BitConverter.GetBytes(21).First();
             if (status)
+            {
                 switch (pairNumber)
                 {
-                    case 1: fData[byteNumber] = BitConverter.GetBytes(22 + 48).First(); break;
-                    case 2: fData[byteNumber] = BitConverter.GetBytes(25 + 48).First(); break;
-                    case 3: fData[byteNumber] = BitConverter.GetBytes(37 + 48).First(); break;
-                    case 4: fData[byteNumber] = BitConverter.GetBytes(21 + 48).First(); break;
+                    case 1: fData[byteNumber] = BitConverter.GetBytes(86).First(); break;
+                    case 2: fData[byteNumber] = BitConverter.GetBytes(89).First(); break;
+                    case 3: fData[byteNumber] = BitConverter.GetBytes(101).First(); break;
+                    case 4: fData[byteNumber] = BitConverter.GetBytes(149).First(); break;
                 }
+            }
             else
+            {
                 switch (pairNumber)
                 {
-                    case 1: fData[byteNumber] = BitConverter.GetBytes(20 + 48).First(); break;
-                    case 2: fData[byteNumber] = BitConverter.GetBytes(17 + 48).First(); break;
-                    case 3: fData[byteNumber] = BitConverter.GetBytes(5 + 48).First(); break;
-                    case 4: fData[byteNumber] = BitConverter.GetBytes(21 + 48).First(); break;
+                    case 1: fData[byteNumber] = BitConverter.GetBytes(84).First(); break;
+                    case 2: fData[byteNumber] = BitConverter.GetBytes(81).First(); break;
+                    case 3: fData[byteNumber] = BitConverter.GetBytes(69).First(); break;
+                    case 4: fData[byteNumber] = BitConverter.GetBytes(21).First(); break;
                 }
+            }
             var encoding = Encoding.GetEncoding("iso-8859-1");
             string allOuts = encoding.GetString(fData);
             string s = await SendReq(owner, allOuts, cts);
+            string inputs = s.Substring(s.IndexOf("T3 sp") + 23, 4);
             //Toast.MakeText(owner, s, ToastLength.Long);
             return true;
         }
@@ -424,7 +429,7 @@ namespace NamaadMobile
         private static async Task<string> SendReq(Context owner, string req, CancellationTokenSource cts)
         {
             HttpClient httpClient = new HttpClient();
-            string controlerIpAddress = BMSPrefs.GetControlerIpAddress(owner);
+            string controlerIpAddress = BMSPrefs.GetControllerIp(owner);
             UriBuilder builder = new UriBuilder
             {
                 Scheme = "http",

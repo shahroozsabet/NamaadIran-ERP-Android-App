@@ -8,7 +8,6 @@
 			android:title="@string/ControlerIpAddress"
 			android:summary="@string/ControlerIpAddressText"
 			android:inputType="textUri"
-			android:defaultValue="1.1.1.2"
 		/>
 	</PreferenceCategory>
 </PreferenceScreen>
