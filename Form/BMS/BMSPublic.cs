@@ -1,7 +1,7 @@
 /*
  * Author: Shahrooz Sabet
  * Date: 20150503
- * Updated:20150809
+ * Updated:20150907
  * */
 #region using
 using System;
@@ -14,7 +14,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Android.Content;
 using Android.Content.Res;
-using Android.Views;
 using Android.Widget;
 using Mono.Data.Sqlite;
 using NamaadMobile.Data;
@@ -23,7 +22,6 @@ using NamaadMobile.SharedElement;
 using NamaadMobile.Util;
 using System.Collections.Generic;
 using Android.App;
-using Android.Graphics.Drawables;
 using NamaadMobile.Adapter;
 #endregion
 namespace NamaadMobile
@@ -127,36 +125,6 @@ namespace NamaadMobile
                 ExceptionHandler.logDActivity(e.ToString(), ((SharedEnviroment)owner.ApplicationContext).Logging, ((SharedEnviroment)owner.ApplicationContext).TAG);
             }
         }
-        /// <summary>
-        /// Adds the reset to layout.
-        /// </summary>
-        /// <param name="owner">The owner.</param>
-        /// <param name="mainLayout">The main layout.</param>
-        public void AddResetToLayout(Context owner, LinearLayout mainLayout)
-        {
-            Button btnReset = new Button(owner)
-            {
-                Id = -2,
-                Text = owner.GetString(Resource.String.Reset)
-            };
-            btnReset.SetCompoundDrawablesRelativeWithIntrinsicBounds(owner.Resources.GetDrawable(Resource.Drawable.ic_btn_reset), null, null, null);
-            btnReset.Click += btnReset_Click;
-            btnReset.LayoutParameters = new LinearLayout.LayoutParams((int)owner.Resources.GetDimension(Android.Resource.Dimension.ThumbnailWidth), ViewGroup.LayoutParams.WrapContent);
-            mainLayout.AddView(btnReset);
-        }
-        public void AddRefreshToLayout(Context owner, LinearLayout mainLayout)
-        {
-            Button btnRefresh = new Button(owner)
-            {
-                Id = -1,
-                Text = owner.GetString(Resource.String.action_Refresh_Data)
-            };
-            btnRefresh.SetCompoundDrawablesRelativeWithIntrinsicBounds(owner.Resources.GetDrawable(Resource.Drawable.ic_button_refresh), null, null, null);
-            btnRefresh.Click += btnRefresh_Click;
-            btnRefresh.LayoutParameters = new LinearLayout.LayoutParams((int)owner.Resources.GetDimension(Android.Resource.Dimension.ThumbnailWidth), ViewGroup.LayoutParams.WrapContent);
-            mainLayout.AddView(btnRefresh);
-        }
-
 
         /// <summary>
         /// Gets the device dr.
@@ -339,7 +307,7 @@ namespace NamaadMobile
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btnReset_Click(object sender, EventArgs e)
+        public void btnReset_Click(object sender, EventArgs e)
         {
             try
             {
@@ -427,7 +395,7 @@ namespace NamaadMobile
         {
             EditText etDyn = (EditText)((NamaadFormBase)((Button)sender).Context).FindViewById(Resource.Id.etLabledNumberButton);
         }
-        private async void btnRefresh_Click(object sender, EventArgs e)
+        public async void btnRefresh_Click(object sender, EventArgs e)
         {
             try
             {

@@ -1,7 +1,7 @@
 /*
  * Author: Shahrooz Sabet
  * Date: 20150429
- * Updated:20150905
+ * Updated:20150907
  * */
 #region using
 using Android.App;
@@ -21,6 +21,8 @@ namespace NamaadMobile
         // UI references.
         private LinearLayout _bmsMainLayout;
         private ListView _bmsListView;
+        private Button _btnReset;
+        private Button _btnRef;
         #endregion
         #region Event
         protected override void OnCreate(Bundle bundle)
@@ -32,11 +34,13 @@ namespace NamaadMobile
             SetContentView(Resource.Layout.bms_generic_activity);
             _bmsMainLayout = (LinearLayout)FindViewById(Resource.Id.bmsMainLayout);
             _bmsListView = (ListView)_bmsMainLayout.FindViewById(Resource.Id.bmsListView);
+            _btnReset = (Button)FindViewById(Resource.Id.btnReset);
+            _btnRef = (Button)FindViewById(Resource.Id.btnRef);
             BMSPublic bmsPublic = new BMSPublic();
             bmsPublic.AddEditableSensorToLayout(this, _bmsListView);
             bmsPublic.AddSwitchDeviceToLayout(this, _bmsListView);
-            bmsPublic.AddRefreshToLayout(this, _bmsMainLayout);
-            bmsPublic.AddResetToLayout(this, _bmsMainLayout);
+            _btnReset.Click += bmsPublic.btnReset_Click;
+            _btnRef.Click += bmsPublic.btnRefresh_Click;
         }
         #endregion
     }

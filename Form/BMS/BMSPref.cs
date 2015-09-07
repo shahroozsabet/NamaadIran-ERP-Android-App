@@ -12,7 +12,6 @@ using NamaadMobile.Data;
 using NamaadMobile.SharedElement;
 using System;
 using NamaadMobile.Util;
-
 #endregion
 namespace NamaadMobile
 {
@@ -20,7 +19,7 @@ namespace NamaadMobile
     /// TODO: A GUI can be created.
     /// TODO: Additional methods can be reduced.
     /// </summary>
-    [Activity(Label = "BMSPrefs")]
+    [Activity(Label = "BMSPref")]
     public class BMSPref : NamaadPrefBase
     {
         #region Defins

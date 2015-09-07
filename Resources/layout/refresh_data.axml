@@ -31,13 +31,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/btnChkAll"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_check" />
             <Button
                 android:text="@string/action_Refresh_Data"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/btnRef"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_button_refresh" />
         </LinearLayout>
     </LinearLayout>
 </merge>

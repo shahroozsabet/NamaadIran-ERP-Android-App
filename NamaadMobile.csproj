@@ -280,6 +280,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_btn_reset.png" />
+    <AndroidResource Include="Resources\drawable\ic_check.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="scandit">
