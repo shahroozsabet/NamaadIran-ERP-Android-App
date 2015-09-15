@@ -17,8 +17,8 @@ namespace NamaadMobile.Util
     /// TODO: A GUI can be created.
     /// TODO: Additional methods can be reduced.
     /// </summary>
-    [Activity(Label = "Prefs", Theme = "@style/SearchForm")]
-    public class Prefs : NamaadPrefBase
+    [Activity(Label = "Pref", Theme = "@style/SearchForm")]
+    public class Pref : NamaadPrefBase
     {
         #region Defins
         // Option names and default values

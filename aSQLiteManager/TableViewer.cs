@@ -94,8 +94,8 @@ namespace NamaadMobile.aSQLiteManager
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            _logging = Prefs.getLogging(this);
-            _fontSize = Prefs.getFontSize(this);
+            _logging = Pref.getLogging(this);
+            _fontSize = Pref.getFontSize(this);
             SetContentView(Resource.Layout.table_viewer);
             LoginActionBar();
             tvDB = (TextView)FindViewById(Resource.Id.TableToView);
@@ -120,8 +120,8 @@ namespace NamaadMobile.aSQLiteManager
             bDwn.Visibility = ViewStates.Gone;
             bFirst.Visibility = ViewStates.Gone;
             bLast.Visibility = ViewStates.Gone;
-            _maxWidth = Prefs.getMaxWidth(this);
-            limit = Prefs.getPageSize(this);
+            _maxWidth = Pref.getMaxWidth(this);
+            limit = Pref.getPageSize(this);
             //offset = 0;
             _fieldMode = false;
 

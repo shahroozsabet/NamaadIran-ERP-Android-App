@@ -1,7 +1,7 @@
 /*
  * Author: Shahrooz Sabet
  * Date: 20150627
- * Updated:20150809
+ * Updated:20150802
  * */
 #region using
 using Android.App;
@@ -19,13 +19,14 @@ namespace NamaadMobile
     /// TODO: A GUI can be created.
     /// TODO: Additional methods can be reduced.
     /// </summary>
-    [Activity(Label = "BMSPrefs")]
-    public class BMSPrefs : NamaadPrefBase
+    [Activity(Label = "BMSPref")]
+    public class BMSPref : NamaadPrefBase
     {
         #region Defins
         // Option names and default values
         private const string ControllerIpAddress = "ControlerIpAddress";
         private static string ControllerIpAddressDef;
+        public static NmdMobileDBAdapter dbHelper;
         #endregion
         protected override void OnCreate(Bundle bundle)
         {
@@ -39,7 +40,7 @@ namespace NamaadMobile
         {
             try
             {
-                using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(owner))
+                using (dbHelper = new NmdMobileDBAdapter(owner))
                 {
                     dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     ControllerIpAddressDef =

@@ -43,7 +43,7 @@ namespace NamaadMobile.WebService
         public NmdWSAdapter(Context ctx)
         {
             mCtx = ctx;
-            _logging = Prefs.getLogging(ctx);
+            _logging = Pref.getLogging(ctx);
             Username = ((TelephonyManager)ctx.GetSystemService(Context.TelephonyService)).DeviceId;
         }
 
@@ -177,8 +177,8 @@ namespace NamaadMobile.WebService
             (se, cert, chain, sslerror) => { return true; };
 
             _client = new ServiceClient(CreateBasicHttp(), EndPoint);
-            ((System.ServiceModel.ClientBase<IService>)_client).ClientCredentials.UserName.UserName = Username;
-            ((System.ServiceModel.ClientBase<IService>)_client).ClientCredentials.UserName.Password = Password;
+            ((ClientBase<IService>)_client).ClientCredentials.UserName.UserName = Username;
+            ((ClientBase<IService>)_client).ClientCredentials.UserName.Password = Password;
         }
         private static BasicHttpBinding CreateBasicHttp()
         {
@@ -208,7 +208,7 @@ namespace NamaadMobile.WebService
                 dbHelper = null;
             }
             mCtx = null;
-            ((System.ServiceModel.ClientBase<IService>)_client).Close();
+            ((ClientBase<IService>)_client).Close();
         }
     }
 }

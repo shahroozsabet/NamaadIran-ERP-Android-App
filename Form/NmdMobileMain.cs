@@ -48,7 +48,7 @@ namespace NamaadMobile
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            _logging = Prefs.getLogging(this);
+            _logging = Pref.getLogging(this);
             SetActionBar();
             SetActionBarTitle(GetString(Resource.String.NmdSys));
             SetContentView(Resource.Layout.home_screen);

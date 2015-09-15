@@ -9,7 +9,7 @@ using Object = Java.Lang.Object;
 #endregion
 namespace NamaadMobile.Entity
 {
-	public class WebGoodSalPrice : Object, IParcelable
+	public class Sal1050EntityWebGoodSalPrice : Object, IParcelable
 	{
 		public int PriceType { get; set; }
 		public string ItemCode { get; set; }
@@ -54,11 +54,11 @@ namespace NamaadMobile.Entity
 		}
 		#endregion
 
-		public WebGoodSalPrice()
+		public Sal1050EntityWebGoodSalPrice()
 		{
 		}
 
-		private WebGoodSalPrice(Parcel source)
+		private Sal1050EntityWebGoodSalPrice(Parcel source)
 		{
 			readFromParcel(source);
 		}
@@ -84,7 +84,7 @@ namespace NamaadMobile.Entity
 		{
 			public Object CreateFromParcel(Parcel source)
 			{
-				return (new WebGoodSalPrice(source));
+				return (new Sal1050EntityWebGoodSalPrice(source));
 			}
 
 			public Object[] NewArray(int size)

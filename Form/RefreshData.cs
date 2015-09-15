@@ -41,7 +41,7 @@ namespace NamaadMobile
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            ((SharedEnviroment)ApplicationContext).Logging = Prefs.getLogging(this);
+            ((SharedEnviroment)ApplicationContext).Logging = Pref.getLogging(this);
             ((SharedEnviroment)ApplicationContext).TAG = "NamaadMobile.RefreshData";
             SetActionBarTitle(((SharedEnviroment)ApplicationContext).ActionName);
 

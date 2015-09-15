@@ -1,7 +1,7 @@
 /*
  * Author: Shahrooz Sabet
  * Date: 20150503
- * Updated:20150809
+ * Updated:20150907
  * */
 #region using
 using System;
@@ -14,7 +14,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Android.Content;
 using Android.Content.Res;
-using Android.Views;
 using Android.Widget;
 using Mono.Data.Sqlite;
 using NamaadMobile.Data;
@@ -27,11 +26,10 @@ using NamaadMobile.Adapter;
 #endregion
 namespace NamaadMobile
 {
-    class BMSPublic
+    public class BMSPublic
     {
         #region Define
-        public static NmdMobileDBAdapter dbHelper;
-        private const int Tout = 5000;
+        private const int timeOut = 5000;
         private List<BMSViewHolder> itemList = new List<BMSViewHolder>();
         #endregion
         #region Public Function
@@ -44,7 +42,7 @@ namespace NamaadMobile
         {
             try
             {
-                using (dbHelper = new NmdMobileDBAdapter(owner))
+                using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(owner))
                 {
                     dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     object obj = dbHelper.ExecuteScalar("SELECT Count(ID) FROM Device Where (IOType =1 OR (IOType=0 And Editable=0)) And CategoryID=" + ((SharedEnviroment)owner.ApplicationContext).ActionCode);
@@ -58,11 +56,11 @@ namespace NamaadMobile
                     {
                         while (reader.Read())
                         {
-                            BMSViewHolder swDevice = new BMSViewHolder()
+                            BMSViewHolder swDevice = new BMSViewHolder
                             {
                                 Text = reader["Name"].ToString(),
                                 Id = (int)reader["ID"],
-                                IsSwitch = true
+                                IsSwitch = true,
                             };
                             swDevice.Enabled = (bool)reader["IOType"] && (NConvert.Int2Bool(GetAccessId(owner)) || HasAccess(owner, swDevice.Id));
                             swDevice.Checked = (!(reader["Value"] is DBNull) && (int)reader["Value"] != 0);
@@ -87,11 +85,11 @@ namespace NamaadMobile
         /// </summary>
         /// <param name="owner">The owner.</param>
         /// <param name="mainLayout">The main layout.</param>
-        public void AddEditableSensorToLayout(Context owner, ListView bmsListView)
+        public async void AddEditableSensorToLayout(Context owner, ListView bmsListView)
         {
             try
             {
-                using (dbHelper = new NmdMobileDBAdapter(owner))
+                using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(owner))
                 {
                     dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     object obj = dbHelper.ExecuteScalar("SELECT Count(ID) FROM Device Where IOType=0 And Editable=1 And CategoryID=" + ((SharedEnviroment)owner.ApplicationContext).ActionCode);
@@ -105,7 +103,7 @@ namespace NamaadMobile
                     {
                         while (reader.Read())
                         {
-                            BMSViewHolder swDevice = new BMSViewHolder()
+                            BMSViewHolder swDevice = new BMSViewHolder
                             {
                                 Text = reader["Name"].ToString(),
                                 Id = (int)reader["ID"],
@@ -127,22 +125,7 @@ namespace NamaadMobile
                 ExceptionHandler.logDActivity(e.ToString(), ((SharedEnviroment)owner.ApplicationContext).Logging, ((SharedEnviroment)owner.ApplicationContext).TAG);
             }
         }
-        /// <summary>
-        /// Adds the reset to layout.
-        /// </summary>
-        /// <param name="owner">The owner.</param>
-        /// <param name="mainLayout">The main layout.</param>
-        public void AddResetToLayout(Context owner, LinearLayout mainLayout)
-        {
-            Button btnReset = new Button(owner)
-            {
-                Id = -1,
-                Text = owner.GetString(Resource.String.Reset)
-            };
-            btnReset.Click += btnReset_Click;
-            btnReset.LayoutParameters = new LinearLayout.LayoutParams((int)owner.Resources.GetDimension(Android.Resource.Dimension.ThumbnailWidth), ViewGroup.LayoutParams.WrapContent);
-            mainLayout.AddView(btnReset);
-        }
+
         /// <summary>
         /// Gets the device dr.
         /// </summary>
@@ -153,7 +136,7 @@ namespace NamaadMobile
         {
             try
             {
-                using (dbHelper = new NmdMobileDBAdapter(owner))
+                using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(owner))
                 {
                     dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     return dbHelper.ExecuteSQL("SELECT * FROM Device Where ID=" + deviceId).Rows[0];
@@ -179,7 +162,7 @@ namespace NamaadMobile
             int accessIdInt = -1;
             try
             {
-                using (dbHelper = new NmdMobileDBAdapter(owner))
+                using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(owner))
                 {
                     dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     if (userCode == -1) userCode = ((SharedEnviroment)owner.ApplicationContext).UserCode;
@@ -206,7 +189,7 @@ namespace NamaadMobile
             int deviceIdInt = -1;
             try
             {
-                using (dbHelper = new NmdMobileDBAdapter(owner))
+                using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(owner))
                 {
                     dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     object deviceId = dbHelper.ExecuteScalar("SELECT DeviceID FROM Access_Device Where AccessID=" + accessId);
@@ -232,7 +215,7 @@ namespace NamaadMobile
             int accessIdInt = -1;
             try
             {
-                using (dbHelper = new NmdMobileDBAdapter(owner))
+                using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(owner))
                 {
                     dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     object accessId = dbHelper.ExecuteScalar("SELECT AccessID FROM Access_Device Where DeviceID=" + deviceId);
@@ -258,7 +241,7 @@ namespace NamaadMobile
         {
             try
             {
-                using (dbHelper = new NmdMobileDBAdapter(owner))
+                using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(owner))
                 {
                     dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
                     if (userCode == -1) userCode = ((SharedEnviroment)owner.ApplicationContext).UserCode;
@@ -293,6 +276,30 @@ namespace NamaadMobile
                 context.Resources.Configuration.ScreenLayout
                 & ScreenLayout.SizeMask) >= ScreenLayout.SizeLarge;
         }
+        /// <summary>
+        /// Gets the device dr.
+        /// </summary>
+        /// <param name="owner">The owner.</param>
+        /// <param name="port">The port.</param>
+        /// <param name="ioType">if set to <c>true</c> [io type].</param>
+        /// <returns></returns>
+        public static DataRow GetDeviceDr(Context owner, int port, short ioType)
+        {
+            try
+            {
+                using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(owner))
+                {
+                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
+                    return dbHelper.ExecuteSQL("SELECT * FROM Device Where Port=" + port + " And IOType=" + ioType).Rows[0];
+                }
+            }
+            catch (Exception e)
+            {
+                ExceptionHandler.toastMsg(owner, e.Message);
+                ExceptionHandler.logDActivity(e.ToString(), ((SharedEnviroment)owner.ApplicationContext).Logging, ((SharedEnviroment)owner.ApplicationContext).TAG);
+            }
+            return null;
+        }
         #endregion
         #region Private Function
         /// <summary>
@@ -300,11 +307,11 @@ namespace NamaadMobile
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btnReset_Click(object sender, EventArgs e)
+        public void btnReset_Click(object sender, EventArgs e)
         {
             try
             {
-                using (dbHelper = new NmdMobileDBAdapter(((Button)sender).Context))
+                using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(((Button)sender).Context))
                 {
                     dbHelper.OpenOrCreateDatabase(((SharedEnviroment)(((Button)sender).Context).ApplicationContext).ActionArgument);
                     dbHelper.ExecuteNonQuery("Update Device Set Value=null Where CategoryID=" + ((SharedEnviroment)(((Button)sender).Context).ApplicationContext).ActionCode);
@@ -325,29 +332,41 @@ namespace NamaadMobile
         {
             DataRow drDevice = GetDeviceDr(((Switch)sender).Context, (int)((Switch)sender).Tag);
             int port = (int)drDevice["Port"];
+            bool ioType = (bool)drDevice["ioType"];
             int value = 0;
             if (drDevice["Value"] != DBNull.Value) value = (int)drDevice["Value"];
             // ***Instantiate the CancellationTokenSource.
             // ***Declare a System.Threading.CancellationTokenSource.
             CancellationTokenSource cts = new CancellationTokenSource();
             // ***Set up the CancellationTokenSource to cancel after 5 seconds.
-            cts.CancelAfter(Tout);
+            cts.CancelAfter(timeOut);
             try
             {
-                if (value == 0)
+                if (!await UpdateValue(((Switch)sender).Context, port, (short)NConvert.Bool2Int(ioType)))
                 {
-                    bool isValidate = await SendAndValidate(((Switch)sender).Context, port, true, cts);
-                    drDevice["Value"] = 1;
+                    if (value == 0)
+                    {
+                        bool isValidate = await SendAndValidate(((Switch)sender).Context, port, true, cts);
+                        drDevice["Value"] = 1;
+                    }
+                    else
+                    {
+                        bool isValidate = await SendAndValidate(((Switch)sender).Context, port, false, cts);
+                        drDevice["Value"] = 0;
+                    }
+                    using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(((Switch)sender).Context))
+                    {
+                        dbHelper.OpenOrCreateDatabase(
+                            ((SharedEnviroment)((Switch)sender).Context.ApplicationContext).ActionArgument);
+                        dbHelper.Update("Device", drDevice);
+                    }
                 }
                 else
                 {
-                    bool isValidate = await SendAndValidate(((Switch)sender).Context, port, false, cts);
-                    drDevice["Value"] = 0;
-                }
-                using (dbHelper = new NmdMobileDBAdapter(((Switch)sender).Context))
-                {
-                    dbHelper.OpenOrCreateDatabase(((SharedEnviroment)((Switch)sender).Context.ApplicationContext).ActionArgument);
-                    dbHelper.Update("Device", drDevice);
+                    ((Switch)sender).CheckedChange -= swDevice_Click;
+                    ((Switch)sender).Checked = !NConvert.Int2Bool(value);
+                    ((Switch)sender).CheckedChange += swDevice_Click;
+                    ExceptionHandler.toastMsg(((Switch)sender).Context, ((Switch)sender).Context.GetString(Resource.String.ValueChanged));
                 }
             }
             catch (Exception ex)
@@ -367,9 +386,27 @@ namespace NamaadMobile
             }
             cts = null;
         }
+        /// <summary>
+        /// Handles the Click event of the btnEditableDevice control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private static void btnEditableDevice_Click(object sender, EventArgs e)
         {
             EditText etDyn = (EditText)((NamaadFormBase)((Button)sender).Context).FindViewById(Resource.Id.etLabledNumberButton);
+        }
+        public async void btnRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                await UpdateValue(((Button)sender).Context);
+
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.toastMsg((((Button)sender).Context), ex.Message);
+                ExceptionHandler.logDActivity(e.ToString(), ((SharedEnviroment)((Button)sender).Context.ApplicationContext).Logging, ((SharedEnviroment)((Button)sender).Context.ApplicationContext).TAG);
+            }
         }
         #endregion
         #region Controller Communication
@@ -379,7 +416,7 @@ namespace NamaadMobile
         /// <param name="owner">The owner.</param>
         /// <param name="portNumber">The port number.</param>
         /// <param name="status">if set to <c>true</c> [status].</param>
-        /// <param name="cts">The CTS.</param>
+        /// <param name="cts">The CancellationTokenSource CTS.</param>
         /// <returns></returns>
         private static async Task<bool> SendAndValidate(Context owner, int portNumber, bool status, CancellationTokenSource cts)
         {
@@ -423,24 +460,75 @@ namespace NamaadMobile
         /// <summary>
         /// Sends the req.
         /// </summary>
+        /// <param name="owner">The Owner activity</param>
         /// <param name="req">The req.</param>
-        /// <param name="cts">The CTS.</param>
+        /// <param name="cts">The CancellationTokenSource CTS.</param>
         /// <returns></returns>
         private static async Task<string> SendReq(Context owner, string req, CancellationTokenSource cts)
         {
             HttpClient httpClient = new HttpClient();
-            string controlerIpAddress = BMSPrefs.GetControllerIp(owner);
+            string ipAddress = BMSPref.GetControllerIp(owner);
             UriBuilder builder = new UriBuilder
             {
                 Scheme = "http",
-                Host = controlerIpAddress,
+                Host = ipAddress,
             };
-            builder.Query = string.Format("aip={0}&lcd1=&lcd2={1}", controlerIpAddress, req);
+            builder.Query = string.Format("aip={0}&lcd1=&lcd2={1}", ipAddress, req);
             HttpResponseMessage hrTask = await httpClient.GetAsync(builder.Uri, cts.Token);
             hrTask.EnsureSuccessStatusCode();
             // Retrieve the website contents from the HttpResponseMessage.
             string urlContents = await hrTask.Content.ReadAsStringAsync();
             return urlContents;
+        }
+
+        /// <summary>
+        /// Updates the value in BMS DB's Device table from controller response.
+        /// </summary>
+        /// <param name="owner">The owner.</param>
+        /// <param name="port">specific port to check</param>
+        /// <param name="ioType">Type of the io.</param>
+        /// <returns>True if value was updated, false if Controller values were changed, work when port no. and iotype is specified other wize always return false</returns>
+        public async Task<bool> UpdateValue(Context owner, int port = -1, short ioType = -1)
+        {
+            bool valueIsChanged = false;
+            CancellationTokenSource cts = new CancellationTokenSource();
+            cts.CancelAfter(timeOut);
+            string s = await SendReq(owner, "", cts);
+            string[] status = { s.Substring(s.IndexOf("T3 sp") + 23, 4), s.Substring(s.IndexOf("T3 sp") + 23, 4) };
+            char[] inStatus = ToBin(int.Parse(status[0]), 8).ToCharArray();
+            char[] outStatus = ToBin(int.Parse(status[1]), 8).ToCharArray();
+            using (NmdMobileDBAdapter dbHelper = new NmdMobileDBAdapter(owner))
+            {
+                dbHelper.OpenOrCreateDatabase(((SharedEnviroment)owner.ApplicationContext).ActionArgument);
+                dbHelper.BeginTransaction();
+                for (int i = 7, j = 1; i >= 0; i--, j++)
+                {
+                    DataRow dr = GetDeviceDr(owner, j, 0);
+                    if (port == j && ioType == 0 && dr["Value"].ToString() != inStatus[i].ToString())
+                    {
+                        valueIsChanged = true;
+                        dr["Value"] = inStatus[i].ToString();
+                        dbHelper.Update("Device", dr);
+                    }
+                    else if (dr["Value"].ToString() != inStatus[i].ToString())
+                    {
+                        dr["Value"] = inStatus[i].ToString();
+                        dbHelper.Update("Device", dr);
+                    }
+                }
+                dbHelper.EndTransaction();
+            }
+            return valueIsChanged;
+        }
+        /// <summary>
+        /// To the binary.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="len">The length.</param>
+        /// <returns></returns>
+        public static string ToBin(int value, int len)
+        {
+            return (len > 1 ? ToBin(value >> 1, len - 1) : null) + "01"[value & 1];
         }
         #endregion
     }

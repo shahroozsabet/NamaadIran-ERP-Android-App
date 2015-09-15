@@ -69,7 +69,7 @@ namespace NamaadMobile
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            _logging = Prefs.getLogging(this);
+            _logging = Pref.getLogging(this);
 
             LoginActionBar();
 

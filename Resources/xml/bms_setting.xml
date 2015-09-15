@@ -5,8 +5,8 @@
 		>
 		<EditTextPreference
 			android:key="ControlerIpAddress"
-			android:title="@string/ControlerIpAddress"
-			android:summary="@string/ControlerIpAddressText"
+			android:title="@string/ControllerIpAddress"
+			android:summary="@string/ControllerIpAddressText"
 			android:inputType="textUri"
 		/>
 	</PreferenceCategory>
