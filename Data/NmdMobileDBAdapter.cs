@@ -48,7 +48,7 @@ namespace NamaadMobile.Data
             mCtx = ctx;
             DirName = mCtx.GetString(Resource.String.DirName);
             DBNamaad = mCtx.GetString(Resource.String.DBNamaad);
-            DbPath = DbPathPrep(Prefs.GetIsDBInSDCard(ctx));
+            DbPath = DbPathPrep(Pref.GetIsDBInSDCard(ctx));
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="NmdMobileDBAdapter"/> class.

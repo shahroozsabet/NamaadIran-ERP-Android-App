@@ -125,7 +125,7 @@ namespace NamaadMobile
             {
                 try
                 {
-                    Prefs.PutIsDBInSDCard(this);
+                    Pref.PutIsDBInSDCard(this);
                     using (NmdWSAdapter nmdWS = new NmdWSAdapter(this))
                     using (dbHelper = new NmdMobileDBAdapter(this))
                     {
@@ -242,7 +242,7 @@ namespace NamaadMobile
                 strSQL = "Select * From WebUsers";
                 try
                 {
-                    Prefs.PutIsDBInSDCard(this);
+                    Pref.PutIsDBInSDCard(this);
                     using (dbHelper = new NmdMobileDBAdapter(this))
                     {
                         dbHelper.OpenOrCreateDatabase(dbHelper.DBNamaad);//ToDo: We should create a preference UI which will write to XML resource file to read DBNamaad name.
@@ -334,7 +334,7 @@ namespace NamaadMobile
             {
                 try
                 {
-                    Prefs.PutIsNotDBInSDCard(this);
+                    Pref.PutIsNotDBInSDCard(this);
                     if (!DataFunction.ExistInternalDB(this, GetString(Resource.String.DBNamaad)))
                     {
                         DataFunction.CopyDBFromAssetToInternalStorage(this, GetString(Resource.String.DBNamaad));

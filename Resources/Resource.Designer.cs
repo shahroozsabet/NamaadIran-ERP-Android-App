@@ -309,37 +309,40 @@ namespace NamaadMobile
 			public const int ic_bms_sec = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int ic_btn_reset = 2130837512;
+			public const int ic_btn_demo = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int ic_button_ok = 2130837513;
+			public const int ic_btn_reset = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int ic_button_refresh = 2130837514;
+			public const int ic_button_ok = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int ic_cancel = 2130837515;
+			public const int ic_button_refresh = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int ic_check = 2130837516;
+			public const int ic_cancel = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int ic_launcher_nta = 2130837517;
+			public const int ic_check = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int ic_menu_programs2 = 2130837518;
+			public const int ic_launcher_nta = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int ic_menu_star = 2130837519;
+			public const int ic_menu_programs2 = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int ic_sal = 2130837520;
+			public const int ic_menu_star = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int ic_sal1050 = 2130837521;
+			public const int ic_sal = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int ic_test_icon = 2130837522;
+			public const int ic_sal1050 = 2130837522;
+			
+			// aapt resource value: 0x7f020013
+			public const int ic_test_icon = 2130837523;
 			
 			static Drawable()
 			{
@@ -378,23 +381,23 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f0c000d
 			public const int FilterSPQualifier = 2131492877;
 			
-			// aapt resource value: 0x7f0c0046
-			public const int LineEditor = 2131492934;
+			// aapt resource value: 0x7f0c0047
+			public const int LineEditor = 2131492935;
 			
-			// aapt resource value: 0x7f0c0025
-			public const int PageInfoFrame = 2131492901;
-			
-			// aapt resource value: 0x7f0c002c
-			public const int PgDwn = 2131492908;
+			// aapt resource value: 0x7f0c0026
+			public const int PageInfoFrame = 2131492902;
 			
 			// aapt resource value: 0x7f0c002d
-			public const int PgUp = 2131492909;
+			public const int PgDwn = 2131492909;
+			
+			// aapt resource value: 0x7f0c002e
+			public const int PgUp = 2131492910;
+			
+			// aapt resource value: 0x7f0c002a
+			public const int QueryFrame = 2131492906;
 			
 			// aapt resource value: 0x7f0c0029
-			public const int QueryFrame = 2131492905;
-			
-			// aapt resource value: 0x7f0c0028
-			public const int TableToView = 2131492904;
+			public const int TableToView = 2131492905;
 			
 			// aapt resource value: 0x7f0c0014
 			public const int UserNameLable = 2131492884;
@@ -405,26 +408,29 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f0c0005
 			public const int bmsMainLayout = 2131492869;
 			
-			// aapt resource value: 0x7f0c0044
-			public const int btnBarCodeScanner = 2131492932;
-			
-			// aapt resource value: 0x7f0c0035
-			public const int btnChkAll = 2131492917;
-			
 			// aapt resource value: 0x7f0c0045
-			public const int btnCreate = 2131492933;
+			public const int btnBarCodeScanner = 2131492933;
 			
-			// aapt resource value: 0x7f0c002a
-			public const int btnFilter = 2131492906;
+			// aapt resource value: 0x7f0c0036
+			public const int btnChkAll = 2131492918;
 			
-			// aapt resource value: 0x7f0c002e
-			public const int btnFirst = 2131492910;
+			// aapt resource value: 0x7f0c0046
+			public const int btnCreate = 2131492934;
+			
+			// aapt resource value: 0x7f0c001b
+			public const int btnDemo = 2131492891;
+			
+			// aapt resource value: 0x7f0c002b
+			public const int btnFilter = 2131492907;
+			
+			// aapt resource value: 0x7f0c002f
+			public const int btnFirst = 2131492911;
 			
 			// aapt resource value: 0x7f0c0004
 			public const int btnLabledNumberButton = 2131492868;
 			
-			// aapt resource value: 0x7f0c002b
-			public const int btnLast = 2131492907;
+			// aapt resource value: 0x7f0c002c
+			public const int btnLast = 2131492908;
 			
 			// aapt resource value: 0x7f0c0008
 			public const int btnRef = 2131492872;
@@ -432,23 +438,23 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f0c0009
 			public const int btnReset = 2131492873;
 			
-			// aapt resource value: 0x7f0c0043
-			public const int btnSave = 2131492931;
+			// aapt resource value: 0x7f0c0044
+			public const int btnSave = 2131492932;
 			
-			// aapt resource value: 0x7f0c001b
-			public const int btnSignIn = 2131492891;
+			// aapt resource value: 0x7f0c001c
+			public const int btnSignIn = 2131492892;
 			
 			// aapt resource value: 0x7f0c000c
 			public const int confirm = 2131492876;
 			
-			// aapt resource value: 0x7f0c0032
-			public const int datagrid = 2131492914;
+			// aapt resource value: 0x7f0c0033
+			public const int datagrid = 2131492915;
 			
 			// aapt resource value: 0x7f0c000b
 			public const int detail = 2131492875;
 			
-			// aapt resource value: 0x7f0c0048
-			public const int eTQuantity = 2131492936;
+			// aapt resource value: 0x7f0c0049
+			public const int eTQuantity = 2131492937;
 			
 			// aapt resource value: 0x7f0c0001
 			public const int etLabledNumberButton = 2131492865;
@@ -456,17 +462,17 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f0c0018
 			public const int form = 2131492888;
 			
-			// aapt resource value: 0x7f0c004a
-			public const int headinggrid = 2131492938;
+			// aapt resource value: 0x7f0c004b
+			public const int headinggrid = 2131492939;
 			
-			// aapt resource value: 0x7f0c002f
-			public const int horizontalScrollView1 = 2131492911;
+			// aapt resource value: 0x7f0c0030
+			public const int horizontalScrollView1 = 2131492912;
 			
 			// aapt resource value: 0x7f0c0015
 			public const int imgHomeScreen = 2131492885;
 			
-			// aapt resource value: 0x7f0c0040
-			public const int lVFactorForooshGah = 2131492928;
+			// aapt resource value: 0x7f0c0041
+			public const int lVFactorForooshGah = 2131492929;
 			
 			// aapt resource value: 0x7f0c0002
 			public const int lableEtLabledNumberButton = 2131492866;
@@ -474,23 +480,23 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f0c0007
 			public const int linearLayout1 = 2131492871;
 			
-			// aapt resource value: 0x7f0c0030
-			public const int linearLayout2 = 2131492912;
+			// aapt resource value: 0x7f0c0031
+			public const int linearLayout2 = 2131492913;
 			
-			// aapt resource value: 0x7f0c0034
-			public const int listView = 2131492916;
+			// aapt resource value: 0x7f0c0035
+			public const int listView = 2131492917;
 			
-			// aapt resource value: 0x7f0c0024
-			public const int login_status_message = 2131492900;
+			// aapt resource value: 0x7f0c0025
+			public const int login_status_message = 2131492901;
 			
-			// aapt resource value: 0x7f0c004d
-			public const int menu_filter = 2131492941;
-			
-			// aapt resource value: 0x7f0c004b
-			public const int menu_first = 2131492939;
+			// aapt resource value: 0x7f0c004e
+			public const int menu_filter = 2131492942;
 			
 			// aapt resource value: 0x7f0c004c
-			public const int menu_last = 2131492940;
+			public const int menu_first = 2131492940;
+			
+			// aapt resource value: 0x7f0c004d
+			public const int menu_last = 2131492941;
 			
 			// aapt resource value: 0x7f0c000a
 			public const int name = 2131492874;
@@ -498,74 +504,74 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f0c001a
 			public const int password = 2131492890;
 			
-			// aapt resource value: 0x7f0c0033
-			public const int recRowTV = 2131492915;
+			// aapt resource value: 0x7f0c0034
+			public const int recRowTV = 2131492916;
 			
-			// aapt resource value: 0x7f0c0031
-			public const int scrollView1 = 2131492913;
+			// aapt resource value: 0x7f0c0032
+			public const int scrollView1 = 2131492914;
 			
-			// aapt resource value: 0x7f0c0023
-			public const int status = 2131492899;
+			// aapt resource value: 0x7f0c0024
+			public const int status = 2131492900;
 			
 			// aapt resource value: 0x7f0c0017
 			public const int swDyn = 2131492887;
 			
-			// aapt resource value: 0x7f0c001e
-			public const int tVLookUpCustomCost1 = 2131492894;
-			
-			// aapt resource value: 0x7f0c0020
-			public const int tVLookUpCustomFarsiDesc = 2131492896;
+			// aapt resource value: 0x7f0c001f
+			public const int tVLookUpCustomCost1 = 2131492895;
 			
 			// aapt resource value: 0x7f0c0021
-			public const int tVLookUpCustomItemCode = 2131492897;
-			
-			// aapt resource value: 0x7f0c001f
-			public const int tVLookUpCustomPrice = 2131492895;
-			
-			// aapt resource value: 0x7f0c0041
-			public const int tVLookUpCustomPriceTotal = 2131492929;
-			
-			// aapt resource value: 0x7f0c001d
-			public const int tVLookUpCustomQuantity = 2131492893;
+			public const int tVLookUpCustomFarsiDesc = 2131492897;
 			
 			// aapt resource value: 0x7f0c0022
-			public const int tVLookUpCustomRowNo = 2131492898;
+			public const int tVLookUpCustomItemCode = 2131492898;
 			
-			// aapt resource value: 0x7f0c001c
-			public const int tVLookUpCustomUnit = 2131492892;
+			// aapt resource value: 0x7f0c0020
+			public const int tVLookUpCustomPrice = 2131492896;
 			
 			// aapt resource value: 0x7f0c0042
-			public const int tVPriceTotalLbl = 2131492930;
+			public const int tVLookUpCustomPriceTotal = 2131492930;
 			
-			// aapt resource value: 0x7f0c0047
-			public const int tVUnitQuantityForm = 2131492935;
+			// aapt resource value: 0x7f0c001e
+			public const int tVLookUpCustomQuantity = 2131492894;
 			
-			// aapt resource value: 0x7f0c0036
-			public const int tableRow1 = 2131492918;
+			// aapt resource value: 0x7f0c0023
+			public const int tVLookUpCustomRowNo = 2131492899;
 			
-			// aapt resource value: 0x7f0c003b
-			public const int tableRow2 = 2131492923;
+			// aapt resource value: 0x7f0c001d
+			public const int tVLookUpCustomUnit = 2131492893;
 			
-			// aapt resource value: 0x7f0c0049
-			public const int textView1 = 2131492937;
+			// aapt resource value: 0x7f0c0043
+			public const int tVPriceTotalLbl = 2131492931;
 			
-			// aapt resource value: 0x7f0c0038
-			public const int textView3 = 2131492920;
-			
-			// aapt resource value: 0x7f0c003d
-			public const int textView4 = 2131492925;
-			
-			// aapt resource value: 0x7f0c003a
-			public const int textView6 = 2131492922;
-			
-			// aapt resource value: 0x7f0c003f
-			public const int textView8 = 2131492927;
+			// aapt resource value: 0x7f0c0048
+			public const int tVUnitQuantityForm = 2131492936;
 			
 			// aapt resource value: 0x7f0c0037
-			public const int tvCurrentDate = 2131492919;
+			public const int tableRow1 = 2131492919;
 			
-			// aapt resource value: 0x7f0c0027
-			public const int tvFromRec = 2131492903;
+			// aapt resource value: 0x7f0c003c
+			public const int tableRow2 = 2131492924;
+			
+			// aapt resource value: 0x7f0c004a
+			public const int textView1 = 2131492938;
+			
+			// aapt resource value: 0x7f0c0039
+			public const int textView3 = 2131492921;
+			
+			// aapt resource value: 0x7f0c003e
+			public const int textView4 = 2131492926;
+			
+			// aapt resource value: 0x7f0c003b
+			public const int textView6 = 2131492923;
+			
+			// aapt resource value: 0x7f0c0040
+			public const int textView8 = 2131492928;
+			
+			// aapt resource value: 0x7f0c0038
+			public const int tvCurrentDate = 2131492920;
+			
+			// aapt resource value: 0x7f0c0028
+			public const int tvFromRec = 2131492904;
 			
 			// aapt resource value: 0x7f0c0016
 			public const int tvHomeScreen = 2131492886;
@@ -573,17 +579,17 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f0c0003
 			public const int tvLabledNumberButton = 2131492867;
 			
-			// aapt resource value: 0x7f0c0039
-			public const int tvPosCustNo = 2131492921;
+			// aapt resource value: 0x7f0c003a
+			public const int tvPosCustNo = 2131492922;
 			
-			// aapt resource value: 0x7f0c003e
-			public const int tvPosPriceType = 2131492926;
+			// aapt resource value: 0x7f0c003f
+			public const int tvPosPriceType = 2131492927;
 			
-			// aapt resource value: 0x7f0c003c
-			public const int tvSerial = 2131492924;
+			// aapt resource value: 0x7f0c003d
+			public const int tvSerial = 2131492925;
 			
-			// aapt resource value: 0x7f0c0026
-			public const int tvToRec = 2131492902;
+			// aapt resource value: 0x7f0c0027
+			public const int tvToRec = 2131492903;
 			
 			// aapt resource value: 0x7f0c0019
 			public const int userName = 2131492889;
@@ -733,29 +739,29 @@ namespace NamaadMobile
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f090069
-			public const int AddToFilter = 2131296361;
+			// aapt resource value: 0x7f09006a
+			public const int AddToFilter = 2131296362;
 			
 			// aapt resource value: 0x7f090012
 			public const int Adjust = 2131296274;
 			
-			// aapt resource value: 0x7f09004e
-			public const int AggregateException = 2131296334;
+			// aapt resource value: 0x7f09004f
+			public const int AggregateException = 2131296335;
 			
-			// aapt resource value: 0x7f090051
-			public const int BMSHttpRequestException = 2131296337;
+			// aapt resource value: 0x7f090052
+			public const int BMSHttpRequestException = 2131296338;
 			
 			// aapt resource value: 0x7f090024
 			public const int BarCodeScanner = 2131296292;
 			
-			// aapt resource value: 0x7f09006c
-			public const int BasicConfiguration = 2131296364;
+			// aapt resource value: 0x7f09006d
+			public const int BasicConfiguration = 2131296365;
 			
 			// aapt resource value: 0x7f09002b
 			public const int Cancel = 2131296299;
 			
-			// aapt resource value: 0x7f09006b
-			public const int Clear = 2131296363;
+			// aapt resource value: 0x7f09006c
+			public const int Clear = 2131296364;
 			
 			// aapt resource value: 0x7f090014
 			public const int ControllerIpAddress = 2131296276;
@@ -763,8 +769,8 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f090015
 			public const int ControllerIpAddressText = 2131296277;
 			
-			// aapt resource value: 0x7f090065
-			public const int CopiedToClipboard = 2131296357;
+			// aapt resource value: 0x7f090066
+			public const int CopiedToClipboard = 2131296358;
 			
 			// aapt resource value: 0x7f090027
 			public const int Create = 2131296295;
@@ -772,35 +778,35 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f09001c
 			public const int Cust = 2131296284;
 			
-			// aapt resource value: 0x7f090089
-			public const int DBData = 2131296393;
+			// aapt resource value: 0x7f09008a
+			public const int DBData = 2131296394;
 			
-			// aapt resource value: 0x7f090088
-			public const int DBFields = 2131296392;
+			// aapt resource value: 0x7f090089
+			public const int DBFields = 2131296393;
 			
 			// aapt resource value: 0x7f090026
 			public const int DBNamaad = 2131296294;
 			
-			// aapt resource value: 0x7f090061
-			public const int DBTable = 2131296353;
+			// aapt resource value: 0x7f090062
+			public const int DBTable = 2131296354;
 			
-			// aapt resource value: 0x7f09008a
-			public const int DBView = 2131296394;
+			// aapt resource value: 0x7f09008b
+			public const int DBView = 2131296395;
 			
 			// aapt resource value: 0x7f09001d
 			public const int Date = 2131296285;
 			
-			// aapt resource value: 0x7f090060
-			public const int De_selectAll = 2131296352;
+			// aapt resource value: 0x7f090061
+			public const int De_selectAll = 2131296353;
 			
-			// aapt resource value: 0x7f090084
-			public const int DebugPreferences = 2131296388;
+			// aapt resource value: 0x7f090085
+			public const int DebugPreferences = 2131296389;
+			
+			// aapt resource value: 0x7f090077
+			public const int DefaultMode = 2131296375;
 			
 			// aapt resource value: 0x7f090076
-			public const int DefaultMode = 2131296374;
-			
-			// aapt resource value: 0x7f090075
-			public const int DefaultModeText = 2131296373;
+			public const int DefaultModeText = 2131296374;
 			
 			// aapt resource value: 0x7f090029
 			public const int Delete = 2131296297;
@@ -811,65 +817,65 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f09002c
 			public const int Edit = 2131296300;
 			
+			// aapt resource value: 0x7f090065
+			public const int EditDeleteRow = 2131296357;
+			
+			// aapt resource value: 0x7f09006b
+			public const int EnterValues = 2131296363;
+			
 			// aapt resource value: 0x7f090064
-			public const int EditDeleteRow = 2131296356;
-			
-			// aapt resource value: 0x7f09006a
-			public const int EnterValues = 2131296362;
-			
-			// aapt resource value: 0x7f090063
-			public const int Error = 2131296355;
-			
-			// aapt resource value: 0x7f09007e
-			public const int FKLists = 2131296382;
+			public const int Error = 2131296356;
 			
 			// aapt resource value: 0x7f09007f
-			public const int FKListsText = 2131296383;
+			public const int FKLists = 2131296383;
 			
-			// aapt resource value: 0x7f090068
-			public const int Filter = 2131296360;
+			// aapt resource value: 0x7f090080
+			public const int FKListsText = 2131296384;
 			
-			// aapt resource value: 0x7f09005e
-			public const int FilterBuilder = 2131296350;
+			// aapt resource value: 0x7f090069
+			public const int Filter = 2131296361;
 			
-			// aapt resource value: 0x7f090066
-			public const int First = 2131296358;
-			
-			// aapt resource value: 0x7f090070
-			public const int FontSize = 2131296368;
-			
-			// aapt resource value: 0x7f09006f
-			public const int FontSizeText = 2131296367;
-			
-			// aapt resource value: 0x7f090082
-			public const int ForeignKeys = 2131296386;
-			
-			// aapt resource value: 0x7f090083
-			public const int ForeignKeysText = 2131296387;
+			// aapt resource value: 0x7f09005f
+			public const int FilterBuilder = 2131296351;
 			
 			// aapt resource value: 0x7f090067
-			public const int Last = 2131296359;
-			
-			// aapt resource value: 0x7f090086
-			public const int LoggingText = 2131296390;
-			
-			// aapt resource value: 0x7f090085
-			public const int LoggingTitle = 2131296389;
-			
-			// aapt resource value: 0x7f090052
-			public const int LookUp_GoodSalePrice = 2131296338;
-			
-			// aapt resource value: 0x7f090077
-			public const int MainScreenInPortrait = 2131296375;
-			
-			// aapt resource value: 0x7f090078
-			public const int MainScreenInPortraitText = 2131296376;
+			public const int First = 2131296359;
 			
 			// aapt resource value: 0x7f090071
-			public const int MaxWidth = 2131296369;
+			public const int FontSize = 2131296369;
+			
+			// aapt resource value: 0x7f090070
+			public const int FontSizeText = 2131296368;
+			
+			// aapt resource value: 0x7f090083
+			public const int ForeignKeys = 2131296387;
+			
+			// aapt resource value: 0x7f090084
+			public const int ForeignKeysText = 2131296388;
+			
+			// aapt resource value: 0x7f090068
+			public const int Last = 2131296360;
+			
+			// aapt resource value: 0x7f090087
+			public const int LoggingText = 2131296391;
+			
+			// aapt resource value: 0x7f090086
+			public const int LoggingTitle = 2131296390;
+			
+			// aapt resource value: 0x7f090053
+			public const int LookUp_GoodSalePrice = 2131296339;
+			
+			// aapt resource value: 0x7f090078
+			public const int MainScreenInPortrait = 2131296376;
+			
+			// aapt resource value: 0x7f090079
+			public const int MainScreenInPortraitText = 2131296377;
 			
 			// aapt resource value: 0x7f090072
-			public const int MaxWidthText = 2131296370;
+			public const int MaxWidth = 2131296370;
+			
+			// aapt resource value: 0x7f090073
+			public const int MaxWidthText = 2131296371;
 			
 			// aapt resource value: 0x7f09002d
 			public const int New = 2131296301;
@@ -877,20 +883,20 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f090036
 			public const int NmdSys = 2131296310;
 			
-			// aapt resource value: 0x7f090054
-			public const int NoGoods = 2131296340;
+			// aapt resource value: 0x7f090055
+			public const int NoGoods = 2131296341;
 			
-			// aapt resource value: 0x7f09004f
-			public const int NoPermision = 2131296335;
+			// aapt resource value: 0x7f090050
+			public const int NoPermision = 2131296336;
 			
-			// aapt resource value: 0x7f090062
-			public const int OK = 2131296354;
-			
-			// aapt resource value: 0x7f09006d
-			public const int PageSize = 2131296365;
+			// aapt resource value: 0x7f090063
+			public const int OK = 2131296355;
 			
 			// aapt resource value: 0x7f09006e
-			public const int PageSizeText = 2131296366;
+			public const int PageSize = 2131296366;
+			
+			// aapt resource value: 0x7f09006f
+			public const int PageSizeText = 2131296367;
 			
 			// aapt resource value: 0x7f09002f
 			public const int PgDn = 2131296303;
@@ -901,17 +907,17 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f09001b
 			public const int PriceType = 2131296283;
 			
-			// aapt resource value: 0x7f09007a
-			public const int QEMaxLines = 2131296378;
-			
 			// aapt resource value: 0x7f09007b
-			public const int QEMaxLinesText = 2131296379;
+			public const int QEMaxLines = 2131296379;
 			
 			// aapt resource value: 0x7f09007c
-			public const int QEMinLines = 2131296380;
+			public const int QEMaxLinesText = 2131296380;
 			
 			// aapt resource value: 0x7f09007d
-			public const int QEMinLinesText = 2131296381;
+			public const int QEMinLines = 2131296381;
+			
+			// aapt resource value: 0x7f09007e
+			public const int QEMinLinesText = 2131296382;
 			
 			// aapt resource value: 0x7f090022
 			public const int QuantityFormHeader = 2131296290;
@@ -925,23 +931,23 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f090035
 			public const int RecToRec = 2131296309;
 			
-			// aapt resource value: 0x7f090073
-			public const int Recently = 2131296371;
-			
 			// aapt resource value: 0x7f090074
-			public const int RecentlyTxt = 2131296372;
+			public const int Recently = 2131296372;
 			
-			// aapt resource value: 0x7f09005f
-			public const int RefreshData = 2131296351;
+			// aapt resource value: 0x7f090075
+			public const int RecentlyTxt = 2131296373;
+			
+			// aapt resource value: 0x7f090060
+			public const int RefreshData = 2131296352;
 			
 			// aapt resource value: 0x7f090011
 			public const int Reset = 2131296273;
 			
-			// aapt resource value: 0x7f090079
-			public const int SQLEditor = 2131296377;
+			// aapt resource value: 0x7f09007a
+			public const int SQLEditor = 2131296378;
 			
-			// aapt resource value: 0x7f090087
-			public const int SQLPreferences = 2131296391;
+			// aapt resource value: 0x7f090088
+			public const int SQLPreferences = 2131296392;
 			
 			// aapt resource value: 0x7f09001a
 			public const int Sal1050 = 2131296282;
@@ -949,20 +955,20 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f09002a
 			public const int Save = 2131296298;
 			
-			// aapt resource value: 0x7f090080
-			public const int SaveSQL = 2131296384;
-			
 			// aapt resource value: 0x7f090081
-			public const int SaveSQLText = 2131296385;
+			public const int SaveSQL = 2131296385;
+			
+			// aapt resource value: 0x7f090082
+			public const int SaveSQLText = 2131296386;
 			
 			// aapt resource value: 0x7f090023
 			public const int Search = 2131296291;
 			
-			// aapt resource value: 0x7f09005d
-			public const int SearchForm = 2131296349;
+			// aapt resource value: 0x7f09005e
+			public const int SearchForm = 2131296350;
 			
-			// aapt resource value: 0x7f090053
-			public const int Search_Hint_SalePrice = 2131296339;
+			// aapt resource value: 0x7f090054
+			public const int Search_Hint_SalePrice = 2131296340;
 			
 			// aapt resource value: 0x7f090030
 			public const int Select = 2131296304;
@@ -979,8 +985,8 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f090031
 			public const int Table = 2131296305;
 			
-			// aapt resource value: 0x7f09004d
-			public const int TimeoutException = 2131296333;
+			// aapt resource value: 0x7f09004e
+			public const int TimeoutException = 2131296334;
 			
 			// aapt resource value: 0x7f090028
 			public const int Update = 2131296296;
@@ -994,8 +1000,8 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f090013
 			public const int WSPref = 2131296275;
 			
-			// aapt resource value: 0x7f090050
-			public const int WebException = 2131296336;
+			// aapt resource value: 0x7f090051
+			public const int WebException = 2131296337;
 			
 			// aapt resource value: 0x7f090032
 			public const int WebGoodSalPrice = 2131296306;
@@ -1017,6 +1023,9 @@ namespace NamaadMobile
 			
 			// aapt resource value: 0x7f090000
 			public const int app_name = 2131296256;
+			
+			// aapt resource value: 0x7f09004d
+			public const int btnDemo = 2131296333;
 			
 			// aapt resource value: 0x7f090009
 			public const int btnEnergyBedFan = 2131296265;
@@ -1114,32 +1123,32 @@ namespace NamaadMobile
 			// aapt resource value: 0x7f090020
 			public const int tVPriceTotalLbl_Sal1050 = 2131296288;
 			
-			// aapt resource value: 0x7f09005b
-			public const int tblLblCost1 = 2131296347;
-			
-			// aapt resource value: 0x7f090057
-			public const int tblLblFarsiDesc = 2131296343;
-			
-			// aapt resource value: 0x7f090056
-			public const int tblLblItemCode = 2131296342;
-			
-			// aapt resource value: 0x7f090059
-			public const int tblLblPrice = 2131296345;
+			// aapt resource value: 0x7f09005c
+			public const int tblLblCost1 = 2131296348;
 			
 			// aapt resource value: 0x7f090058
-			public const int tblLblPriceID = 2131296344;
+			public const int tblLblFarsiDesc = 2131296344;
 			
-			// aapt resource value: 0x7f090055
-			public const int tblLblPriceType = 2131296341;
+			// aapt resource value: 0x7f090057
+			public const int tblLblItemCode = 2131296343;
 			
-			// aapt resource value: 0x7f09005c
-			public const int tblLblQuantity = 2131296348;
+			// aapt resource value: 0x7f09005a
+			public const int tblLblPrice = 2131296346;
+			
+			// aapt resource value: 0x7f090059
+			public const int tblLblPriceID = 2131296345;
+			
+			// aapt resource value: 0x7f090056
+			public const int tblLblPriceType = 2131296342;
+			
+			// aapt resource value: 0x7f09005d
+			public const int tblLblQuantity = 2131296349;
 			
 			// aapt resource value: 0x7f09001f
 			public const int tblLblRowNo = 2131296287;
 			
-			// aapt resource value: 0x7f09005a
-			public const int tblLblUnit = 2131296346;
+			// aapt resource value: 0x7f09005b
+			public const int tblLblUnit = 2131296347;
 			
 			// aapt resource value: 0x7f09003e
 			public const int title_activity_login = 2131296318;
