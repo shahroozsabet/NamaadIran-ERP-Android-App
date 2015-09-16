@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-	<string name="LookUp_GoodSalePrice">جستجو کالا</string>
-	<string name="Search_Hint_SalePrice">متن برای جستجو</string>
-	<string name="NoGoods">کالایی موجود نیست</string>
-	<string name="tblLblPriceType">نوع قیمت</string>
-	<string name="tblLblItemCode">کدکالا</string>
-	<string name="tblLblFarsiDesc">شرح فارسی</string>
+	<string name="LookUp_GoodSalePrice">Product Search</string>
+	<string name="Search_Hint_SalePrice">Type for search</string>
+	<string name="NoGoods">No Products</string>
+	<string name="tblLblPriceType">Price type</string>
+	<string name="tblLblItemCode">Item code</string>
+	<string name="tblLblFarsiDesc">Description</string>
 	<string name="tblLblPriceID">PriceID</string>
-	<string name="tblLblPrice">قیمت واحد</string>
-	<string name="tblLblUnit">واحد</string>
-	<string name="tblLblCost1">مالیات</string>
-	<string name="tblLblQuantity">تعداد</string>
-	<string name="SearchForm">فرم جستجو</string>
-	<string name="FilterBuilder">فیلتر</string>
+	<string name="tblLblPrice">Price</string>
+	<string name="tblLblUnit">Unit</string>
+	<string name="tblLblCost1">Tax</string>
+	<string name="tblLblQuantity">Quantity</string>
+	<string name="SearchForm">Search Form</string>
+	<string name="FilterBuilder">Filter Builder</string>
 
 </resources>

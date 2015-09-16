@@ -285,6 +285,7 @@
     <AndroidResource Include="Resources\drawable\ic_btn_reset.png" />
     <AndroidResource Include="Resources\drawable\ic_check.png" />
     <AndroidResource Include="Resources\drawable\ic_btn_demo.png" />
+    <AndroidResource Include="Resources\values-fa\strings.xml" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="scandit">

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="btnLightYard1">چراغ حیاط 1</string>
-    <string name="btnLightYard2">چراغ حیاط 2</string>
-    <string name="btnLightSalon1">چراغ پذیرایی 1</string>
-    <string name="btnLightSalon2">چراغ پذیرایی 2</string>
-    <string name="btnLightBed1">چراغ خواب شرقی</string>
-    <string name="btnLightBed2">چراغ خواب غربی</string>
-    <string name="btnLightBuilding">چراغ دور ساختمان</string>
+    <string name="btnLightYard1">Yard light1</string>
+    <string name="btnLightYard2">yard light2</string>
+    <string name="btnLightSalon1">Living room light1</string>
+    <string name="btnLightSalon2">Living room light2</string>
+    <string name="btnLightBed1">Right bedroom light</string>
+    <string name="btnLightBed2">Left bedroom light</string>
+    <string name="btnLightBuilding">Building light</string>
 </resources>

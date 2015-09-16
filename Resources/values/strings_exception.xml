@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-	<string name="TimeoutException">ارتباط با شبکه میسر نمی باشد</string>
-	<string name="AggregateException">خطایی درارتباط باشبکه پیش آمد</string>
-	<string name="NoPermision">کاربر عزیز شما به برنامه ای دسترسی ندارید</string>
-	<string name="WebException">شبکه در دسترس نیست</string>
-	<string name="BMSHttpRequestException">کنترلر در دسترس نیست</string>
+	<string name="TimeoutException">No Network</string>
+	<string name="AggregateException">Network comunication error</string>
+	<string name="NoPermision">No Permission</string>
+	<string name="WebException">Network unreachable.</string>
+	<string name="BMSHttpRequestException">Controller unreachable</string>
 </resources>

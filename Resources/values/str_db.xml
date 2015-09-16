@@ -2,19 +2,19 @@
 <resources>
 	<string name="DirName">NamaadDB</string>
 	<string name="DBNamaad">NamaadMobile</string>
-	<string name="Create">درج</string>
-	<string name="Update">تغییر</string>
-	<string name="Delete">حذف</string>
-	<string name="Save">ثبت</string>
-	<string name="Cancel">انصراف</string>
-	<string name="Edit">ویرایش</string>
-	<string name="New">ایجاد</string>
-	<string name="PgUp">قبل</string>
-	<string name="PgDn">بعد</string>
-	<string name="Select">انتخاب</string>
-	<string name="Table">جدول</string>
-	<string name="WebGoodSalPrice">کالاقیمت</string>
-	<string name="RecCounts">تعدادسطرها</string>
-	<string name="RecNoView"> نمایش </string>
-	<string name="RecToRec"> تا </string>
+	<string name="Create">Create</string>
+	<string name="Update">Update</string>
+	<string name="Delete">Delete</string>
+	<string name="Save">Save</string>
+	<string name="Cancel">Cancel</string>
+	<string name="Edit">Edit</string>
+	<string name="New">New</string>
+	<string name="PgUp">Up</string>
+	<string name="PgDn">Down</string>
+	<string name="Select">Select</string>
+	<string name="Table">Table</string>
+	<string name="WebGoodSalPrice">Product-Price</string>
+	<string name="RecCounts">Record No.</string>
+	<string name="RecNoView">Preview</string>
+	<string name="RecToRec">To</string>
 </resources>

@@ -112,7 +112,7 @@ namespace NamaadMobile
                     ((SharedEnviroment)ApplicationContext).OrgID = activity_class.OrgID;
                     ((SharedEnviroment)ApplicationContext).SystemCode = activity_class.SystemCode;
                     ((SharedEnviroment)ApplicationContext).ActionCode = activity_class.ActionCode;
-                    ((SharedEnviroment)ApplicationContext).ActionName = activity_class.ActionName;
+                    ((SharedEnviroment) ApplicationContext).ActionName = activity_class.ActionName;
                     ((SharedEnviroment)ApplicationContext).ActionSource = activity_class.ActionSource;
                     ((SharedEnviroment)ApplicationContext).ActionArgument = activity_class.ActionArgument;
                     ((SharedEnviroment)ApplicationContext).DbNameClient = activity_class.DbNameClient;
@@ -205,7 +205,7 @@ namespace NamaadMobile
                         SystemCode = (int)reader["SystemCode"],
                         ActionCode = (int)reader["ActionCode"],
                         ActionType = (int)reader["ActionType"],
-                        ActionName = reader["ActionName"].ToString(),
+                        ActionName = GetString(Resources.GetIdentifier(reader["ActionName"].ToString(), "string", PackageName)),
                         ParentCode = (int)reader["ParentCode"],
                         ActionSource = reader["ActionSource"].ToString(),
                         ActionArgument = reader["ActionArgument"].ToString(),

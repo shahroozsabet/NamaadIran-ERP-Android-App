@@ -1,12 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">نمادتوسعه آریا</string>
-	<string name="NmdSys">سیستمهای نماد توسعه آریا</string>
-	<string name="no_recs">دادهای وجود ندارد</string>
-	<string name="menu_insert">ثبت داده</string>
-	<string name="menu_delete">حذف داده</string>
-	<string name="name">نام</string>
-	<string name="detail">جزئیات</string>
-	<string name="confirm">تایید</string>
-	<string name="edit_rec">ویرایش داده</string>
+	<string name="app_name">Namaad Tose Arya</string>
+	<string name="NmdSys">Namaad Tose Arya systems</string>
+	<string name="no_recs">No Records</string>
+	<string name="menu_insert">Insert Data</string>
+	<string name="menu_delete">Delete Data</string>
+	<string name="name">Name</string>
+	<string name="detail">Detail</string>
+	<string name="confirm">Confirm</string>
+	<string name="edit_rec">Edit record</string>
+	<string name="Clear">Clear</string>
+	<string name="CompanyName">Sample Company</string>
+	<string name="BMS">Building Managment System</string>
+	<string name="SampleApp">Sample App</string>
+	<string name="Pref">Preference</string>
+	<string name="Test">Test</string>
+	<string name="Lighting">Lighting</string>
+	<string name="EnergyManagement">Energy Management</string>
+	<string name="Health">Health</string>
+	<string name="Security">Security</string>
+	<string name="Environment">Environment</string>
+	<string name="BMSPref">BMP Preference</string>
+	<string name="LookupPref">Lookup Preference</string>
+	<string name="DataVersion">Main System</string>
 </resources>

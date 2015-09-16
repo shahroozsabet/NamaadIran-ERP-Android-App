@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-	<string name="Status">وضعیت</string>
-	<string name="View">مشاهده</string>
-	<string name="Send">ارسال</string>
+	<string name="Status">Status</string>
+	<string name="View">View</string>
+	<string name="Send">Send</string>
 </resources>

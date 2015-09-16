@@ -1,22 +1,22 @@
 <resources>
 
-	<string name="title_activity_login">ورود به سیستم</string>
+	<string name="title_activity_login">Login</string>
 
 	<!-- Strings related to login -->
-	<string name="prompt_userName">شناسه کاربر:</string>
-	<string name="prompt_password">رمز عبور:</string>
-	<string name="action_sign_in_register">تایید</string>
-	<string name="action_Refresh_Data">به روزرسانی</string>
-	<string name="action_sign_in_short">ورود</string>
-	<string name="action_forgot_password">بازیابی رمزعبور فراموش شده</string>
-	<string name="login_progress_signing_in">بارگزاری&#8230;</string>
-	<string name="error_invalid_userName"> شناسه کاربر معتبر نیست </string>
-	<string name="error_invalid_password"> رمز عبور کوتاه است </string>
-	<string name="error_incorrect_password"> رمز عبور اشتباه است </string>
-	<string name="error_field_required"> این فیلدالزامیست </string>
-	<string name="title_activity_login2">لطفا شناسه کاربری خود را وارد نمایید</string>
-	<string name="Welcome">خوش آمدید</string>
-	<string name="error_reRefresh_login">لطفا مجددا \r\nبه روز رسانی نمایید</string>
-	<string name="btnDemo">دمو</string>
+	<string name="prompt_userName">Username:</string>
+	<string name="prompt_password">Password:</string>
+	<string name="action_sign_in_register">Confirm</string>
+	<string name="action_Refresh_Data">Refresh</string>
+	<string name="action_sign_in_short">Signin</string>
+	<string name="action_forgot_password">Forgot password recovery</string>
+	<string name="login_progress_signing_in">Loading</string>
+	<string name="error_invalid_userName">Username invalid</string>
+	<string name="error_invalid_password">Short password</string>
+	<string name="error_incorrect_password">Wrong password</string>
+	<string name="error_field_required">Required field</string>
+	<string name="title_activity_login2">Please enter your credentials</string>
+	<string name="Welcome">Welcome</string>
+	<string name="error_reRefresh_login">Please refresh again</string>
+	<string name="btnDemo">Demo</string>
 
 </resources>

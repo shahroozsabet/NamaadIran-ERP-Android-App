@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-	<string name="Sal1050">پیش فاکتور فروشگاه</string>
-	<string name="PriceType">نوع قیمت:</string>
-	<string name="Cust">مشتری:</string>
-	<string name="Date">تاریخ:</string>
-	<string name="Serial">سریال:</string>
-	<string name="tblLblRowNo">ردیف</string>
-	<string name="tVPriceTotalLbl_Sal1050">مبلغ</string>
-	<string name="error_reRefresh_Sal1050">لطفا جداول مربوط به پیش فاکتور\r\nرا به روز رسانی نمایید</string>
-	<string name="QuantityFormHeader">تعداد:</string>
-	<string name="Search">جستجو</string>
-	<string name="BarCodeScanner">بارکداسکنر</string>
+	<string name="Sal1050">Quotation Form</string>
+	<string name="PriceType">Price Type</string>
+	<string name="Cust">Customer</string>
+	<string name="Date">Date</string>
+	<string name="Serial">Serial</string>
+	<string name="tblLblRowNo">Row</string>
+	<string name="tVPriceTotalLbl_Sal1050">Amount</string>
+	<string name="error_reRefresh_Sal1050">Please refresh qutation tables</string>
+	<string name="QuantityFormHeader">Quantity</string>
+	<string name="Search">Search</string>
+	<string name="BarCodeScanner">Barcode scanner</string>
 </resources>

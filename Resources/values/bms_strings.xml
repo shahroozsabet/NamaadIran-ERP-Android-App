@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="btnEnvWaterPump">پمپ آب</string>
+    <string name="btnEnvWaterPump">Water pump</string>
     <string name="Reset">Reset</string>
-    <string name="Adjust">تنظیم</string>
-    <string name="WSPref">تنظیمات ارتباطات</string>
+    <string name="Adjust">Adjust</string>
+    <string name="WSPref">Web services Preference</string>
     <string name="ControllerIpAddress">Controller IP Address</string>
-    <string name="ControllerIpAddressText">آدرس کنترلر بدون پروتکل مثال: 1.1.1.2</string>
-    <string name="ValueChanged">مقادیر کنترلرتغییر نموده است.</string>
+    <string name="ControllerIpAddressText">Controller IP address, e.g.: 1.1.1.2</string>
+    <string name="ValueChanged">Controller values changed.</string>
 </resources>

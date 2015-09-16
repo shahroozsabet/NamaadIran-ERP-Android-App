@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="DBTable">جدول</string>
-	<string name="OK">تایید</string>
-	<string name="Error">خطا</string>
-	<string name="EditDeleteRow">ویرایش تعداد کالا</string>
+	<string name="DBTable">Table</string>
+	<string name="OK">OK</string>
+	<string name="Error">Error</string>
+	<string name="EditDeleteRow">Edit quantity</string>
 	<string name="CopiedToClipboard">Text copied to clip board</string>
-	<string name="First">اول</string>
-	<string name="Last">آخر</string>
-	<string name="Filter">فیلتر</string>
-	<string name="AddToFilter">اضافه کردن به فیلتر</string>
-	<string name="EnterValues">متن برای جستجو</string>
-	<string name="Clear">حذف فیلتر(ها)</string>
-
+	<string name="First">First</string>
+	<string name="Last">Last</string>
+	<string name="Filter">Filter</string>
+	<string name="AddToFilter">Add to filter</string>
+	<string name="EnterValues">Search string</string>
+  
 	<string name="BasicConfiguration">Basic configuration</string>
 	<string name="PageSize">Page size</string>
 	<string name="PageSizeText">Number of lines to retrieve when paging data</string>
@@ -40,10 +39,7 @@
 	<string name="LoggingTitle">Logging</string>
 	<string name="LoggingText">Enable logging to retrieve debugging informations</string>
 	<string name="SQLPreferences">SQLPreferences</string>
-
 	<string name="DBFields">Fields</string>
 	<string name="DBData">Data</string>
 	<string name="DBView">View</string>
-
-
 </resources>
