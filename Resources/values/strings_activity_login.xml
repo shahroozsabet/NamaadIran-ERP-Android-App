@@ -5,7 +5,7 @@
 	<!-- Strings related to login -->
 	<string name="prompt_userName">Username:</string>
 	<string name="prompt_password">Password:</string>
-	<string name="action_sign_in_register">Confirm</string>
+	<string name="action_sign_in_register">Signin</string>
 	<string name="action_Refresh_Data">Refresh</string>
 	<string name="action_sign_in_short">Signin</string>
 	<string name="action_forgot_password">Forgot password recovery</string>
